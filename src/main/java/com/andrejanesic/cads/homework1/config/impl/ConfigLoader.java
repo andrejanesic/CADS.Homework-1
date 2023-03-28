@@ -14,24 +14,24 @@ import org.cfg4j.source.files.FilesConfigurationSource;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class ConfigLoader implements IConfigLoader {
+public class ConfigLoader extends IConfigLoader {
 
-    private static final Object CONFIGURATION_LOCK = new Object();
-    private static AppConfiguration CONFIGURATION;
+    private final Object configurationLock = new Object();
+    private AppConfiguration configuration;
 
     @Override
     public AppConfiguration load() {
-        if (CONFIGURATION != null) {
-            return CONFIGURATION;
+        if (configuration != null) {
+            return configuration;
         }
 
-        synchronized (CONFIGURATION_LOCK) {
-            if (CONFIGURATION != null) {
-                return CONFIGURATION;
+        synchronized (configurationLock) {
+            if (configuration != null) {
+                return configuration;
             }
 
             ConfigFilesProvider configFilesProvider = () -> List.of(
-                    Paths.get(IConstants.FILEPATH_APP_PROPERTIES)
+                    Paths.get(getCore().getArgs().configSource())
             );
 
             ConfigurationSource source = new FilesConfigurationSource(configFilesProvider);
@@ -42,8 +42,8 @@ public class ConfigLoader implements IConfigLoader {
                     .withEnvironment(environment)
                     .build();
 
-            CONFIGURATION = provider.bind("app", AppConfiguration.class);
-            return CONFIGURATION;
+            configuration = provider.bind(IConstants.CONFIG_APP_PREFIX, AppConfiguration.class);
+            return configuration;
         }
     }
 }

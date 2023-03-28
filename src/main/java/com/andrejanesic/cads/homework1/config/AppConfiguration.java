@@ -22,13 +22,13 @@ public interface AppConfiguration {
      * Indicates how long the {@link IDirectoryCrawler} should sleep.
      * @return Sleep time in ms.
      */
-    int directoryCrawlerSleep();
+    int directoryCrawlerSleepTime();
 
     /**
      * Limits how large the text corpus may be.
      * @return File size in bytes.
      */
-    int fileScanningSizeLimit();
+    long fileScanningSizeLimit();
 
     /**
      * Maximum number of hops to be made by the {@link IWebScanner}.

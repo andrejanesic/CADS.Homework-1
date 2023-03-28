@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Refactored bad project structure, added cfg4j">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/ConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/constants/IConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/webScanner/IWebScanner.java" afterDir="false" />
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added app configuration loading, constants, web scanner interface">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/Core.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoaderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/AppConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/AppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/AppConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/constants/IConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/constants/IConstants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +33,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -41,8 +53,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -61,32 +73,135 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\fax\sem-8\kids\Projects\domaci-1\cads.homework1\src\main\java\com\andrejanesic.cads.homework1" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.andrejanesic.cads.homework1.config" />
       <recent name="com.andrejanesic.cads.homework1.directoryCrawler" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.andrejanesic.cads.homework1.constants.impl" />
       <recent name="com.andrejanesic.cads.homework1" />
     </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Tests in 'cads.homework1.test'">
+    <configuration name="ConfigLoaderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.andrejanesic.cads.homework1.config.impl.ConfigLoaderTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConfigLoaderTest.givenBadConfigFile_whenCorrectPath_thenThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.andrejanesic.cads.homework1.config.impl.ConfigLoaderTest.givenBadConfigFile_whenCorrectPath_thenThrowException&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ConfigLoaderTest.givenCorrectConfigFile_whenWrongPath_thenThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.andrejanesic.cads.homework1.config.impl.ConfigLoaderTest.givenCorrectConfigFile_whenWrongPath_thenThrowException&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'cads.homework1.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
+        <item itemvalue="Gradle.ConfigLoaderTest.givenBadConfigFile_whenCorrectPath_thenThrowException" />
+        <item itemvalue="Gradle.ConfigLoaderTest.givenCorrectConfigFile_whenWrongPath_thenThrowException" />
+        <item itemvalue="Gradle.ConfigLoaderTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -99,7 +214,7 @@
       <workItem from="1679941094719" duration="594000" />
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
-      <workItem from="1680034227673" duration="2038000" />
+      <workItem from="1680034227673" duration="12431000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -129,7 +244,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680035378968</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added app configuration loading, constants, web scanner interface">
+      <created>1680036751994</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680036751994</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +262,11 @@
     <MESSAGE value="Added test, gitkeeps" />
     <MESSAGE value="Added DirectoryCrawler skeleton" />
     <MESSAGE value="Refactored bad project structure, added cfg4j" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored bad project structure, added cfg4j" />
+    <MESSAGE value="Added app configuration loading, constants, web scanner interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added app configuration loading, constants, web scanner interface" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
