@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added DirectoryCrawler skeleton">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic.cads.homework1/directoryCrawler/IDirectoryCrawler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/ApplicationConfig.java" afterDir="false" />
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Refactored bad project structure, added cfg4j">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/ConfigLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/constants/IConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/webScanner/IWebScanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic.cads.homework1/directoryCrawler/impl/DirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic.cads.homework1/directoryCrawler/impl/DirectoryCrawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/AppConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +41,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -80,6 +80,13 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\fax\sem-8\kids\Projects\domaci-1\cads.homework1\src\main\java\com\andrejanesic.cads.homework1" />
     </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.andrejanesic.cads.homework1.directoryCrawler" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.andrejanesic.cads.homework1.constants.impl" />
+      <recent name="com.andrejanesic.cads.homework1" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -92,7 +99,7 @@
       <workItem from="1679941094719" duration="594000" />
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
-      <workItem from="1680034227673" duration="1048000" />
+      <workItem from="1680034227673" duration="2038000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -115,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680034386459</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactored bad project structure, added cfg4j">
+      <created>1680035378968</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680035378968</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +139,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Added test, gitkeeps" />
     <MESSAGE value="Added DirectoryCrawler skeleton" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added DirectoryCrawler skeleton" />
+    <MESSAGE value="Refactored bad project structure, added cfg4j" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored bad project structure, added cfg4j" />
   </component>
 </project>

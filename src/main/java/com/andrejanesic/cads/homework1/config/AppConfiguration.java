@@ -1,7 +1,8 @@
 package com.andrejanesic.cads.homework1.config;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
+import com.andrejanesic.cads.homework1.webScanner.IWebScanner;
 
-public interface ApplicationConfig {
+public interface AppConfiguration {
 
     /**
      * List of keywords to search for in the text corpuses. Comma-delimited.
@@ -30,8 +31,15 @@ public interface ApplicationConfig {
     int fileScanningSizeLimit();
 
     /**
-     *
-     * @return
+     * Maximum number of hops to be made by the {@link IWebScanner}.
+     * @return Number of hops.
      */
     int hopCount();
+
+    /**
+     * Time after which the list of URLs visited by {@link IWebScanner} is
+     * refreshed.
+     * @return Time in ms.
+     */
+    int urlRefreshTime();
 }
