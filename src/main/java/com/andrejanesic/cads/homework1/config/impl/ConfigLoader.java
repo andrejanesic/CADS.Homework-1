@@ -10,6 +10,8 @@ import org.cfg4j.source.context.environment.Environment;
 import org.cfg4j.source.context.environment.ImmutableEnvironment;
 import org.cfg4j.source.context.filesprovider.ConfigFilesProvider;
 import org.cfg4j.source.files.FilesConfigurationSource;
+import org.cfg4j.source.reload.ReloadStrategy;
+import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -36,10 +38,12 @@ public class ConfigLoader extends IConfigLoader {
 
             ConfigurationSource source = new FilesConfigurationSource(configFilesProvider);
             Environment environment = new ImmutableEnvironment(IConstants.FILEPATH_CONFIG_ROOT);
+            ReloadStrategy reload = new ImmediateReloadStrategy();
 
             ConfigurationProvider provider = new ConfigurationProviderBuilder()
                     .withConfigurationSource(source)
                     .withEnvironment(environment)
+                    .withReloadStrategy(reload)
                     .build();
 
             configuration = provider.bind(IConstants.CONFIG_APP_PREFIX, AppConfiguration.class);
