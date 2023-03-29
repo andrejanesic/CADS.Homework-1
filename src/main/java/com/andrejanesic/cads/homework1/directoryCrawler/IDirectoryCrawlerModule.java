@@ -1,18 +1,16 @@
 package com.andrejanesic.cads.homework1.directoryCrawler;
 
 import com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawler;
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 import javax.inject.Singleton;
 
 @Module
-public class IDirectoryCrawlerModule {
+public interface IDirectoryCrawlerModule {
 
-    @Provides
+    @Binds
     @Singleton
-    IDirectoryCrawler provideDirectoryCrawler() {
-        return new DirectoryCrawler();
-    }
+    IDirectoryCrawler bindDirectoryCrawler(DirectoryCrawler impl);
 
 }

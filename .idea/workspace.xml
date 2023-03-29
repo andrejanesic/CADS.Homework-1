@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added basic DirectoryCrawlerWorker">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgsModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ICore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawlerModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/core/FakeICore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/Core.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Refactored to use Dagger 2 for DI" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -250,7 +234,7 @@
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
-      <workItem from="1680093241479" duration="6144000" />
+      <workItem from="1680093241479" duration="6839000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -343,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680093629071</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Refactored to use Dagger 2 for DI">
+      <created>1680100193536</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1680100193536</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -363,7 +354,8 @@
     <MESSAGE value="Update Main" />
     <MESSAGE value="Added Builder to core, update Main" />
     <MESSAGE value="Added basic DirectoryCrawlerWorker" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added basic DirectoryCrawlerWorker" />
+    <MESSAGE value="Refactored to use Dagger 2 for DI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored to use Dagger 2 for DI" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
