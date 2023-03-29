@@ -21,6 +21,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.+'
 
+    // Cucumber
+    testImplementation(platform("org.junit:junit-bom:5.9.2"))
+    testImplementation(platform("io.cucumber:cucumber-bom:7.11.2"))
+    testImplementation("io.cucumber:cucumber-java")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine")
+    testImplementation("org.junit.platform:junit-platform-suite")
+
     testImplementation 'org.mockito:mockito-inline:3.+'
     testCompileOnly 'org.projectlombok:lombok:1.18.26'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
@@ -30,4 +37,5 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
