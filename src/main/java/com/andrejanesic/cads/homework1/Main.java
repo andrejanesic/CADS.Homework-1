@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1;
 
 import com.andrejanesic.cads.homework1.args.commons.ArgsCommonsCLI;
+import com.andrejanesic.cads.homework1.config.cfg4j.CFG4JLoader;
 import com.andrejanesic.cads.homework1.core.Core;
 import lombok.Getter;
 
@@ -24,7 +25,8 @@ public class Main {
             if (initialized) return;
 
             core = new Core(
-                    new ArgsCommonsCLI()
+                    new ArgsCommonsCLI(),
+                    new CFG4JLoader()
             );
             initialized = true;
         }

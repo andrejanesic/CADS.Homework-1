@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.core;
 
 import com.andrejanesic.cads.homework1.args.IArgs;
+import com.andrejanesic.cads.homework1.config.IConfigLoader;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,4 +13,7 @@ public class Core {
 
     @Getter
     private IArgs args;
+
+    @Getter
+    private IConfigLoader configLoader;
 }
