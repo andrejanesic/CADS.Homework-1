@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
+import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
 import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import lombok.Getter;
@@ -55,7 +56,7 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      * Crawls the given directory iteratively using BFS.
      */
     @Override
-    public void loop() throws RuntimeException {
+    public void loop() throws ComponentException {
         try {
             File curr = new File(directory);
             visited.clear();

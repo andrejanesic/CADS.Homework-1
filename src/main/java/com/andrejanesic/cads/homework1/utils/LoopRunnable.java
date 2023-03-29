@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.utils;
 
-import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
+import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
+import com.andrejanesic.cads.homework1.core.exceptions.UnexpectedRuntimeComponentException;
 import lombok.Getter;
 
 /**
@@ -12,16 +13,20 @@ public abstract class LoopRunnable implements Runnable {
     private boolean alive;
 
     @Override
-    public void run() throws RuntimeException {
+    public void run() {
         while (alive) {
-            loop();
+            try {
+                loop();
+            } catch (ComponentException e) {
+                throw new UnexpectedRuntimeComponentException(e);
+            }
         }
     }
 
     /**
      * Process that should be run in a while-true loop until {@link #stop()} is called.
      */
-    public abstract void loop() throws RuntimeException;
+    public abstract void loop() throws ComponentException;
 
     /**
      * Gracefully stops the thread.
