@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added CLI parsing">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" afterDir="false" />
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Update Main">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +201,7 @@
       <workItem from="1679941094719" duration="594000" />
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
-      <workItem from="1680034227673" duration="14340000" />
+      <workItem from="1680034227673" duration="14982000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -260,7 +259,28 @@
       <option name="project" value="LOCAL" />
       <updated>1680048481507</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Refactored Config to CFG4J">
+      <created>1680048616665</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1680048616665</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added ArgsCommonsCLITest">
+      <created>1680049131717</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1680049131717</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update Main">
+      <created>1680049168768</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1680049168768</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,7 +295,10 @@
     <MESSAGE value="Added configuration tests" />
     <MESSAGE value="Added reload strategy" />
     <MESSAGE value="Added CLI parsing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added CLI parsing" />
+    <MESSAGE value="Refactored Config to CFG4J" />
+    <MESSAGE value="Added ArgsCommonsCLITest" />
+    <MESSAGE value="Update Main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Main" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
