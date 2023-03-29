@@ -4,6 +4,7 @@ import com.andrejanesic.cads.homework1.Main;
 import com.andrejanesic.cads.homework1.args.IArgs;
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.core.Core;
+import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -47,20 +48,22 @@ public class ConfigLoaderTest {
         when(coreSpy.getArgs()).thenReturn(argsSpy);
         when(argsSpy.configSource()).thenReturn(configPath);
         try (MockedStatic<Main> mocked = mockStatic(Main.class)) {
+            //noinspection ResultOfMethodCallIgnored
             mocked.when(Main::getCore).thenReturn(coreSpy);
             assertEquals(configPath, Main.getCore().getArgs().configSource());
 
             // Execute
             ConfigLoader configLoader = new ConfigLoader();
-            AppConfiguration appConfiguration = configLoader.load();
+            AtomicReference<AppConfiguration> appConfiguration = new AtomicReference<>();
+            assertDoesNotThrow(() -> appConfiguration.set(configLoader.load()));
 
             // Test
-            assertArrayEquals(keywords, appConfiguration.keywords());
-            assertEquals(fileCorpusPrefix, appConfiguration.fileCorpusPrefix());
-            assertEquals(directoryCrawlerSleepTime, appConfiguration.directoryCrawlerSleepTime());
-            assertEquals(fileScanningSizeLimit, appConfiguration.fileScanningSizeLimit());
-            assertEquals(hopCount, appConfiguration.hopCount());
-            assertEquals(urlRefreshTime, appConfiguration.urlRefreshTime());
+            assertArrayEquals(keywords, appConfiguration.get().keywords());
+            assertEquals(fileCorpusPrefix, appConfiguration.get().fileCorpusPrefix());
+            assertEquals(directoryCrawlerSleepTime, appConfiguration.get().directoryCrawlerSleepTime());
+            assertEquals(fileScanningSizeLimit, appConfiguration.get().fileScanningSizeLimit());
+            assertEquals(hopCount, appConfiguration.get().hopCount());
+            assertEquals(urlRefreshTime, appConfiguration.get().urlRefreshTime());
         }
     }
 
@@ -71,10 +74,10 @@ public class ConfigLoaderTest {
         String wrongPath = "test-wrong-path.properties";
         String[] keywords = new String[]{"test1", "test2", "test3"};
         String fileCorpusPrefix = "prefix_";
-        Integer directoryCrawlerSleepTime = 1000;
-        Long fileScanningSizeLimit = 2000L;
-        Integer hopCount = 3000;
-        Integer urlRefreshTime = 4000;
+        int directoryCrawlerSleepTime = 1000;
+        long fileScanningSizeLimit = 2000L;
+        int hopCount = 3000;
+        int urlRefreshTime = 4000;
         String content = "keywords=" + String.join(",", keywords) +
                 "\nfileCorpusPrefix=" + fileCorpusPrefix +
                 "\ndirectoryCrawlerSleepTime=" + directoryCrawlerSleepTime +
@@ -94,12 +97,13 @@ public class ConfigLoaderTest {
         when(coreSpy.getArgs()).thenReturn(argsSpy);
         when(argsSpy.configSource()).thenReturn(wrongPath);
         try (MockedStatic<Main> mocked = mockStatic(Main.class)) {
+            //noinspection ResultOfMethodCallIgnored
             mocked.when(Main::getCore).thenReturn(coreSpy);
             assertEquals(wrongPath, Main.getCore().getArgs().configSource());
 
             // Execute
             ConfigLoader configLoader = new ConfigLoader();
-            assertThrows(IllegalStateException.class, configLoader::load);
+            assertThrows(ConfigException.class, configLoader::load);
         }
     }
 
@@ -109,10 +113,10 @@ public class ConfigLoaderTest {
         String configPath = "test.app.properties";
         String[] keywords = new String[]{"test1", "test2", "test3"};
         String fileCorpusPrefix = "prefix_";
-        Integer directoryCrawlerSleepTime = 1000;
-        Long fileScanningSizeLimit = 2000L;
-        Integer hopCount = 3000;
-        Integer urlRefreshTime = 4000;
+        int directoryCrawlerSleepTime = 1000;
+        long fileScanningSizeLimit = 2000L;
+        int hopCount = 3000;
+        int urlRefreshTime = 4000;
         String content = "keywords=" + String.join(",", keywords) +
                 "\nfileCffeorpusPrefix=" + fileCorpusPrefix +
                 "\ndirectoryCrawlerSleepTime=" + directoryCrawlerSleepTime +
@@ -132,12 +136,13 @@ public class ConfigLoaderTest {
         when(coreSpy.getArgs()).thenReturn(argsSpy);
         when(argsSpy.configSource()).thenReturn(configPath);
         try (MockedStatic<Main> mocked = mockStatic(Main.class)) {
+            //noinspection ResultOfMethodCallIgnored
             mocked.when(Main::getCore).thenReturn(coreSpy);
             assertEquals(configPath, Main.getCore().getArgs().configSource());
 
             // Execute
             ConfigLoader configLoader = new ConfigLoader();
-            assertThrows(NoSuchElementException.class, configLoader::load);
+            assertThrows(ConfigException.class, configLoader::load);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.andrejanesic.cads.homework1.config.impl;
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.config.IConfigLoader;
 import com.andrejanesic.cads.homework1.constants.IConstants;
+import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
@@ -18,20 +19,15 @@ import java.util.List;
 
 public class ConfigLoader extends IConfigLoader {
 
-    private final Object configurationLock = new Object();
     private AppConfiguration configuration;
 
     @Override
-    public AppConfiguration load() {
+    public AppConfiguration load() throws ConfigException {
         if (configuration != null) {
             return configuration;
         }
 
-        synchronized (configurationLock) {
-            if (configuration != null) {
-                return configuration;
-            }
-
+        try {
             ConfigFilesProvider configFilesProvider = () -> List.of(
                     Paths.get(getCore().getArgs().configSource())
             );
@@ -47,7 +43,9 @@ public class ConfigLoader extends IConfigLoader {
                     .build();
 
             configuration = provider.bind(IConstants.CONFIG_APP_PREFIX, AppConfiguration.class);
-            return configuration;
+        } catch (RuntimeException e) {
+            throw new ConfigException(e.getMessage());
         }
+        return configuration;
     }
 }

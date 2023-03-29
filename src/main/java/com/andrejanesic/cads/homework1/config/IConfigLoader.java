@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.config;
 
 import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import org.cfg4j.source.files.FilesConfigurationSource;
 
 /**
@@ -13,5 +14,5 @@ public abstract class IConfigLoader extends IComponent {
      *
      * @return {@link AppConfiguration} with values.
      */
-    public abstract AppConfiguration load();
+    public abstract AppConfiguration load() throws ConfigException;
 }
