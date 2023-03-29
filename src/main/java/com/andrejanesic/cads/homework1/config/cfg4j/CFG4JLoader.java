@@ -1,4 +1,4 @@
-package com.andrejanesic.cads.homework1.config.impl;
+package com.andrejanesic.cads.homework1.config.cfg4j;
 
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.config.IConfigLoader;
@@ -17,7 +17,7 @@ import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class ConfigLoader extends IConfigLoader {
+public class CFG4JLoader extends IConfigLoader {
 
     private AppConfiguration configuration;
 

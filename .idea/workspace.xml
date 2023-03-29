@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added reload strategy">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/ArgsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/ConfigException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoaderTest.java" afterDir="false" />
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added CLI parsing">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/impl/ConfigLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +202,7 @@
       <workItem from="1679941094719" duration="594000" />
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
-      <workItem from="1680034227673" duration="13961000" />
+      <workItem from="1680034227673" duration="14340000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -259,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680046973177</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added CLI parsing">
+      <created>1680048481507</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1680048481507</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +274,8 @@
     <MESSAGE value="Added app configuration loading, constants, web scanner interface" />
     <MESSAGE value="Added configuration tests" />
     <MESSAGE value="Added reload strategy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added reload strategy" />
+    <MESSAGE value="Added CLI parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added CLI parsing" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

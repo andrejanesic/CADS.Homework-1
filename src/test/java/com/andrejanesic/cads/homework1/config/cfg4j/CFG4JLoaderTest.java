@@ -1,4 +1,4 @@
-package com.andrejanesic.cads.homework1.config.impl;
+package com.andrejanesic.cads.homework1.config.cfg4j;
 
 import com.andrejanesic.cads.homework1.Main;
 import com.andrejanesic.cads.homework1.args.IArgs;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class ConfigLoaderTest {
+public class CFG4JLoaderTest {
 
     @Test
     public void givenCorrectConfigFile_whenCorrectPath_thenLoadConfig() throws IOException {
@@ -53,9 +53,9 @@ public class ConfigLoaderTest {
             assertEquals(configPath, Main.getCore().getArgs().configSource());
 
             // Execute
-            ConfigLoader configLoader = new ConfigLoader();
+            CFG4JLoader cfg4jLoader = new CFG4JLoader();
             AtomicReference<AppConfiguration> appConfiguration = new AtomicReference<>();
-            assertDoesNotThrow(() -> appConfiguration.set(configLoader.load()));
+            assertDoesNotThrow(() -> appConfiguration.set(cfg4jLoader.load()));
 
             // Test
             assertArrayEquals(keywords, appConfiguration.get().keywords());
@@ -102,8 +102,8 @@ public class ConfigLoaderTest {
             assertEquals(wrongPath, Main.getCore().getArgs().configSource());
 
             // Execute
-            ConfigLoader configLoader = new ConfigLoader();
-            assertThrows(ConfigException.class, configLoader::load);
+            CFG4JLoader cfg4jLoader = new CFG4JLoader();
+            assertThrows(ConfigException.class, cfg4jLoader::load);
         }
     }
 
@@ -141,8 +141,8 @@ public class ConfigLoaderTest {
             assertEquals(configPath, Main.getCore().getArgs().configSource());
 
             // Execute
-            ConfigLoader configLoader = new ConfigLoader();
-            assertThrows(ConfigException.class, configLoader::load);
+            CFG4JLoader cfg4jLoader = new CFG4JLoader();
+            assertThrows(ConfigException.class, cfg4jLoader::load);
         }
     }
 }
