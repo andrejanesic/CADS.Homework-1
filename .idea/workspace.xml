@@ -4,16 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added Cucumber tests, WIP directory crawler tests">
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Bugfixes, tests passing">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/JobQueueException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/IJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/JobType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/IJobDispatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/IJobDispatcherModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/impl/JobDispatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/impl/JobDispatcherWorker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/IJobQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/IJobQueueModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/impl/JobQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/utils/LoopRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ICore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ICore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/DirectoryCrawlerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/DirectoryCrawlerException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockDirectoryTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockDirectoryTree.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="D:\fax\sem-8\kids\Projects\domaci-1\cads.homework1\htmlReport" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -55,6 +71,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -102,13 +119,14 @@
       <recent name="com.andrejanesic.cads.homework1.directoryCrawler" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.andrejanesic.cads.homework1.job" />
       <recent name="com.andrejanesic.cads.homework1.config" />
       <recent name="com.andrejanesic.cads.homework1.args" />
       <recent name="com.andrejanesic.cads.homework1.constants.impl" />
       <recent name="com.andrejanesic.cads.homework1" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'com.andrejanesic.cads.homework1.directoryCrawler'">
+  <component name="RunManager" selected="Gradle.Tests in 'cads.homework1.test'">
     <configuration name="Feature: impl" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/directoryCrawler/impl.feature" />
@@ -220,10 +238,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
         <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1.directoryCrawler'" />
         <item itemvalue="Gradle.ImplTest" />
         <item itemvalue="Cucumber Java.Feature: impl" />
-        <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
         <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1'" />
       </list>
     </recent_temporary>
@@ -240,7 +258,7 @@
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
-      <workItem from="1680093241479" duration="22514000" />
+      <workItem from="1680093241479" duration="30174000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -354,7 +372,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680117753521</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Bugfixes, tests passing">
+      <created>1680122424319</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1680122424319</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,24 +402,15 @@
     <MESSAGE value="Refactored to use Dagger 2 for DI" />
     <MESSAGE value="Completed DirectoryCrawler service" />
     <MESSAGE value="Added Cucumber tests, WIP directory crawler tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Cucumber tests, WIP directory crawler tests" />
+    <MESSAGE value="Bugfixes, tests passing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bugfixes, tests passing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
-          <line>125</line>
+          <line>131</line>
           <properties class="com.andrejanesic.cads.homework1.directoryCrawler.ImplSteps" method="all_prefix_directories_indexed">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -403,8 +419,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java</url>
-          <line>55</line>
-          <properties class="com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawlerWorker" method="crawl">
+          <line>57</line>
+          <properties class="com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawlerWorker" method="loop">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -421,5 +437,8 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/cads_homework1$Tests_in__cads_homework1_test_.ic" NAME="Tests in 'cads.homework1.test' Coverage Results" MODIFIED="1680122265318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -95,7 +95,7 @@ public class ImplSteps extends ImplTestConfig {
     @Then("throw directory crawler exception")
     public void throw_directory_crawler_exception() {
         worker = new DirectoryCrawlerWorker(appConfigMock, dirPath);
-        assertThrows(DirectoryCrawlerException.class, worker::crawl);
+        assertThrows(DirectoryCrawlerException.class, worker::loop);
     }
 
     @Given("target directory with subdirectories")
@@ -124,14 +124,14 @@ public class ImplSteps extends ImplTestConfig {
     @Then("no prefix directories indexed")
     public void no_prefix_directories_indexed() {
         worker = new DirectoryCrawlerWorker(appConfigMock, dirPath);
-        assertDoesNotThrow(worker::crawl);
+        assertDoesNotThrow(worker::loop);
         assertEquals(0, DirectoryCrawlerWorker.getIndexedDirs().values().size());
     }
 
     @Then("all prefix directories indexed")
     public void all_prefix_directories_indexed() {
         worker = new DirectoryCrawlerWorker(appConfigMock, dirPath);
-        assertDoesNotThrow(worker::crawl);
+        assertDoesNotThrow(worker::loop);
         DirectoryCrawlerWorker.getIndexedDirs().forEach((absPath, lastMod) -> {
             assertTrue(mockDirectoryTree.getPrefixDirs().contains(absPath));
         });

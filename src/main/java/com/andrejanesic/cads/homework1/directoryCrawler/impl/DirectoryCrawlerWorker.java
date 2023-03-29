@@ -2,6 +2,7 @@ package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
+import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Contains all the logic behind crawling directories, creating jobs, etc. (the entire directory crawler functionality.)
  */
-public class DirectoryCrawlerWorker implements Runnable {
+public class DirectoryCrawlerWorker extends LoopRunnable {
 
     /**
      * Hash map for all crawlers (only one) to mark files.
@@ -53,7 +54,8 @@ public class DirectoryCrawlerWorker implements Runnable {
     /**
      * Crawls the given directory iteratively using BFS.
      */
-    public void crawl() throws DirectoryCrawlerException {
+    @Override
+    public void loop() throws RuntimeException {
         try {
             File curr = new File(directory);
             visited.clear();
@@ -104,25 +106,5 @@ public class DirectoryCrawlerWorker implements Runnable {
         } catch (Exception e) {
             throw new DirectoryCrawlerException(e.getMessage());
         }
-    }
-
-    @Override
-    public void run() {
-        try {
-            // BFS through dir tree
-            while (directory != null) {
-                crawl();
-                Thread.sleep(appConfiguration.directoryCrawlerSleepTime());
-            }
-        } catch (Exception e) {
-            // TODO if exception
-        }
-    }
-
-    /**
-     * Terminates the thread.
-     */
-    protected void terminate() {
-        directory = null;
     }
 }

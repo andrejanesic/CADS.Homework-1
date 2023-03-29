@@ -33,6 +33,6 @@ public class DirectoryCrawler extends IDirectoryCrawler {
     @Override
     public void shutdown() {
         if (singleThread == null) return;
-        directoryCrawlerWorker.terminate();
+        directoryCrawlerWorker.stop();
     }
 }

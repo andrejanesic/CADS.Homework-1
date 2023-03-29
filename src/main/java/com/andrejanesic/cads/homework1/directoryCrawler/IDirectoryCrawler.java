@@ -14,8 +14,4 @@ public abstract class IDirectoryCrawler extends IComponent {
      */
     public abstract void crawl(String directoryPath);
 
-    /**
-     * Gracefully shuts down the crawler.
-     */
-    public abstract void shutdown();
 }

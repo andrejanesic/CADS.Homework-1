@@ -6,6 +6,10 @@ import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.config.IConfigModule;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawlerModule;
+import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcher;
+import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcherModule;
+import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
+import com.andrejanesic.cads.homework1.job.queue.IJobQueueModule;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -17,7 +21,9 @@ import javax.inject.Singleton;
 @Component(modules = {
         IArgsModule.class,
         IConfigModule.class,
-        IDirectoryCrawlerModule.class
+        IDirectoryCrawlerModule.class,
+        IJobQueueModule.class,
+        IJobDispatcherModule.class
 })
 public interface ICore {
 
@@ -27,4 +33,7 @@ public interface ICore {
 
     IDirectoryCrawler directoryCrawler();
 
+    IJobQueue jobQueue();
+
+    IJobDispatcher jobDispatcher();
 }
