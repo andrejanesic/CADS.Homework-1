@@ -3,6 +3,7 @@ package com.andrejanesic.cads.homework1;
 import com.andrejanesic.cads.homework1.args.commons.ArgsCommonsCLI;
 import com.andrejanesic.cads.homework1.config.cfg4j.CFG4JLoader;
 import com.andrejanesic.cads.homework1.core.Core;
+import com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawler;
 import lombok.Getter;
 
 public class Main {
@@ -29,14 +30,15 @@ public class Main {
             // create core
             core = Core.builder()
                     .args(new ArgsCommonsCLI())
-                    .configLoader(new CFG4JLoader())
+                    .config(new CFG4JLoader())
+                    .directoryCrawler(new DirectoryCrawler())
                     .build();
 
             try {
                 // initialize components
                 core.init(args);
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
             initialized = true;
         }

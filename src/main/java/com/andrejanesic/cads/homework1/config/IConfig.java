@@ -7,7 +7,8 @@ import org.cfg4j.source.files.FilesConfigurationSource;
 /**
  * Loads the application configuration.
  */
-public abstract class IConfigLoader extends IComponent {
+public abstract class IConfig extends IComponent {
+
     /**
      * Loads the application configuration with a CFG4J
      * {@link FilesConfigurationSource} source.
@@ -15,4 +16,11 @@ public abstract class IConfigLoader extends IComponent {
      * @return {@link AppConfiguration} with values.
      */
     public abstract AppConfiguration load() throws ConfigException;
+
+    /**
+     * Returns the loaded configuration, or null if not loaded.
+     *
+     * @return Application configuration (may return null.)
+     */
+    public abstract AppConfiguration getConfig();
 }

@@ -1,7 +1,7 @@
 package com.andrejanesic.cads.homework1.config.cfg4j;
 
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
-import com.andrejanesic.cads.homework1.config.IConfigLoader;
+import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.constants.IConstants;
 import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import org.cfg4j.provider.ConfigurationProvider;
@@ -17,7 +17,7 @@ import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class CFG4JLoader extends IConfigLoader {
+public class CFG4JLoader extends IConfig {
 
     private AppConfiguration configuration;
 
@@ -47,5 +47,14 @@ public class CFG4JLoader extends IConfigLoader {
             throw new ConfigException(e.getMessage());
         }
         return configuration;
+    }
+
+    @Override
+    public AppConfiguration getConfig() {
+        try {
+            return load();
+        } catch (ConfigException e) {
+            return null;
+        }
     }
 }
