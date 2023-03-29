@@ -6,11 +6,12 @@ import lombok.Getter;
 
 public class Main {
 
-    private static final Object initializedLock = new Object();
     /**
      * Whether the app has been initialized or not.
      */
     private static boolean initialized = false;
+    private static final Object initializedLock = new Object();
+
     @Getter
     private static Core core;
 
