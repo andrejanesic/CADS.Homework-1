@@ -4,28 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Completed DirectoryCrawler service">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/CommonsSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/CommonsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/CommonsTestConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JTestConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplTestConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockConfigProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockDirectoryTree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockTextCorpus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/args/commons.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/config/cfg4j.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/directoryCrawler/impl.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/junit-platform.properties" afterDir="false" />
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added Cucumber tests, WIP directory crawler tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLITest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockDirectoryTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockDirectoryTree.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,25 +109,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Tests in 'com.andrejanesic.cads.homework1.directoryCrawler'">
-    <configuration name="Feature: cfg4j" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/config/cfg4j.feature" />
-      <option name="GLUE" value="com.andrejanesic.cads.homework1.args" />
-      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
-      <module name="cads.homework1.test" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: cfg4j" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.cucumber.core.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Feature: impl" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/directoryCrawler/impl.feature" />
@@ -163,6 +127,29 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="ImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.andrejanesic.cads.homework1.directoryCrawler.ImplTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="Tests in 'cads.homework1.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -234,10 +221,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1.directoryCrawler'" />
-        <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
+        <item itemvalue="Gradle.ImplTest" />
         <item itemvalue="Cucumber Java.Feature: impl" />
+        <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
         <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1'" />
-        <item itemvalue="Cucumber Java.Feature: cfg4j" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +240,7 @@
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
-      <workItem from="1680093241479" duration="19873000" />
+      <workItem from="1680093241479" duration="22514000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -360,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680104970147</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added Cucumber tests, WIP directory crawler tests">
+      <created>1680117753521</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1680117753521</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,7 +376,47 @@
     <MESSAGE value="Added basic DirectoryCrawlerWorker" />
     <MESSAGE value="Refactored to use Dagger 2 for DI" />
     <MESSAGE value="Completed DirectoryCrawler service" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed DirectoryCrawler service" />
+    <MESSAGE value="Added Cucumber tests, WIP directory crawler tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Cucumber tests, WIP directory crawler tests" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
+          <line>125</line>
+          <properties class="com.andrejanesic.cads.homework1.directoryCrawler.ImplSteps" method="all_prefix_directories_indexed">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java</url>
+          <line>55</line>
+          <properties class="com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawlerWorker" method="crawl">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.String" memberName="coder" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

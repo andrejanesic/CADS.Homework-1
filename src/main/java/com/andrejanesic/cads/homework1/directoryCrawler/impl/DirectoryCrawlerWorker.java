@@ -55,53 +55,51 @@ public class DirectoryCrawlerWorker implements Runnable {
      */
     public void crawl() throws DirectoryCrawlerException {
         try {
-            File curr;
+            File curr = new File(directory);
+            visited.clear();
+            if (!curr.exists() || !curr.isDirectory()) {
+                throw new DirectoryCrawlerException("Path does not exist or is not a directory");
+            }
+            content.addFirst(curr);
 
             // if initial path is not a directory, report error
-            if (content.isEmpty()) {
-                curr = new File(directory);
-                visited.clear();
-                if (!curr.exists() || !curr.isDirectory()) {
-                    throw new DirectoryCrawlerException("Path does not exist or is not a directory");
+            while (!content.isEmpty()) {
+                curr = content.pollLast();
+
+                if (!curr.exists() || !curr.isDirectory())
+                    continue;
+
+                // if directory, mark visited and check prefix
+                visited.add(curr.getAbsolutePath());
+
+                // if contains prefix, index it, otherwise add for recursion
+                if (curr.getName().startsWith(appConfiguration.fileCorpusPrefix())) {
+                    String absPath = curr.getAbsolutePath();
+                    BasicFileAttributes attributes = null;
+
+                    try {
+                        attributes = Files.readAttributes(
+                                Paths.get(absPath),
+                                BasicFileAttributes.class
+                        );
+
+                        // TODO start new job here
+                        indexedDirs.putIfAbsent(
+                                curr.getAbsolutePath(),
+                                attributes.lastModifiedTime().toMillis()
+                        );
+                    } catch (IOException ex) {
+                        // TODO handle excep
+                        throw new RuntimeException(ex);
+                    }
                 }
-            } else {
-                curr = content.pop();
-            }
 
-            if (!curr.exists() || !curr.isDirectory())
-                return;
-
-            // if directory, mark visited and check prefix
-            visited.add(curr.getAbsolutePath());
-
-            // if contains prefix, index it, otherwise add for recursion
-            if (curr.getName().startsWith(appConfiguration.fileCorpusPrefix())) {
-                String absPath = curr.getAbsolutePath();
-                BasicFileAttributes attributes = null;
-
-                try {
-                    attributes = Files.readAttributes(
-                            Paths.get(absPath),
-                            BasicFileAttributes.class
-                    );
-
-                    // TODO start new job here
-                    indexedDirs.putIfAbsent(
-                            curr.getAbsolutePath(),
-                            attributes.lastModifiedTime().toMillis()
-                    );
-                } catch (IOException ex) {
-                    // TODO handle excep
-                    throw new RuntimeException(ex);
+                // traverse dir
+                File[] files = curr.listFiles();
+                if (files == null) continue;
+                for (File nested : files) {
+                    content.addFirst(nested);
                 }
-                return;
-            }
-
-            // traverse dir
-            File[] files = curr.listFiles();
-            if (files == null) return;
-            for (File nested : files) {
-                content.addFirst(nested);
             }
         } catch (Exception e) {
             throw new DirectoryCrawlerException(e.getMessage());

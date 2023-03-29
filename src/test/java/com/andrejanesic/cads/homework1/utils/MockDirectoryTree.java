@@ -79,6 +79,10 @@ public class MockDirectoryTree {
      * @param mockTextCorpusBuilder Used when creating non-directory items (files). Path variable will be overwritten.
      */
     public MockDirectoryTree(String path, String prefix, int minDepth, int maxDepth, int maxItemsPerDir, MockTextCorpus.Builder mockTextCorpusBuilder) {
+        if (maxItemsPerDir < 1 && minDepth > 1)
+            throw new RuntimeException(
+                    "A multi-level directory (minDepth >= 2) requires maxItemsPerDir >= 1"
+            );
         this.path = new File(path).getAbsolutePath();
         this.prefix = prefix;
         this.minDepth = minDepth;
@@ -110,43 +114,63 @@ public class MockDirectoryTree {
      * Generates the tree in the file system.
      */
     public void generate() throws IOException {
-        populateDir(path, maxDepth);
+        populateDir(path, minDepth, maxDepth);
     }
 
     /**
      * Creates the directory at path and populates with items, if depth is available.
      *
      * @param path           The path to create the directory at.
+     * @param depthRequired  Minimum depth required.
      * @param depthAvailable Remaining depth.
      */
-    private void populateDir(String path, int depthAvailable) throws IOException {
+    private void populateDir(String path, int depthRequired, int depthAvailable) throws IOException {
         if (depthAvailable == 0) return;
         File created = new File(path);
         created.mkdirs();
+        path = created.getAbsolutePath();
+        int items = maxItemsPerDir;
 
-        for (int i = 0; i < (int) (Math.random() * maxItemsPerDir); i++) {
+        // create one dir to meet minimum depth requirement
+        if (depthRequired > 0) {
+            items -= 1;
+            populateDir(
+                    path + File.separator + "dir-0",
+                    depthRequired - 1,
+                    depthAvailable - 1
+            );
+        }
+
+        // populate the rest of the items randomly
+        for (int i = (depthRequired > 0 ? 1 : 0); i < (int) (Math.random() * items); i++) {
             int r = (int) (Math.random() * 100);
             String newPath;
 
             // dir
-            if (r < 75) {
-                if (r < 50) {
+            if (r < 60) {
+                boolean prefixDir = false;
+                if (r < 30) {
                     newPath = path + File.separator + "dir-" + i;
                 } else {
                     newPath = path + File.separator + prefix + "dir-" + i;
-                    prefixDirs.add(newPath);
+                    prefixDir = true;
                 }
 
-                populateDir(newPath, depthAvailable - 1);
+                if (depthAvailable > 1) {
+                    populateDir(newPath, depthRequired - 1, depthAvailable - 1);
+                    if (prefixDir) {
+                        prefixDirs.add(newPath);
+                    }
+                }
                 continue;
             }
 
             // file
-            newPath = path + File.separator + "f-" + i;
+            newPath = path + File.separator + "f-" + i + ".txt";
             mockTextCorpusBuilder.setPath(newPath);
             MockTextCorpus mockFile = new MockTextCorpus(mockTextCorpusBuilder);
             mockFile.generate();
-            files.put(path, mockFile);
+            files.put(newPath, mockFile);
         }
     }
 

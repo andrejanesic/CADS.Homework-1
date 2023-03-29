@@ -10,6 +10,7 @@ import com.andrejanesic.cads.homework1.utils.MockDirectoryTree;
 import com.andrejanesic.cads.homework1.utils.MockTextCorpus;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -51,6 +52,11 @@ public class ImplSteps extends ImplTestConfig {
         DirectoryCrawlerWorker.getIndexedDirs().clear();
     }
 
+    @BeforeStep
+    public void setUpStep() {
+        DirectoryCrawlerWorker.getIndexedDirs().clear();
+    }
+
     @After
     public void tearDown() {
         try {
@@ -67,7 +73,7 @@ public class ImplSteps extends ImplTestConfig {
         dirPath = "temp-" + System.currentTimeMillis();
         mockDirectoryTree = new MockDirectoryTree(
                 dirPath,
-                "",
+                appConfigMock.fileCorpusPrefix(),
                 1,
                 1,
                 0,
@@ -96,10 +102,10 @@ public class ImplSteps extends ImplTestConfig {
     public void target_directory_with_subdirectories() throws IOException {
         mockDirectoryTree = new MockDirectoryTree(
                 dirPath,
-                "",
+                appConfigMock.fileCorpusPrefix(),
                 2,
                 (int) (Math.random() * 6) + 2,
-                (int) (Math.random() * 30),
+                (int) (Math.random() * 30) + 1,
                 new MockTextCorpus.Builder(
                         "any",
                         " ",
