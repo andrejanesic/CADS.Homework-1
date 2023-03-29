@@ -20,6 +20,7 @@ public class Main {
             // initialize components
             core.args().parse(args);
             core.config().load();
+            core.cli().init();
         } catch (Exception e) {
             // TODO log to cli
             e.printStackTrace();
