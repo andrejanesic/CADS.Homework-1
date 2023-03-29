@@ -4,12 +4,18 @@ import com.andrejanesic.cads.homework1.args.IArgs;
 import com.andrejanesic.cads.homework1.core.exceptions.ArgsException;
 import org.apache.commons.cli.*;
 
+import javax.inject.Inject;
+
 /**
  * Argument parser using Apache Commons CLI.
  */
 public class ArgsCommonsCLI extends IArgs {
 
     private CommandLine cmd;
+
+    @Inject
+    public ArgsCommonsCLI() {
+    }
 
     @Override
     public void parse(String[] args) throws ArgsException {

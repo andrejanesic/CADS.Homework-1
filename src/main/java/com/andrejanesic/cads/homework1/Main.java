@@ -1,54 +1,29 @@
 package com.andrejanesic.cads.homework1;
 
-import com.andrejanesic.cads.homework1.args.commons.ArgsCommonsCLI;
-import com.andrejanesic.cads.homework1.config.cfg4j.CFG4JLoader;
-import com.andrejanesic.cads.homework1.core.Core;
-import com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawler;
-import lombok.Getter;
+import com.andrejanesic.cads.homework1.core.DaggerICore;
+import com.andrejanesic.cads.homework1.core.ICore;
 
 public class Main {
-
-    private static final Object initializedLock = new Object();
-    /**
-     * Whether the app has been initialized or not.
-     */
-    private static boolean initialized = false;
-
-    @Getter
-    private static Core core;
 
     /**
      * Initializes the program.
      *
      * @param args Passed arguments.
      */
-    public static void init(String[] args) {
-        if (initialized) return;
-        synchronized (initializedLock) {
-            if (initialized) return;
+    private static void init(String[] args) {
 
-            // create core
-            core = Core.builder()
-                    .args(new ArgsCommonsCLI())
-                    .config(new CFG4JLoader())
-                    .directoryCrawler(new DirectoryCrawler())
-                    .build();
+        // initialize dagger
+        ICore core = DaggerICore.create();
 
-            try {
-                // initialize components
-                core.init(args);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            initialized = true;
+        // init components
+        try {
+            // initialize components
+            core.args().parse(args);
+            core.config().load();
+        } catch (Exception e) {
+            // TODO log to cli
+            e.printStackTrace();
         }
-    }
-
-    /**
-     * Initializes the program with no passed arguments.
-     */
-    public static void init() {
-        init(new String[]{});
     }
 
     public static void main(String[] args) {

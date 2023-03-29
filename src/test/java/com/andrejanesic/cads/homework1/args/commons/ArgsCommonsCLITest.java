@@ -1,15 +1,22 @@
 package com.andrejanesic.cads.homework1.args.commons;
 
+import com.andrejanesic.cads.homework1.Main;
 import com.andrejanesic.cads.homework1.constants.IConstants;
 import com.andrejanesic.cads.homework1.core.exceptions.ArgsException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArgsCommonsCLITest {
 
+    @BeforeAll
+    static void setUp() {
+        Main.main(new String[]{});
+    }
+
     @Test
-    public void givenCorrectArgs_whenConfigSourcePassed_thenParseArgs() {
+    void givenCorrectArgs_whenConfigSourcePassed_thenParseArgs() {
         String configPath = "string.path";
         String[] args = new String[]{
                 "java",
@@ -24,7 +31,7 @@ public class ArgsCommonsCLITest {
     }
 
     @Test
-    public void givenCorrectArgs_whenConfigSourceNotPassed_thenParseArgs() {
+    void givenCorrectArgs_whenConfigSourceNotPassed_thenParseArgs() {
         String[] args = new String[]{
                 "java",
                 "SampleClass.class",
@@ -36,7 +43,7 @@ public class ArgsCommonsCLITest {
     }
 
     @Test
-    public void givenBadArgs_thenThrowException() {
+    void givenBadArgs_thenThrowException() {
         String[] args = new String[]{
                 "java",
                 "SampleClass.class",

@@ -1,9 +1,11 @@
 package com.andrejanesic.cads.homework1.config.cfg4j;
 
+import com.andrejanesic.cads.homework1.args.IArgs;
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.constants.IConstants;
 import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
+import lombok.Getter;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
@@ -14,10 +16,18 @@ import org.cfg4j.source.files.FilesConfigurationSource;
 import org.cfg4j.source.reload.ReloadStrategy;
 import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 
+import javax.inject.Inject;
 import java.nio.file.Paths;
 import java.util.List;
 
 public class CFG4JLoader extends IConfig {
+
+    private IArgs args;
+
+    @Inject
+    public CFG4JLoader(IArgs args) {
+        this.args = args;
+    }
 
     private AppConfiguration configuration;
 
@@ -29,7 +39,7 @@ public class CFG4JLoader extends IConfig {
 
         try {
             ConfigFilesProvider configFilesProvider = () -> List.of(
-                    Paths.get(getCore().getArgs().configSource())
+                    Paths.get(args.configSource())
             );
 
             ConfigurationSource source = new FilesConfigurationSource(configFilesProvider);

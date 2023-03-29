@@ -36,72 +36,72 @@ public class DirectoryCrawlerWorker implements Runnable {
 
     @Override
     public void run() {
-        AppConfiguration appConfiguration = Main.getCore().getConfig().getConfig();
-        if (appConfiguration == null) {
-            //TODO report exception
-            return;
-        }
-
-        try {
-            // BFS through dir tree
-            Deque<File> content = new ArrayDeque<>();
-            Set<String> visited = new HashSet<>();
-            while (directory != null) {
-                File curr;
-
-                // if initial path is not a directory, report error
-                if (content.isEmpty()) {
-                    curr = new File(directory);
-                    visited.clear();
-                    if (!curr.exists() || !curr.isDirectory()) {
-                        //TODO report exception
-                        return;
-                    }
-                } else {
-                    curr = content.pop();
-                }
-
-                if (!curr.exists() || !curr.isDirectory())
-                    continue;
-
-                // if directory, mark visited and check prefix
-                visited.add(curr.getAbsolutePath());
-
-                // if contains prefix, index it, otherwise add for recursion
-                if (curr.getName().startsWith(appConfiguration.fileCorpusPrefix())) {
-                    String absPath = curr.getAbsolutePath();
-                    BasicFileAttributes attributes = null;
-
-                    try {
-                        attributes = Files.readAttributes(
-                                Paths.get(absPath),
-                                BasicFileAttributes.class
-                        );
-
-                        // TODO start new job here
-                        indexedDirs.putIfAbsent(
-                                curr.getAbsolutePath(),
-                                attributes.lastModifiedTime().toMillis()
-                        );
-                    } catch (IOException ex) {
-                        // TODO handle excep
-                        throw new RuntimeException(ex);
-                    }
-                    continue;
-                }
-
-                // traverse dir
-                File[] files = curr.listFiles();
-                if (files == null) continue;
-                for (File nested : files) {
-                    content.addFirst(nested);
-                }
-
-                Thread.sleep(appConfiguration.directoryCrawlerSleepTime());
-            }
-        } catch (Exception e) {
-            // TODO if exception
-        }
+//        AppConfiguration appConfiguration = Main.getCore().getConfig().getConfig();
+//        if (appConfiguration == null) {
+//            //TODO report exception
+//            return;
+//        }
+//
+//        try {
+//            // BFS through dir tree
+//            Deque<File> content = new ArrayDeque<>();
+//            Set<String> visited = new HashSet<>();
+//            while (directory != null) {
+//                File curr;
+//
+//                // if initial path is not a directory, report error
+//                if (content.isEmpty()) {
+//                    curr = new File(directory);
+//                    visited.clear();
+//                    if (!curr.exists() || !curr.isDirectory()) {
+//                        //TODO report exception
+//                        return;
+//                    }
+//                } else {
+//                    curr = content.pop();
+//                }
+//
+//                if (!curr.exists() || !curr.isDirectory())
+//                    continue;
+//
+//                // if directory, mark visited and check prefix
+//                visited.add(curr.getAbsolutePath());
+//
+//                // if contains prefix, index it, otherwise add for recursion
+//                if (curr.getName().startsWith(appConfiguration.fileCorpusPrefix())) {
+//                    String absPath = curr.getAbsolutePath();
+//                    BasicFileAttributes attributes = null;
+//
+//                    try {
+//                        attributes = Files.readAttributes(
+//                                Paths.get(absPath),
+//                                BasicFileAttributes.class
+//                        );
+//
+//                        // TODO start new job here
+//                        indexedDirs.putIfAbsent(
+//                                curr.getAbsolutePath(),
+//                                attributes.lastModifiedTime().toMillis()
+//                        );
+//                    } catch (IOException ex) {
+//                        // TODO handle excep
+//                        throw new RuntimeException(ex);
+//                    }
+//                    continue;
+//                }
+//
+//                // traverse dir
+//                File[] files = curr.listFiles();
+//                if (files == null) continue;
+//                for (File nested : files) {
+//                    content.addFirst(nested);
+//                }
+//
+//                Thread.sleep(appConfiguration.directoryCrawlerSleepTime());
+//            }
+//        } catch (Exception e) {
+//            // TODO if exception
+//        }
     }
 
     /**

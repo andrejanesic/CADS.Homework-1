@@ -4,17 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added Builder to core, update Main">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/DirectoryCrawlerException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" afterDir="false" />
+    <list default="true" id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="Added basic DirectoryCrawlerWorker">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgsModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ICore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawlerModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/core/FakeICore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/Core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/Core.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/Core.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawlerWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/commons/ArgsCommonsCLITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoaderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +44,17 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="cads.homework1" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="cads.homework1" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="cads.homework1" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -49,6 +65,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -69,23 +86,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\fax\sem-8\kids\Projects\domaci-1\cads.homework1\src\main\java\com\andrejanesic.cads.homework1" />
@@ -99,8 +116,8 @@
       <recent name="com.andrejanesic.cads.homework1" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'cads.homework1.test'">
-    <configuration name="ConfigLoaderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.CFG4JLoaderTest">
+    <configuration name="ArgsCommonsCLITest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -113,7 +130,30 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.andrejanesic.cads.homework1.config.impl.ConfigLoaderTest&quot;" />
+            <option value="&quot;com.andrejanesic.cads.homework1.args.commons.ArgsCommonsCLITest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CFG4JLoaderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.andrejanesic.cads.homework1.config.cfg4j.CFG4JLoaderTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -146,29 +186,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ConfigLoaderTest.givenCorrectConfigFile_whenWrongPath_thenThrowException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.andrejanesic.cads.homework1.config.impl.ConfigLoaderTest.givenCorrectConfigFile_whenWrongPath_thenThrowException&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="Tests in 'cads.homework1.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -190,12 +207,34 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="cads.homework1 [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.CFG4JLoaderTest" />
+        <item itemvalue="Gradle.ArgsCommonsCLITest" />
+        <item itemvalue="Gradle.cads.homework1 [build]" />
         <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
         <item itemvalue="Gradle.ConfigLoaderTest.givenBadConfigFile_whenCorrectPath_thenThrowException" />
-        <item itemvalue="Gradle.ConfigLoaderTest.givenCorrectConfigFile_whenWrongPath_thenThrowException" />
-        <item itemvalue="Gradle.ConfigLoaderTest" />
       </list>
     </recent_temporary>
   </component>
@@ -211,6 +250,7 @@
       <workItem from="1679957459280" duration="12000" />
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
+      <workItem from="1680093241479" duration="6144000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -296,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680049643405</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added basic DirectoryCrawlerWorker">
+      <created>1680093629071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1680093629071</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +362,8 @@
     <MESSAGE value="Added ArgsCommonsCLITest" />
     <MESSAGE value="Update Main" />
     <MESSAGE value="Added Builder to core, update Main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Builder to core, update Main" />
+    <MESSAGE value="Added basic DirectoryCrawlerWorker" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic DirectoryCrawlerWorker" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
