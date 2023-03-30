@@ -36,12 +36,14 @@ public abstract class ThreadPoolComponent<V> extends IComponent {
     }
 
     @Override
-    public void init() {
+    public void main() {
         results = new ExecutorCompletionService<>(pool);
+        keepAlive();
     }
 
     @Override
-    public void shutdown() {
+    public void beforeEnd() {
         pool.shutdown();
+        super.beforeEnd();
     }
 }

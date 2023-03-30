@@ -35,8 +35,9 @@ public class DirectoryCrawler extends IDirectoryCrawler {
     }
 
     @Override
-    public void shutdown() {
+    public void beforeEnd() {
         if (singleThread == null) return;
         directoryCrawlerWorker.stop();
+        super.beforeEnd();
     }
 }

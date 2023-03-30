@@ -17,10 +17,8 @@ public class CLICommons extends ICLI {
     }
 
     @Override
-    public void init() {
-        super.init();
-
-        // start
+    public void afterStart() {
+        super.afterStart();
         startThread(in);
     }
 

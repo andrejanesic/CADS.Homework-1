@@ -2,12 +2,12 @@ package com.andrejanesic.cads.homework1.scanner.web;
 
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
-import com.andrejanesic.cads.homework1.core.exceptions.UnexpectedRuntimeComponentException;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.WebJob;
 import com.andrejanesic.cads.homework1.scanner.IFileScanner;
+import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,7 +22,8 @@ public class WebScanner extends IFileScanner {
     private final IConfig config;
     private Map<String, Future<Result>> indexId = new HashMap<>();
     private Map<String, Future<Result>> indexUrl = new HashMap<>();
-    private Long lastRefresh;
+    private Thread refreshThread;
+    private LoopRunnable refreshRunnable;
 
     @Inject
     public WebScanner(IJobQueue jobQueue, IConfig config) {
@@ -31,25 +32,16 @@ public class WebScanner extends IFileScanner {
     }
 
     @Override
-    public void init() {
-        super.init();
-
+    public void afterStart() {
+        super.afterStart();
         indexId.clear();
         indexUrl.clear();
-        lastRefresh = System.currentTimeMillis();
-        new Thread(() -> {
-            // TODO check if urls refreshed as a group, or each individually after timeout
-            try {
-                Thread.sleep(config.getConfig().urlRefreshTime());
-            } catch (InterruptedException e) {
-                throw new UnexpectedRuntimeComponentException(e);
-            }
-            long curr = System.currentTimeMillis();
-            if (curr > lastRefresh) {
-                lastRefresh = curr;
-                indexUrl.clear();
-            }
-        });
+        this.refreshRunnable = new WebScannerUrlRefresher(
+                indexUrl, config.getConfig().urlRefreshTime()
+        );
+        this.refreshThread = new Thread(refreshRunnable);
+        refreshThread.setDaemon(true);
+        refreshThread.start();
     }
 
     @Override
@@ -66,4 +58,9 @@ public class WebScanner extends IFileScanner {
         return res;
     }
 
+    @Override
+    public void beforeEnd() {
+        refreshRunnable.stop();
+        super.beforeEnd();
+    }
 }

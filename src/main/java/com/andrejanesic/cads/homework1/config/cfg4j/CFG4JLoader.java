@@ -26,7 +26,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class CFG4JLoader extends IConfig {
 
-    private IArgs args;
+    private final IArgs args;
     private AppConfiguration configuration;
 
     @Inject
@@ -145,5 +145,10 @@ public class CFG4JLoader extends IConfig {
         } catch (ConfigException e) {
             return null;
         }
+    }
+
+    @Override
+    public void main() {
+        end();
     }
 }

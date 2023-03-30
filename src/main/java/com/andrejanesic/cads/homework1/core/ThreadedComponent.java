@@ -14,7 +14,7 @@ public abstract class ThreadedComponent extends IComponent {
     private final List<ThreadLoopRunnable> registeredThreads = new LinkedList<>();
 
     @Override
-    public void shutdown() {
+    public void beforeEnd() {
         for (ThreadLoopRunnable threadLoopRunnable : registeredThreads) {
             try {
                 threadLoopRunnable.loopRunnable.stop();
@@ -24,11 +24,11 @@ public abstract class ThreadedComponent extends IComponent {
                 throw new RuntimeException(e);
             }
         }
-        super.shutdown();
+        super.beforeEnd();
     }
 
     /**
-     * Starts a new single thread and automatically takes care of its shutdown (unless {@link #shutdown()} is
+     * Starts a new single thread and automatically takes care of its shutdown (unless {@link #beforeEnd()} is
      * overridden.
      *
      * @param loopRunnable The {@link LoopRunnable} to execute on the thread.

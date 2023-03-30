@@ -7,7 +7,7 @@ import lombok.Getter;
 public class FileJob extends IJob {
 
     /**
-     * Path to the file that should be scanned.
+     * Path to the directory that should be scanned.
      */
     @Getter
     private final String path;
@@ -15,7 +15,7 @@ public class FileJob extends IJob {
     /**
      * File scanning job.
      *
-     * @param path Path to the file that should be scanned.
+     * @param path Path to the directory that should be scanned.
      */
     public FileJob(String path) {
         super(JobType.FILE);

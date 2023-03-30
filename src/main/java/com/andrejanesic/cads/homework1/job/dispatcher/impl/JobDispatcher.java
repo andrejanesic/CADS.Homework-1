@@ -17,7 +17,8 @@ public class JobDispatcher extends IJobDispatcher {
     }
 
     @Override
-    public void init() {
+    public void afterStart() {
+        super.afterStart();
         if (singleThread != null) {
             return;
         }
@@ -28,7 +29,8 @@ public class JobDispatcher extends IJobDispatcher {
     }
 
     @Override
-    public void shutdown() {
+    public void beforeEnd() {
         jobDispatcherWorker.stop();
+        super.beforeEnd();
     }
 }

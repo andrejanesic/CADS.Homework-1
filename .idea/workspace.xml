@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Fixed web scanner-file scanner file paths">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" afterDir="false" />
+    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Minor edits">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/CLICommons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/CLICommons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadPoolComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadPoolComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadedComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadedComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/impl/JobDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/impl/JobDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/FileJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/FileJob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScanner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -237,7 +244,7 @@
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
       <workItem from="1680093241479" duration="30174000" />
-      <workItem from="1680172269977" duration="21470000" />
+      <workItem from="1680172269977" duration="22548000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -435,16 +442,34 @@
       <option name="project" value="LOCAL" />
       <updated>1680194736670</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Refactored submit signature">
+      <created>1680195124654</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1680195124654</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Enabled multiple directories parsing in directory crawler">
+      <created>1680195531628</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1680195531628</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Minor edits">
+      <created>1680195584730</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1680195584730</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refactored bad project structure, added cfg4j" />
-    <MESSAGE value="Added app configuration loading, constants, web scanner interface" />
-    <MESSAGE value="Added configuration tests" />
     <MESSAGE value="Added reload strategy" />
     <MESSAGE value="Added CLI parsing" />
     <MESSAGE value="Refactored Config to CFG4J" />
@@ -467,14 +492,17 @@
     <MESSAGE value="Completed web scanner" />
     <MESSAGE value="Updated config for delimiter" />
     <MESSAGE value="Fixed web scanner-file scanner file paths" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed web scanner-file scanner file paths" />
+    <MESSAGE value="Refactored submit signature" />
+    <MESSAGE value="Enabled multiple directories parsing in directory crawler" />
+    <MESSAGE value="Minor edits" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor edits" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
-          <line>132</line>
+          <line>134</line>
           <properties class="com.andrejanesic.cads.homework1.directoryCrawler.ImplSteps" method="all_prefix_directories_indexed">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
