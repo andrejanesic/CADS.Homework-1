@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 
 import com.andrejanesic.cads.homework1.config.IConfig;
+import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
 
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ public class DirectoryCrawler extends IDirectoryCrawler {
 
     private Thread singleThread;
     private DirectoryCrawlerWorker directoryCrawlerWorker;
-    private IConfig config;
+    private final IConfig config;
 
     @Inject
     public DirectoryCrawler(IConfig config) {
@@ -22,6 +23,8 @@ public class DirectoryCrawler extends IDirectoryCrawler {
 
     @Override
     public void crawl(Set<String> directoryPaths) {
+        if (directoryPaths == null || directoryPaths.size() == 0)
+            throw new RuntimeComponentException("DirectoryCrawler::crawl directoryPaths must not be null or empty");
         if (singleThread != null) {
             directoryCrawlerWorker.setDirectories(directoryPaths);
             return;
