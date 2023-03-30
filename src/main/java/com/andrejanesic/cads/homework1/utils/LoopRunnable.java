@@ -10,7 +10,7 @@ import lombok.Getter;
 public abstract class LoopRunnable implements Runnable {
 
     @Getter
-    private boolean alive;
+    private boolean alive = true;
 
     @Override
     public void run() {
