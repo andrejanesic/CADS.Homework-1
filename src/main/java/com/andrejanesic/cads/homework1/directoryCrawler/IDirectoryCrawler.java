@@ -2,16 +2,18 @@ package com.andrejanesic.cads.homework1.directoryCrawler;
 
 import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 
+import java.util.Set;
+
 /**
- * Directory crawler. Crawls the given directory for new text corpus sub-directories.
+ * Directory crawler. Crawls the given directories for new text corpus subdirectories.
  */
 public abstract class IDirectoryCrawler extends ThreadedComponent {
 
     /**
-     * Starts crawling the directory on the given path.
+     * Starts crawling the directories on the given paths.
      *
-     * @param directoryPath Path to the directory. Can be relative or absolute.
+     * @param directoryPaths Set of paths to directories to be crawled. Can be relative or absolute.
      */
-    public abstract void crawl(String directoryPath);
+    public abstract void crawl(Set<String> directoryPaths);
 
 }

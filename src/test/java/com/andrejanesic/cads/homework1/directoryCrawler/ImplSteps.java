@@ -19,6 +19,8 @@ import org.mockito.MockitoAnnotations;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -95,7 +97,7 @@ public class ImplSteps {
 
     @Then("throw directory crawler exception")
     public void throw_directory_crawler_exception() {
-        worker = new DirectoryCrawlerWorker(appConfigMock, dirPath);
+        worker = new DirectoryCrawlerWorker(appConfigMock, new HashSet<>(List.of(dirPath)));
         assertThrows(DirectoryCrawlerException.class, worker::loop);
     }
 
@@ -124,14 +126,14 @@ public class ImplSteps {
 
     @Then("no prefix directories indexed")
     public void no_prefix_directories_indexed() {
-        worker = new DirectoryCrawlerWorker(appConfigMock, dirPath);
+        worker = new DirectoryCrawlerWorker(appConfigMock, new HashSet<>(List.of(dirPath)));
         assertDoesNotThrow(worker::loop);
         assertEquals(0, DirectoryCrawlerWorker.getIndexedDirs().values().size());
     }
 
     @Then("all prefix directories indexed")
     public void all_prefix_directories_indexed() {
-        worker = new DirectoryCrawlerWorker(appConfigMock, dirPath);
+        worker = new DirectoryCrawlerWorker(appConfigMock, new HashSet<>(List.of(dirPath)));
         assertDoesNotThrow(worker::loop);
         DirectoryCrawlerWorker.getIndexedDirs().forEach((absPath, lastMod) -> {
             assertTrue(mockDirectoryTree.getPrefixDirs().contains(absPath));

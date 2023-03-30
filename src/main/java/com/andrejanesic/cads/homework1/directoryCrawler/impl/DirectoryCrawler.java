@@ -4,6 +4,7 @@ import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
 
 import javax.inject.Inject;
+import java.util.Set;
 
 /**
  * Controls {@link DirectoryCrawlerWorker} threads.
@@ -20,12 +21,12 @@ public class DirectoryCrawler extends IDirectoryCrawler {
     }
 
     @Override
-    public void crawl(String directoryPath) {
+    public void crawl(Set<String> directoryPaths) {
         if (singleThread != null) {
-            directoryCrawlerWorker.setDirectory(directoryPath);
+            directoryCrawlerWorker.setDirectories(directoryPaths);
             return;
         }
-        directoryCrawlerWorker = new DirectoryCrawlerWorker(config.getConfig(), directoryPath);
+        directoryCrawlerWorker = new DirectoryCrawlerWorker(config.getConfig(), directoryPaths);
         singleThread = new Thread(directoryCrawlerWorker);
         singleThread.start();
     }

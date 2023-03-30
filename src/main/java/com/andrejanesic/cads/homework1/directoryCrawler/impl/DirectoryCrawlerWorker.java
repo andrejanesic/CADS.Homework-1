@@ -45,11 +45,11 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      */
     @Getter
     @Setter
-    private String directory;
+    private Set<String> directories;
 
-    public DirectoryCrawlerWorker(@NonNull AppConfiguration appConfiguration, String directory) {
+    public DirectoryCrawlerWorker(@NonNull AppConfiguration appConfiguration, Set<String> directories) {
         this.appConfiguration = appConfiguration;
-        this.directory = directory;
+        this.directories = directories;
     }
 
     /**
@@ -58,14 +58,17 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
     @Override
     public void loop() throws ComponentException {
         try {
-            File curr = new File(directory);
-            visited.clear();
-            if (!curr.exists() || !curr.isDirectory()) {
-                throw new DirectoryCrawlerException("Path does not exist or is not a directory");
+            for (String p : directories) {
+                File curr = new File(p);
+                visited.clear();
+                if (!curr.exists() || !curr.isDirectory()) {
+                    throw new DirectoryCrawlerException("Path " + curr + " does not exist or is not a directory");
+                }
+                content.addFirst(curr);
             }
-            content.addFirst(curr);
 
             // if initial path is not a directory, report error
+            File curr;
             while (!content.isEmpty()) {
                 curr = content.pollLast();
 
