@@ -1,5 +1,6 @@
 package com.andrejanesic.cads.homework1.cli.commons;
 
+import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +8,10 @@ import java.util.Date;
  * Writes output to the user.
  */
 public class OutputWriter {
+
+    @Inject
+    public OutputWriter() {
+    }
 
     /**
      * Logs a message to the user.

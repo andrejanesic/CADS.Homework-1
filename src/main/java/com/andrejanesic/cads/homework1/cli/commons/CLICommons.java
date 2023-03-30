@@ -7,19 +7,18 @@ import javax.inject.Inject;
 
 public class CLICommons extends ICLI {
 
-    private InputReader in;
-    private OutputWriter out;
+    private final InputReader in;
+    private final OutputWriter out;
 
     @Inject
-    public CLICommons() {
+    public CLICommons(InputReader in, OutputWriter out) {
+        this.in = in;
+        this.out = out;
     }
 
     @Override
     public void init() {
         super.init();
-
-        in = new InputReader();
-        out = new OutputWriter();
 
         // start
         fork(in);

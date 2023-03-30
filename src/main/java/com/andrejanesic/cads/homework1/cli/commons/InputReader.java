@@ -1,24 +1,29 @@
 package com.andrejanesic.cads.homework1.cli.commons;
 
 import com.andrejanesic.cads.homework1.cli.commons.commands.CommandManager;
-import com.andrejanesic.cads.homework1.cli.commons.commands.ICommand;
 import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import org.apache.commons.cli.*;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * Listens for user input.
  */
+@Singleton
 public class InputReader extends LoopRunnable {
 
     private final Scanner scanner = new Scanner(System.in);
     private final CommandLineParser parser;
     private final Options options;
+    private final CommandManager commandManager;
 
-    public InputReader() {
+    @Inject
+    public InputReader(CommandManager commandManager) {
+        this.commandManager = commandManager;
         options = new Options();
 
         Option optionWeb = Option.builder("w")
@@ -62,6 +67,11 @@ public class InputReader extends LoopRunnable {
         }
 
         // attempt to parse and execute each
-        CommandManager.getCommands().forEach(ICommand::parse);
+        CommandLine finalCmd = cmd;
+        commandManager.getCommands().forEach(comm -> {
+            comm.setInput(input);
+            comm.setCommandLine(finalCmd);
+            comm.parse();
+        });
     }
 }
