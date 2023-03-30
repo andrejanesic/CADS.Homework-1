@@ -1,11 +1,11 @@
 package com.andrejanesic.cads.homework1.cli;
 
-import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 
 /**
  * Command-line interface component.
  */
-public abstract class ICLI extends IComponent {
+public abstract class ICLI extends ThreadedComponent {
 
     /**
      * Sends an info message to the user.

@@ -21,7 +21,7 @@ public class CLICommons extends ICLI {
         super.init();
 
         // start
-        fork(in);
+        startThread(in);
     }
 
     @Override

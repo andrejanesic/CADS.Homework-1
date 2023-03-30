@@ -4,7 +4,7 @@ import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.JobType;
 import lombok.Getter;
 
-public abstract class IFileJob extends IJob {
+public class FileJob extends IJob {
 
     /**
      * Path to the file that should be scanned.
@@ -17,7 +17,7 @@ public abstract class IFileJob extends IJob {
      *
      * @param path Path to the file that should be scanned.
      */
-    public IFileJob(String path) {
+    public FileJob(String path) {
         super(JobType.FILE);
         this.path = path;
     }

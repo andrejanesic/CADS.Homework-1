@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.config;
 
 import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import org.cfg4j.source.files.FilesConfigurationSource;
 

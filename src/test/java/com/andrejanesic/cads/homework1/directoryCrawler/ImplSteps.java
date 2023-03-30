@@ -45,7 +45,8 @@ public class ImplSteps {
                 1000,
                 1024,
                 2,
-                60_000
+                60_000,
+                "\\s+"
         );
         MockitoAnnotations.openMocks(this);
         when(configMock.getConfig()).thenReturn(appConfigMock);

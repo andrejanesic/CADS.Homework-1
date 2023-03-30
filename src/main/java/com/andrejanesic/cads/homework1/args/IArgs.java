@@ -2,6 +2,7 @@ package com.andrejanesic.cads.homework1.args;
 
 import com.andrejanesic.cads.homework1.constants.IConstants;
 import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 import com.andrejanesic.cads.homework1.core.exceptions.ArgsException;
 
 /**

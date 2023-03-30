@@ -4,7 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Updated scanner package skeleton" />
+    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Added job types, refactored IJob with utility methods">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadPoolComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadedComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/ScannerException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/query/Query.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/result/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScannerCallable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/utils/KeywordCounter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/args/IArgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/ICLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/ICLI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/CLICommons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/CLICommons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/AppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/AppConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/IConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/config/cfg4j/CFG4JLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/ConfigException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/exceptions/ConfigException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/IDirectoryCrawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/IJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/IJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/IJobDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/IJobDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/IJobQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/IJobQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/IFileJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/FileJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/IWebJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/WebJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockConfigProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockConfigProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockJob.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,29 +104,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\fax\sem-8\kids\Projects\domaci-1\cads.homework1\src\test\resources\features\" />
       <recent name="D:\fax\sem-8\kids\Projects\domaci-1\cads.homework1\src\main\java\com\andrejanesic.cads.homework1" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.andrejanesic.cads.homework1.core" />
       <recent name="com.andrejanesic.cads.homework1.config" />
       <recent name="com.andrejanesic.cads.homework1.directoryCrawler" />
     </key>
@@ -231,7 +263,7 @@
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
       <workItem from="1680093241479" duration="30174000" />
-      <workItem from="1680172269977" duration="9346000" />
+      <workItem from="1680172269977" duration="19262000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -394,7 +426,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680181627590</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Removed old web scanner">
+      <created>1680181692867</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1680181692867</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added job types, refactored IJob with utility methods">
+      <created>1680182355438</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1680182355438</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,14 +470,16 @@
     <MESSAGE value="Added DI to commons cli" />
     <MESSAGE value="Added tests for job queue" />
     <MESSAGE value="Updated scanner package skeleton" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated scanner package skeleton" />
+    <MESSAGE value="Removed old web scanner" />
+    <MESSAGE value="Added job types, refactored IJob with utility methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added job types, refactored IJob with utility methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java</url>
-          <line>131</line>
+          <line>132</line>
           <properties class="com.andrejanesic.cads.homework1.directoryCrawler.ImplSteps" method="all_prefix_directories_indexed">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

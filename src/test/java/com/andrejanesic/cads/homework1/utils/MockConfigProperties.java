@@ -43,6 +43,13 @@ public class MockConfigProperties implements AppConfiguration {
     private final int hopCount;
     @NonNull
     private final int urlRefreshTime;
+    @NonNull
+    private final String delimiter;
+
+    @Override
+    public String delimiter() {
+        return delimiter;
+    }
 
     @Override
     public String[] keywords() {

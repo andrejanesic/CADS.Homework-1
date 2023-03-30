@@ -4,7 +4,7 @@ import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.JobType;
 import lombok.Getter;
 
-public abstract class IWebJob extends IJob {
+public class WebJob extends IJob {
 
     /**
      * URL address of the web page that should be scanned.
@@ -24,7 +24,7 @@ public abstract class IWebJob extends IJob {
      * @param url  URL address of the web page that should be scanned.
      * @param hops Allowed number of hops.
      */
-    public IWebJob(String url, int hops) {
+    public WebJob(String url, int hops) {
         super(JobType.WEB);
         this.url = url;
         this.hops = hops;

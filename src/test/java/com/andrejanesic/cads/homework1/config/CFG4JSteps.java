@@ -81,6 +81,11 @@ public class CFG4JSteps {
      */
     int urlRefreshTime;
 
+    /**
+     * Config property: delimiter
+     */
+    String delimiter;
+
     @Before
     public void setUp() throws IOException {
         // open mocks
@@ -106,6 +111,7 @@ public class CFG4JSteps {
         fileScanningSizeLimit = 2000L;
         hopCount = 3000;
         urlRefreshTime = 4000;
+        delimiter = "\\s+";
         config = new MockConfigProperties(
                 pathValid,
                 false,
@@ -114,7 +120,8 @@ public class CFG4JSteps {
                 directoryCrawlerSleepTime,
                 fileScanningSizeLimit,
                 hopCount,
-                urlRefreshTime
+                urlRefreshTime,
+                delimiter
         );
         config.generate();
     }
@@ -143,6 +150,7 @@ public class CFG4JSteps {
         fileScanningSizeLimit = 2000L;
         hopCount = 3000;
         urlRefreshTime = 4000;
+        delimiter = "\\s+";
         config = new MockConfigProperties(
                 pathValid,
                 true,
@@ -151,7 +159,8 @@ public class CFG4JSteps {
                 directoryCrawlerSleepTime,
                 fileScanningSizeLimit,
                 hopCount,
-                urlRefreshTime
+                urlRefreshTime,
+                delimiter
         );
         config.generate();
     }

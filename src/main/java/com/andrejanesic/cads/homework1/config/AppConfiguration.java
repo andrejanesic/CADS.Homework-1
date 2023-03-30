@@ -6,6 +6,11 @@ import com.andrejanesic.cads.homework1.scanner.IWebScanner;
 public interface AppConfiguration {
 
     /**
+     * Delimiter between keywords specified in {@link #keywords()}.
+     */
+    String delimiter();
+
+    /**
      * List of keywords to search for in the text corpuses. Comma-delimited.
      * Each keyword is counted only if it's standalone (not detected as part of
      * another keyword.)

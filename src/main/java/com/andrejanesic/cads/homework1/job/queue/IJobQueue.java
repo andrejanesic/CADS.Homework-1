@@ -1,6 +1,6 @@
 package com.andrejanesic.cads.homework1.job.queue;
 
-import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
 import com.andrejanesic.cads.homework1.job.IJob;
 
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Synchronous queue of jobs.
  */
-public abstract class IJobQueue extends IComponent {
+public abstract class IJobQueue extends ThreadedComponent {
 
     /**
      * Adds a new job to the queue.

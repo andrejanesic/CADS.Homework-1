@@ -3,6 +3,7 @@ package com.andrejanesic.cads.homework1.job;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -25,11 +26,11 @@ public abstract class IJob {
     private final JobType type;
 
     /**
-     * Launches the job thread.
-     *
-     * @return Future job result.
+     * Result of the job.
      */
-    public abstract Future<Map<String, Integer>> start();
+    @Getter
+    @Setter
+    private Future<Map<String, Integer>> result;
 
     @Override
     public boolean equals(Object obj) {

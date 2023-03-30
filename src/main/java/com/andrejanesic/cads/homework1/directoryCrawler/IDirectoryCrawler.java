@@ -1,11 +1,11 @@
 package com.andrejanesic.cads.homework1.directoryCrawler;
 
-import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 
 /**
  * Directory crawler. Crawls the given directory for new text corpus sub-directories.
  */
-public abstract class IDirectoryCrawler extends IComponent {
+public abstract class IDirectoryCrawler extends ThreadedComponent {
 
     /**
      * Starts crawling the directory on the given path.
