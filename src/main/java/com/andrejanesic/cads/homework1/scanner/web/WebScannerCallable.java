@@ -1,4 +1,4 @@
-package com.andrejanesic.cads.homework1.scanner.file;
+package com.andrejanesic.cads.homework1.scanner.web;
 
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
@@ -13,16 +13,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 
-public class FileScannerCallable implements Callable<Result> {
+public class WebScannerCallable implements Callable<Result> {
 
     private final WebJob job;
     private final IJobQueue jobQueue;
     private final IConfig config;
 
-    public FileScannerCallable(WebJob job, IJobQueue jobQueue, IConfig config) {
+    public WebScannerCallable(WebJob job, IJobQueue jobQueue, IConfig config) {
         this.job = job;
         this.jobQueue = jobQueue;
         this.config = config;
