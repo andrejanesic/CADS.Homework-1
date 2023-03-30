@@ -12,9 +12,9 @@ public interface IScannerModule {
 
     @Binds
     @Singleton
-    IFileScanner bindFileScanner(WebScanner impl);
+    IFileScanner bindFileScanner(FileScanner impl);
 
     @Binds
     @Singleton
-    IWebScanner bindWebScanner(FileScanner impl);
+    IWebScanner bindWebScanner(WebScanner impl);
 }

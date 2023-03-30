@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Minor edits">
+    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Updated components to have one main thread each">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScannerRecursiveTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/CLICommons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/CLICommons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/IComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadPoolComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadPoolComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadedComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/core/ThreadedComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/directoryCrawler/impl/DirectoryCrawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/impl/JobDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/dispatcher/impl/JobDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/FileJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/type/FileJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/result/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/result/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IFileScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IFileScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScannerModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScannerModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScannerCallable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScannerCallable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScannerUrlRefresher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScannerUrlRefresher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +244,7 @@
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
       <workItem from="1680093241479" duration="30174000" />
-      <workItem from="1680172269977" duration="22548000" />
+      <workItem from="1680172269977" duration="27402000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -463,14 +463,20 @@
       <option name="project" value="LOCAL" />
       <updated>1680195584730</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Updated components to have one main thread each">
+      <created>1680198200374</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1680198200374</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added reload strategy" />
     <MESSAGE value="Added CLI parsing" />
     <MESSAGE value="Refactored Config to CFG4J" />
     <MESSAGE value="Added ArgsCommonsCLITest" />
@@ -495,7 +501,8 @@
     <MESSAGE value="Refactored submit signature" />
     <MESSAGE value="Enabled multiple directories parsing in directory crawler" />
     <MESSAGE value="Minor edits" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor edits" />
+    <MESSAGE value="Updated components to have one main thread each" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated components to have one main thread each" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

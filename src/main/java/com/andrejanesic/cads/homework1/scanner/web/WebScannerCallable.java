@@ -2,37 +2,57 @@ package com.andrejanesic.cads.homework1.scanner.web;
 
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
-import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.WebJob;
 import com.andrejanesic.cads.homework1.utils.KeywordCounter;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+@AllArgsConstructor
 public class WebScannerCallable implements Callable<Result> {
 
+    @NonNull
     private final WebJob job;
+    @NonNull
     private final IJobQueue jobQueue;
+    @NonNull
     private final IConfig config;
-
-    public WebScannerCallable(WebJob job, IJobQueue jobQueue, IConfig config) {
-        this.job = job;
-        this.jobQueue = jobQueue;
-        this.config = config;
-    }
 
     @Override
     public Result call() throws Exception {
         long startTime = System.currentTimeMillis();
-        // fetch document
-        Document document = Jsoup.connect(job.getUrl()).get();
         Result result = new Result(job);
+        Collection<ScannerException> exceptions = new LinkedList<>();
+        result.setExceptions(exceptions);
+
+        // fetch document
+        Document document = null;
+        try {
+            document = Jsoup.connect(job.getUrl()).get();
+            if (document == null || document.text().length() == 0)
+                throw new ScannerException("document is null or no text");
+        } catch (Exception e) {
+            exceptions.add(new ScannerException(e));
+        }
+
+        // if error when fetching
+        if (!exceptions.isEmpty()) {
+            long endTime = System.currentTimeMillis();
+            result.setSuccess(false);
+            result.setCompletionTime(endTime);
+            result.setConsumedTime(endTime - startTime);
+            return result;
+        }
 
         // if still hopping, fetch urls and submit new jobs
         if (job.getHops() > 0) {
@@ -42,6 +62,7 @@ public class WebScannerCallable implements Callable<Result> {
                 if (url == null || url.length() < 1) return;
 
                 // add new job
+                // TODO set parent job
                 WebJob newJob = new WebJob(
                         url,
                         job.getHops() - 1
@@ -49,7 +70,7 @@ public class WebScannerCallable implements Callable<Result> {
                 try {
                     jobQueue.enqueueJob(newJob);
                 } catch (JobQueueException e) {
-                    throw new RuntimeComponentException(e);
+                    exceptions.add(new ScannerException(e));
                 }
             });
         }
@@ -57,7 +78,6 @@ public class WebScannerCallable implements Callable<Result> {
         // fetch all text and count keywords
         String text = document.text();
         String delimiter = config.getConfig().delimiter();
-        RuntimeException e = null;
         Map<String, Integer> frequencyRaw = null;
         try {
             //noinspection OptionalGetWithoutIsPresent
@@ -65,11 +85,10 @@ public class WebScannerCallable implements Callable<Result> {
                     text,
                     delimiter
             );
-        } catch (RuntimeException ex) {
-            e = ex;
+        } catch (Exception e) {
+            exceptions.add(new ScannerException(e));
         }
-        result.setSuccess(e == null);
-        result.setException(e != null ? new ScannerException(e) : null);
+        result.setSuccess(exceptions.isEmpty());
         result.setFrequency(frequencyRaw);
         long endTime = System.currentTimeMillis();
         result.setCompletionTime(endTime);

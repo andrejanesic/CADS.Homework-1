@@ -6,7 +6,7 @@ import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.WebJob;
-import com.andrejanesic.cads.homework1.scanner.IFileScanner;
+import com.andrejanesic.cads.homework1.scanner.IWebScanner;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 @Singleton
-public class WebScanner extends IFileScanner {
+public class WebScanner extends IWebScanner {
 
     private final IJobQueue jobQueue;
     private final IConfig config;
@@ -54,6 +54,7 @@ public class WebScanner extends IFileScanner {
         Future<Result> res = getPool().submit(scanner);
         indexId.put(webJob.getId(), res);
         indexUrl.put(webJob.getUrl(), res);
+        getJobResults().put(job, res);
         // TODO submit to result retriever
         return res;
     }

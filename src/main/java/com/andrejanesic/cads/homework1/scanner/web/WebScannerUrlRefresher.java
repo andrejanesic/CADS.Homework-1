@@ -1,7 +1,6 @@
 package com.andrejanesic.cads.homework1.scanner.web;
 
 import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
-import com.andrejanesic.cads.homework1.core.exceptions.UnexpectedRuntimeComponentException;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +13,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class WebScannerUrlRefresher extends LoopRunnable {
 
-    private long lastRefresh = System.currentTimeMillis();
-
     @NonNull
     private final Map index;
-    @NonNull
     private final long refreshSleep;
+    private long lastRefresh = System.currentTimeMillis();
 
     @Override
     public void loop() throws ComponentException {

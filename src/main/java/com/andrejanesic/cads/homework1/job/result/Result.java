@@ -2,11 +2,13 @@ package com.andrejanesic.cads.homework1.job.result;
 
 import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
 import com.andrejanesic.cads.homework1.job.IJob;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Wraps the job result, along with useful data.
@@ -15,6 +17,7 @@ import java.util.Optional;
 @Data
 public class Result {
 
+    // TODO remove job
     /**
      * The job related to this result.
      */
@@ -25,9 +28,9 @@ public class Result {
      */
     private boolean success = false;
     /**
-     * If an exception was encountered, it is stored here.
+     * If any exceptions were encountered, they are stored in this collection.
      */
-    private ScannerException exception = null;
+    private Collection<ScannerException> exceptions = null;
     /**
      * The keyword frequency counting result.
      */
