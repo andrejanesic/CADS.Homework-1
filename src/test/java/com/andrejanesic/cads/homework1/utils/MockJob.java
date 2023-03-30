@@ -2,22 +2,15 @@ package com.andrejanesic.cads.homework1.utils;
 
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.JobType;
+import lombok.NonNull;
 
 import java.util.Map;
 import java.util.concurrent.Future;
 
-public class MockJob implements IJob {
+public class MockJob extends IJob {
 
-    private final long id = System.currentTimeMillis();
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public JobType getType() {
-        return null;
+    public MockJob(@NonNull JobType type) {
+        super(type);
     }
 
     @Override
@@ -25,10 +18,4 @@ public class MockJob implements IJob {
         return null;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return (obj instanceof IJob) &&
-                ((IJob) obj).getId() == getId() &&
-                ((IJob) obj).getType().equals(getType());
-    }
 }

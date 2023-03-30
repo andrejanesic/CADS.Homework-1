@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.job.queue;
 
 import com.andrejanesic.cads.homework1.job.IJob;
+import com.andrejanesic.cads.homework1.job.JobType;
 import com.andrejanesic.cads.homework1.job.queue.impl.JobQueue;
 import com.andrejanesic.cads.homework1.utils.MockJob;
 import com.andrejanesic.cads.homework1.utils.MockJobEnqueuerCallable;
@@ -51,7 +52,7 @@ public class ImplSteps {
         receivedSet = new HashSet<>();
         for (int i = 0; i < threadCount; i++) {
             Object lock = new Object();
-            IJob job = new MockJob();
+            IJob job = new MockJob(JobType.FILE);
             MockJobEnqueuerCallable mockJobEnqueuerCallable = new MockJobEnqueuerCallable(
                     job,
                     jobQueue,

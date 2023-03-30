@@ -1,28 +1,40 @@
 package com.andrejanesic.cads.homework1.job;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import java.util.Map;
 import java.util.concurrent.Future;
 
-public interface IJob {
+@RequiredArgsConstructor
+public abstract class IJob {
 
     /**
      * Unique, random ID of the job.
-     *
-     * @return Job ID.
      */
-    long getId();
+    @Getter
+    private final String id = System.currentTimeMillis() + ""
+            + ((int) (Math.random() * 1000) + 1);
 
     /**
-     * Returns the job type.
-     *
-     * @return {@link JobType}.
+     * Type of the job.
      */
-    JobType getType();
+    @Getter
+    @NonNull
+    private final JobType type;
 
     /**
      * Launches the job thread.
      *
      * @return Future job result.
      */
-    Future<Map<String, Integer>> start();
+    public abstract Future<Map<String, Integer>> start();
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof IJob) &&
+                ((IJob) obj).getId().equals(getId()) &&
+                ((IJob) obj).getType().equals(getType());
+    }
 }
