@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-public class CFG4JSteps extends CFG4JTestConfig {
+public class CFG4JSteps {
 
     /**
      * Mock {@link IArgs} object. "name" parameter must be the same as the internal variable name in the mocked class.

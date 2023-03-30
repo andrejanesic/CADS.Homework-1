@@ -9,7 +9,7 @@ import io.cucumber.java.en.Then;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CommonsSteps extends CommonsTestConfig {
+public class CommonsSteps {
 
     String configPath = "string.path";
     String[] args;

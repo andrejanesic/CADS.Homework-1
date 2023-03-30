@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Added CLI component">
-      <change afterPath="$PROJECT_DIR$/app.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/commands/CommandError.java" afterDir="false" />
+    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Added tests for job queue">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/job/queue/ImplSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/job/queue/ImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockJob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/utils/MockJobEnqueuerCallable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/job/queue/impl.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/InputReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/InputReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/cli/commons/commands/CommandManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/utils/LoopRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/utils/LoopRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/IJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/IJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/impl/JobQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/job/queue/impl/JobQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/CommonsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/CommonsSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/args/CommonsTestConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/config/CFG4JTestConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/andrejanesic/cads/homework1/directoryCrawler/ImplTestConfig.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +123,7 @@
       <recent name="com.andrejanesic.cads.homework1" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Gradle.Tests in 'com.andrejanesic.cads.homework1.job.queue'">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.andrejanesic.cads.homework1.Main" />
       <module name="cads.homework1.main" />
@@ -129,28 +137,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ImplTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.andrejanesic.cads.homework1.directoryCrawler.ImplTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
+    <configuration name="Feature: impl" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/job/queue/impl.feature" />
+      <option name="GLUE" value="com.andrejanesic.cads.homework1.args com.andrejanesic.cads.homework1.directoryCrawler com.andrejanesic.cads.homework1.config" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="cads.homework1.test" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: impl" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="MainTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -196,7 +200,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="Tests in 'com.andrejanesic.cads.homework1.directoryCrawler'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Tests in 'com.andrejanesic.cads.homework1.job.queue'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -209,7 +213,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.andrejanesic.cads.homework1.directoryCrawler.*&quot;" />
+            <option value="&quot;com.andrejanesic.cads.homework1.job.queue.*&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -221,18 +225,18 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1.job.queue'" />
+        <item itemvalue="Cucumber Java.Feature: impl" />
         <item itemvalue="Gradle.MainTest" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
-        <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1.directoryCrawler'" />
-        <item itemvalue="Gradle.ImplTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="642f9c81-657f-44f3-a2d3-ae7aa62df0c0" name="Changes" comment="" />
+      <changelist id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Added DI to commons cli" />
       <created>1679941092990</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -242,6 +246,7 @@
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
       <workItem from="1680093241479" duration="30174000" />
+      <workItem from="1680172269977" duration="7796000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -376,7 +381,21 @@
       <option name="project" value="LOCAL" />
       <updated>1680133144204</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="LoopRunnable fix">
+      <created>1680135366678</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1680135366678</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added DI to commons cli">
+      <created>1680135544223</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1680135544224</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +421,10 @@
     <MESSAGE value="Bugfixes, tests passing" />
     <MESSAGE value="Added CLI module, commands" />
     <MESSAGE value="Added CLI component" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added CLI component" />
+    <MESSAGE value="LoopRunnable fix" />
+    <MESSAGE value="Added DI to commons cli" />
+    <MESSAGE value="Added tests for job queue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added tests for job queue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -425,6 +447,10 @@
           </properties>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalMonitorStateException" package="java.lang" />
+          <option name="timeStamp" value="12" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

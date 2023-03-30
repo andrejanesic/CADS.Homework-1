@@ -26,6 +26,10 @@ public class JobQueue extends IJobQueue {
         this.maxSize = maxSize;
     }
 
+    public JobQueue() {
+        this.maxSize = -1;
+    }
+
     @Override
     public synchronized void enqueueJob(IJob job) throws JobQueueException {
         while (maxSize > 0 && blockingDeque.size() >= maxSize) {
@@ -36,7 +40,7 @@ public class JobQueue extends IJobQueue {
             }
         }
 
-        blockingDeque.add(job);
+        blockingDeque.addFirst(job);
         this.notifyAll();
     }
 

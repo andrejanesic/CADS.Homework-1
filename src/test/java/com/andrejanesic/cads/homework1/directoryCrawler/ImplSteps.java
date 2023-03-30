@@ -23,7 +23,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-public class ImplSteps extends ImplTestConfig {
+public class ImplSteps {
 
     String dirPath;
     MockDirectoryTree mockDirectoryTree;
