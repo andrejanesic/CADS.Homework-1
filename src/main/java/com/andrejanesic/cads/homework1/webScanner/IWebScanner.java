@@ -1,4 +1,8 @@
 package com.andrejanesic.cads.homework1.webScanner;
 
-public interface IWebScanner {
+import com.andrejanesic.cads.homework1.core.IComponent;
+
+public abstract class IWebScanner extends IComponent {
+
+
 }

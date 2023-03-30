@@ -12,6 +12,9 @@ import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcher;
 import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcherModule;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueueModule;
+import com.andrejanesic.cads.homework1.scanner.IFileScanner;
+import com.andrejanesic.cads.homework1.scanner.IScannerModule;
+import com.andrejanesic.cads.homework1.scanner.IWebScanner;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -27,6 +30,7 @@ import javax.inject.Singleton;
         IJobQueueModule.class,
         IJobDispatcherModule.class,
         ICLIModule.class,
+        IScannerModule.class,
 })
 public interface ICore {
 
@@ -41,4 +45,8 @@ public interface ICore {
     IJobDispatcher jobDispatcher();
 
     ICLI cli();
+
+    IFileScanner fileScanner();
+
+    IWebScanner webScanner();
 }
