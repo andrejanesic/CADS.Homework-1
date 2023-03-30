@@ -5,6 +5,7 @@ import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException
 import com.andrejanesic.cads.homework1.core.exceptions.UnexpectedRuntimeComponentException;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
+import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.WebJob;
 import com.andrejanesic.cads.homework1.scanner.IFileScanner;
 
@@ -12,14 +13,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 @Singleton
 public class WebScanner extends IFileScanner {
 
     private final IJobQueue jobQueue;
     private final IConfig config;
-    private Map<String, WebScannerCallable> indexId = new HashMap<>();
-    private Map<String, WebScannerCallable> indexUrl = new HashMap<>();
+    private Map<String, Future<Result>> indexId = new HashMap<>();
+    private Map<String, Future<Result>> indexUrl = new HashMap<>();
     private Long lastRefresh;
 
     @Inject
@@ -51,14 +53,17 @@ public class WebScanner extends IFileScanner {
     }
 
     @Override
-    public void submit(IJob job) {
+    public Future<Result> submit(IJob job) {
         if (!(job instanceof WebJob webJob))
             throw new RuntimeComponentException("Invalid job type passed");
         if (indexId.containsKey(webJob.getId()) || indexUrl.containsKey(webJob.getUrl()))
-            return;
+            return null;
         WebScannerCallable scanner = new WebScannerCallable(webJob, jobQueue, config);
-        indexId.put(webJob.getId(), scanner);
-        indexUrl.put(webJob.getUrl(), scanner);
+        Future<Result> res = getPool().submit(scanner);
+        indexId.put(webJob.getId(), res);
+        indexUrl.put(webJob.getUrl(), res);
+        // TODO submit to result retriever
+        return res;
     }
 
 }

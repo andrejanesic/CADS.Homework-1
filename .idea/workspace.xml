@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Updated config for delimiter">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9225517b-69d0-42c4-a448-ac7a75b7d101" name="Changes" comment="Fixed web scanner-file scanner file paths">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/IScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/file/FileScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andrejanesic/cads/homework1/scanner/web/WebScanner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,14 +107,14 @@
       <recent name="com.andrejanesic.cads.homework1.directoryCrawler" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.andrejanesic.cads.homework1.scanner.web" />
+      <recent name="com.andrejanesic.cads.homework1.scanner.file" />
       <recent name="com.andrejanesic.cads.homework1.job" />
       <recent name="com.andrejanesic.cads.homework1.config" />
       <recent name="com.andrejanesic.cads.homework1.args" />
-      <recent name="com.andrejanesic.cads.homework1.constants.impl" />
-      <recent name="com.andrejanesic.cads.homework1" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Gradle.Tests in 'cads.homework1.test'">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.andrejanesic.cads.homework1.Main" />
       <module name="cads.homework1.main" />
@@ -214,8 +216,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.Tests in 'cads.homework1.test'" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1.config'" />
         <item itemvalue="Cucumber Java.Feature: cfg4j" />
         <item itemvalue="Gradle.Tests in 'com.andrejanesic.cads.homework1.job.queue'" />
@@ -235,7 +237,7 @@
       <workItem from="1680027460306" duration="87000" />
       <workItem from="1680034227673" duration="19367000" />
       <workItem from="1680093241479" duration="30174000" />
-      <workItem from="1680172269977" duration="21017000" />
+      <workItem from="1680172269977" duration="21470000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679941229415</created>
@@ -426,14 +428,20 @@
       <option name="project" value="LOCAL" />
       <updated>1680194162819</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fixed web scanner-file scanner file paths">
+      <created>1680194736670</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1680194736670</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added DirectoryCrawler skeleton" />
     <MESSAGE value="Refactored bad project structure, added cfg4j" />
     <MESSAGE value="Added app configuration loading, constants, web scanner interface" />
     <MESSAGE value="Added configuration tests" />
@@ -458,7 +466,8 @@
     <MESSAGE value="Added job types, refactored IJob with utility methods" />
     <MESSAGE value="Completed web scanner" />
     <MESSAGE value="Updated config for delimiter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated config for delimiter" />
+    <MESSAGE value="Fixed web scanner-file scanner file paths" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed web scanner-file scanner file paths" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -498,6 +507,6 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/cads_homework1$Tests_in__cads_homework1_test_.ic" NAME="Tests in 'cads.homework1.test' Coverage Results" MODIFIED="1680194219229" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/cads_homework1$Tests_in__cads_homework1_test_.ic" NAME="Tests in 'cads.homework1.test' Coverage Results" MODIFIED="1680194944636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

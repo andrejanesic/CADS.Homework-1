@@ -4,6 +4,8 @@ import com.andrejanesic.cads.homework1.core.ThreadPoolComponent;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.result.Result;
 
+import java.util.concurrent.Future;
+
 /**
  * Scanner component. Uses {@link Result} as its result type.
  */
@@ -14,6 +16,6 @@ public abstract class IScanner extends ThreadPoolComponent<Result> {
      *
      * @param job
      */
-    public abstract void submit(IJob job);
+    public abstract Future<Result> submit(IJob job);
 
 }
