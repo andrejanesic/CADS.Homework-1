@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,20 +29,15 @@ public class MockConfigProperties implements AppConfiguration {
     /**
      * Whether the configuration file should be valid or have syntax errors (random).
      */
-    @NonNull
     private final boolean valid;
 
     @NonNull
     private final String[] keywords;
     @NonNull
     private final String fileCorpusPrefix;
-    @NonNull
     private final int directoryCrawlerSleepTime;
-    @NonNull
     private final long fileScanningSizeLimit;
-    @NonNull
     private final int hopCount;
-    @NonNull
     private final int urlRefreshTime;
     @NonNull
     private final String delimiter;
@@ -94,7 +90,8 @@ public class MockConfigProperties implements AppConfiguration {
                 "ngSizeLimit=" + fileScanningSizeLimit +
                 "\nhopCount=" + hopCount +
                 (valid ? "" : "hopCount:") +
-                "\nurlRefreshTime=" + urlRefreshTime;
+                "\nurlRefreshTime=" + urlRefreshTime +
+                "\ndelimiter=" + delimiter;
 
         // assert file exists and is correct
         Path p = Paths.get(path);

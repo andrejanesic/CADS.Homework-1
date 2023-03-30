@@ -13,6 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 public class FileScannerCallable implements Callable<Result> {
@@ -60,6 +61,7 @@ public class FileScannerCallable implements Callable<Result> {
         RuntimeException e = null;
         Map<String, Integer> frequencyRaw = null;
         try {
+            //noinspection OptionalGetWithoutIsPresent
             frequencyRaw = KeywordCounter.getFrequency(
                     text,
                     delimiter

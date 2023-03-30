@@ -165,6 +165,30 @@ public class CFG4JSteps {
         config.generate();
     }
 
+    @Given("properties file with bad settings but without syntax errors")
+    public void properties_file_with_bad_settings_but_without_syntax_errors() throws IOException {
+        // create a valid config
+        keywords = new String[]{"test1", "test2", "test3"};
+        fileCorpusPrefix = "prefix_";
+        directoryCrawlerSleepTime = 1000;
+        fileScanningSizeLimit = 2000L;
+        hopCount = -1;
+        urlRefreshTime = 4000;
+        delimiter = "\\s+";
+        config = new MockConfigProperties(
+                pathValid,
+                true,
+                keywords,
+                fileCorpusPrefix,
+                directoryCrawlerSleepTime,
+                fileScanningSizeLimit,
+                hopCount,
+                urlRefreshTime,
+                delimiter
+        );
+        config.generate();
+    }
+
     @Then("parsed properties match")
     public void parsed_properties_match() {
         // Execute

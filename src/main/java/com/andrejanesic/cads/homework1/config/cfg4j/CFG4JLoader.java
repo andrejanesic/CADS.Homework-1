@@ -8,16 +8,19 @@ import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
+import org.cfg4j.source.compose.MergeConfigurationSource;
 import org.cfg4j.source.context.environment.Environment;
 import org.cfg4j.source.context.environment.ImmutableEnvironment;
 import org.cfg4j.source.context.filesprovider.ConfigFilesProvider;
 import org.cfg4j.source.files.FilesConfigurationSource;
+import org.cfg4j.source.inmemory.InMemoryConfigurationSource;
 import org.cfg4j.source.reload.ReloadStrategy;
 import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 
 import javax.inject.Inject;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -42,12 +45,16 @@ public class CFG4JLoader extends IConfig {
                     Paths.get(args.configSource())
             );
 
+            Properties fallbackProperties = new Properties();
+            fallbackProperties.setProperty("delimiter", "\\s+");
             ConfigurationSource source = new FilesConfigurationSource(configFilesProvider);
+            ConfigurationSource fallback = new InMemoryConfigurationSource(fallbackProperties);
+            ConfigurationSource merged = new MergeConfigurationSource(fallback, source);
             Environment environment = new ImmutableEnvironment(IConstants.FILEPATH_CONFIG_ROOT);
             ReloadStrategy reload = new ImmediateReloadStrategy();
 
             ConfigurationProvider provider = new ConfigurationProviderBuilder()
-                    .withConfigurationSource(source)
+                    .withConfigurationSource(merged)
                     .withEnvironment(environment)
                     .withReloadStrategy(reload)
                     .build();

@@ -5,8 +5,13 @@ Feature: IConfig.CFG4J
     When passed properties path is not valid
     Then throw config exception
 
-  Scenario: invalid properties
+  Scenario: syntax error in properties
     Given properties file with syntax errors
+    When passed properties path is valid
+    Then throw config exception
+
+  Scenario: bad properties
+    Given properties file with bad settings but without syntax errors
     When passed properties path is valid
     Then throw config exception
 
