@@ -55,6 +55,29 @@ public class FileScannerRecursiveTask extends RecursiveTask<Result> {
 
             // if single file too large, error and return
             if (filePaths.subList(from, to).size() == 1) {
+
+                // check if directory detected
+                File f = new File(filePaths.subList(from, to).get(0));
+                if (f.isDirectory()) {
+
+                    // TODO set parent job
+                    FileJob newJob = new FileJob(
+                            f.getAbsolutePath()
+                    );
+                    try {
+                        jobQueue.enqueueJob(newJob);
+                    } catch (JobQueueException e) {
+                        exceptions.add(new ScannerException(e));
+                    }
+
+                    result.setSuccess(true);
+                    result.setFrequency(new HashMap<>());
+                    long endTime = System.currentTimeMillis();
+                    result.setCompletionTime(endTime);
+                    result.setConsumedTime(endTime - startTime);
+                    return result;
+                }
+
                 exceptions.add(new ScannerException(
                         "File " + filePaths.subList(from, to).get(0) +
                                 " is too large for parsing."
@@ -169,6 +192,6 @@ public class FileScannerRecursiveTask extends RecursiveTask<Result> {
         long endTime = System.currentTimeMillis();
         result.setCompletionTime(endTime);
         result.setConsumedTime(endTime - startTime);
-        return null;
+        return result;
     }
 }

@@ -37,7 +37,7 @@ public class FileScanner extends IFileScanner {
         // number of threads per
         List<String> filePaths = new LinkedList<>();
         File srcDir = new File(fileJob.getPath());
-        if (!srcDir.exists() || srcDir.isDirectory()) {
+        if (!srcDir.exists() || !srcDir.isDirectory()) {
             // TODO this could be handled better
             return null;
         }

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,6 +40,20 @@ public class MockConfigProperties implements AppConfiguration {
     private final int urlRefreshTime;
     @NonNull
     private final String delimiter;
+
+    public MockConfigProperties() {
+        this(
+                "test-app.properties",
+                true,
+                new String[]{"tk1", "__tk3", "ma!Keywordz"},
+                "pref_",
+                1000,
+                2048,
+                1,
+                60_000,
+                "\\s+"
+        );
+    }
 
     @Override
     public String delimiter() {

@@ -19,6 +19,7 @@ import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 
 import javax.inject.Inject;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -115,6 +116,13 @@ public class CFG4JLoader extends IConfig {
             String[] keywords = configuration.keywords();
             if (keywords == null || keywords.length == 0)
                 throw new ConfigException("No keywords defined");
+            for (String k : keywords) {
+                if (k.split(delimiter).length > 1)
+                    throw new ConfigException(
+                            "Keyword \"" + k +
+                                    "\" contains delimiter: \"" +
+                                    delimiter + "\"");
+            }
 
             int directoryCrawlerSleepTime = configuration.directoryCrawlerSleepTime();
             if (directoryCrawlerSleepTime < 0)

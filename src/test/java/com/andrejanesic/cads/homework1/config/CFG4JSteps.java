@@ -111,7 +111,7 @@ public class CFG4JSteps {
         fileScanningSizeLimit = 2000L;
         hopCount = 3000;
         urlRefreshTime = 4000;
-        delimiter = "\\s+";
+        delimiter = "\\\\s+";
         config = new MockConfigProperties(
                 pathValid,
                 false,
@@ -150,7 +150,7 @@ public class CFG4JSteps {
         fileScanningSizeLimit = 2000L;
         hopCount = 3000;
         urlRefreshTime = 4000;
-        delimiter = "\\s+";
+        delimiter = "\\\\s+";
         config = new MockConfigProperties(
                 pathValid,
                 true,
@@ -174,7 +174,7 @@ public class CFG4JSteps {
         fileScanningSizeLimit = 2000L;
         hopCount = -1;
         urlRefreshTime = 4000;
-        delimiter = "\\s+";
+        delimiter = "\\\\s+";
         config = new MockConfigProperties(
                 pathValid,
                 true,

@@ -80,11 +80,13 @@ public class ImplSteps {
                 1,
                 1,
                 0,
+                (int) (Math.random() * 100 + 1),
                 new MockTextCorpus.Builder(
                         "",
                         "",
                         new String[]{},
-                        1
+                        0,
+                        2048
                 )
         );
         mockDirectoryTree.generate();
@@ -108,12 +110,14 @@ public class ImplSteps {
                 appConfigMock.fileCorpusPrefix(),
                 2,
                 (int) (Math.random() * 6) + 2,
-                (int) (Math.random() * 30) + 1,
+                (int) (Math.random() * 15) + 1,
+                (int) (Math.random() * 30) + 20,
                 new MockTextCorpus.Builder(
                         "any",
                         " ",
                         new String[]{},
-                        1
+                        0,
+                        2048
                 )
         );
         mockDirectoryTree.generate();

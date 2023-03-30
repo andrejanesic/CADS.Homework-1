@@ -6,11 +6,13 @@ import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import lombok.Getter;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
 
+@Singleton
 public class JobQueue extends IJobQueue {
 
     private final Deque<IJob> blockingDeque = new LinkedBlockingDeque<>();
