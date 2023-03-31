@@ -6,6 +6,7 @@ import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.FileJob;
+import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import com.andrejanesic.cads.homework1.scanner.IFileScanner;
 
 import javax.inject.Inject;
@@ -19,12 +20,18 @@ import java.util.concurrent.Future;
 @Singleton
 public class FileScanner extends IFileScanner {
 
+    private final IResultRetriever resultRetriever;
     private final IJobQueue jobQueue;
     private final IConfig config;
 
     @Inject
-    public FileScanner(IJobQueue jobQueue, IConfig config) {
+    public FileScanner(
+            IResultRetriever resultRetriever,
+            IJobQueue jobQueue,
+            IConfig config
+    ) {
         super(new ForkJoinPool());
+        this.resultRetriever = resultRetriever;
         this.jobQueue = jobQueue;
         this.config = config;
     }
@@ -63,7 +70,7 @@ public class FileScanner extends IFileScanner {
         );
         Future<Result> res = ((ForkJoinPool) getPool()).submit(scanner);
         getJobResults().put(job, res);
-        // TODO submit to result retriever
+        resultRetriever.getStoreFileJobs().put(job, res);
         return res;
     }
 

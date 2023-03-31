@@ -21,7 +21,7 @@ public abstract class IJob {
      */
     @Getter
     private final String id = System.currentTimeMillis() + ""
-            + ((int) (Math.random() * 1000) + 1);
+            + (int) (Math.random() * 1000);
     /**
      * Type of the job.
      */

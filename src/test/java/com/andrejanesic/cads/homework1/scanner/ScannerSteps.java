@@ -7,6 +7,7 @@ import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.FileJob;
+import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import com.andrejanesic.cads.homework1.scanner.file.FileScanner;
 import com.andrejanesic.cads.homework1.scanner.file.FileScannerRecursiveTask;
 import com.andrejanesic.cads.homework1.utils.MockConfigProperties;
@@ -20,8 +21,12 @@ import io.cucumber.java.en.When;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.inject.Inject;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,24 +34,24 @@ import static org.mockito.Mockito.*;
 
 public class ScannerSteps {
 
+    static volatile ConcurrentHashMap.KeySetView<Future<Result>, Boolean> results = ConcurrentHashMap.newKeySet();
+    @Inject
+    @Mock
+    IResultRetriever resultRetrieverMock;
+    ConcurrentHashMap<IJob, Future<Result>> resultRetrieverHashmap =
+            new ConcurrentHashMap<>();
     @Mock
     IJobQueue jobQueueMockForFileScannerRecursiveTask;
-
     @Mock
     IJobQueue jobQueueMockForFileScanner;
-
     @Mock
     IConfig configMock;
-
     MockDirectoryTree mockDirectoryTree;
-
     AppConfiguration configuration;
-
     IJobQueue jobQueue;
     FileScanner fileScanner;
     FileScannerRecursiveTask fileScannerRecursiveTask;
     FileJob job;
-    static volatile ConcurrentHashMap.KeySetView<Future<Result>, Boolean> results = ConcurrentHashMap.newKeySet();
     Map<String, Integer> expected;
     ExecutorService executorService;
 
@@ -56,6 +61,7 @@ public class ScannerSteps {
         MockitoAnnotations.openMocks(this);
         configuration = new MockConfigProperties();
         when(configMock.getConfig()).thenReturn(configuration);
+        when(resultRetrieverMock.getStoreFileJobs()).thenReturn(resultRetrieverHashmap);
     }
 
     @After
@@ -177,7 +183,11 @@ public class ScannerSteps {
             return null;
         }).when(jobQueueMockForFileScanner).enqueueJob(any(IJob.class));
 
-        fileScanner = new FileScanner(jobQueueMockForFileScanner, configMock);
+        fileScanner = new FileScanner(
+                resultRetrieverMock,
+                jobQueueMockForFileScanner,
+                configMock
+        );
         results.add(fileScanner.submit(job));
     }
 

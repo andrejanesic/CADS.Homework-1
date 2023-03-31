@@ -14,6 +14,8 @@ import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcher;
 import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcherModule;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueueModule;
+import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
+import com.andrejanesic.cads.homework1.resultRetriever.IResultRetrieverModule;
 import com.andrejanesic.cads.homework1.scanner.IFileScanner;
 import com.andrejanesic.cads.homework1.scanner.IScannerModule;
 import com.andrejanesic.cads.homework1.scanner.IWebScanner;
@@ -34,6 +36,7 @@ import javax.inject.Singleton;
         ICLInputModule.class,
         ICLOutputModule.class,
         IScannerModule.class,
+        IResultRetrieverModule.class,
 })
 public interface ICore {
 
@@ -54,4 +57,6 @@ public interface ICore {
     IFileScanner fileScanner();
 
     IWebScanner webScanner();
+
+    IResultRetriever resultRetriever();
 }

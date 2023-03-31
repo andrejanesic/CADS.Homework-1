@@ -6,6 +6,7 @@ import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.WebJob;
+import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import com.andrejanesic.cads.homework1.scanner.IWebScanner;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.Future;
 @Singleton
 public class WebScanner extends IWebScanner {
 
+    private final IResultRetriever resultRetriever;
     private final IJobQueue jobQueue;
     private final IConfig config;
     private Map<String, Future<Result>> indexId = new HashMap<>();
@@ -26,7 +28,12 @@ public class WebScanner extends IWebScanner {
     private LoopRunnable refreshRunnable;
 
     @Inject
-    public WebScanner(IJobQueue jobQueue, IConfig config) {
+    public WebScanner(
+            IResultRetriever resultRetriever,
+            IJobQueue jobQueue,
+            IConfig config
+    ) {
+        this.resultRetriever = resultRetriever;
         this.jobQueue = jobQueue;
         this.config = config;
     }
@@ -55,7 +62,7 @@ public class WebScanner extends IWebScanner {
         indexId.put(webJob.getId(), res);
         indexUrl.put(webJob.getUrl(), res);
         getJobResults().put(job, res);
-        // TODO submit to result retriever
+        resultRetriever.getStoreWebJobs().put(job, res);
         return res;
     }
 

@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Wraps the job result, along with useful data.
@@ -17,12 +15,11 @@ import java.util.Map;
 @Data
 public class Result {
 
-    // TODO remove job
     /**
-     * The job related to this result.
+     * The jobs related to this result.
      */
     @NonNull
-    private final IJob job;
+    private final Set<IJob> jobs = new HashSet<>();
     /**
      * Whether the job completed successfully or encountered an exception.
      */
@@ -47,10 +44,10 @@ public class Result {
     /**
      * Wraps the job result, along with useful data.
      *
-     * @param job The job of which this is the result.
+     * @param jobs the jobs related to this result
      */
-    public Result(@NonNull IJob job) {
-        this.job = job;
+    public Result(@NonNull IJob... jobs) {
+        this.jobs.addAll(List.of(jobs));
     }
 
 }
