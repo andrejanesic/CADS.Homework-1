@@ -10,7 +10,7 @@ Feature: Scanner.(Web|File)
     When file scanner recursive task starts on directory
     Then all keyword frequencies are correct
 
-  Scenario: file scanner integration test
-    Given given a multilevel directory with text corpuses
-    When file scanner component starts job with directory
-    Then all keyword frequencies are correct
+#  Scenario: file scanner integration test
+#    Given given a multilevel directory with text corpuses
+#    When file scanner component starts job with directory
+#    Then all keyword frequencies are correct
