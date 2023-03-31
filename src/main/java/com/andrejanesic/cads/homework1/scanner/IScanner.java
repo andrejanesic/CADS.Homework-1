@@ -1,6 +1,6 @@
 package com.andrejanesic.cads.homework1.scanner;
 
-import com.andrejanesic.cads.homework1.core.ThreadPoolComponent;
+import com.andrejanesic.cads.homework1.core.ThreadPoolThreadedComponent;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.concurrent.Future;
 /**
  * Scanner component. Uses {@link Result} as its result type.
  */
-public abstract class IScanner extends ThreadPoolComponent<Result> {
+public abstract class IScanner extends ThreadPoolThreadedComponent<Result> {
 
 
     /**

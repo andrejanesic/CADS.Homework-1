@@ -66,4 +66,9 @@ public class FileScanner extends IFileScanner {
         // TODO submit to result retriever
         return res;
     }
+
+    @Override
+    public void main() {
+        keepAlive();
+    }
 }

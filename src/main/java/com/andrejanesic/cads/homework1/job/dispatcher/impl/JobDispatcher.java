@@ -8,7 +8,6 @@ import javax.inject.Inject;
 public class JobDispatcher extends IJobDispatcher {
 
     private final IJobQueue jobQueue;
-    private Thread singleThread;
     private JobDispatcherWorker jobDispatcherWorker;
 
     @Inject
@@ -18,19 +17,15 @@ public class JobDispatcher extends IJobDispatcher {
 
     @Override
     public void afterStart() {
-        super.afterStart();
-        if (singleThread != null) {
+        if (jobDispatcherWorker != null) {
             return;
         }
-
         jobDispatcherWorker = new JobDispatcherWorker(jobQueue);
-        singleThread = new Thread(jobDispatcherWorker);
-        singleThread.start();
+        startNewThread(jobDispatcherWorker);
     }
 
     @Override
-    public void beforeEnd() {
-        jobDispatcherWorker.stop();
-        super.beforeEnd();
+    public void main() {
+        keepAlive();
     }
 }

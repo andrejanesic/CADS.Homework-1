@@ -46,4 +46,19 @@ public class ArgsCommonsCLI extends IArgs {
         if (cmd == null || (!cmd.hasOption("c"))) return super.configSource();
         return cmd.getOptionValue("c");
     }
+
+    @Override
+    public void afterStart() {
+
+    }
+
+    @Override
+    public void main() {
+
+    }
+
+    @Override
+    public void beforeEnd() {
+
+    }
 }

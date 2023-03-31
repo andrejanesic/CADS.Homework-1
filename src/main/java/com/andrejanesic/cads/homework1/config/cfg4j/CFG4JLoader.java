@@ -156,7 +156,17 @@ public class CFG4JLoader extends IConfig {
     }
 
     @Override
+    public void afterStart() {
+
+    }
+
+    @Override
     public void main() {
-        end();
+
+    }
+
+    @Override
+    public void beforeEnd() {
+
     }
 }

@@ -50,7 +50,7 @@ public class InputReader extends LoopRunnable {
     @Override
     public void loop() throws ComponentException {
         // TODO replace out with custom class
-        System.out.print("> ");
+        System.out.print("$ ");
         String input = scanner.nextLine();
         CommandLine cmd = null;
         try {

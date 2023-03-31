@@ -12,9 +12,8 @@ import java.util.Set;
  */
 public class DirectoryCrawler extends IDirectoryCrawler {
 
-    private Thread singleThread;
-    private DirectoryCrawlerWorker directoryCrawlerWorker;
     private final IConfig config;
+    private DirectoryCrawlerWorker directoryCrawlerWorker;
 
     @Inject
     public DirectoryCrawler(IConfig config) {
@@ -24,20 +23,26 @@ public class DirectoryCrawler extends IDirectoryCrawler {
     @Override
     public void crawl(Set<String> directoryPaths) {
         if (directoryPaths == null || directoryPaths.size() == 0)
-            throw new RuntimeComponentException("DirectoryCrawler::crawl directoryPaths must not be null or empty");
-        if (singleThread != null) {
+            // TODO handle better
+            throw new RuntimeComponentException(
+                    "DirectoryCrawler::crawl directoryPaths must not be null or empty"
+            );
+        if (directoryCrawlerWorker != null) {
             directoryCrawlerWorker.setDirectories(directoryPaths);
             return;
         }
         directoryCrawlerWorker = new DirectoryCrawlerWorker(config.getConfig(), directoryPaths);
-        singleThread = new Thread(directoryCrawlerWorker);
-        singleThread.start();
+        startNewThread(directoryCrawlerWorker);
     }
 
     @Override
-    public void beforeEnd() {
-        if (singleThread == null) return;
-        directoryCrawlerWorker.stop();
-        super.beforeEnd();
+    public void afterStart() {
+
     }
+
+    @Override
+    public void main() {
+        keepAlive();
+    }
+
 }

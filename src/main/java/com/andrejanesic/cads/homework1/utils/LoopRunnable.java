@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * Runnable class with a recurring task.
  */
-public abstract class LoopRunnable implements Runnable {
+public abstract class LoopRunnable extends StopRunnable {
 
     @Getter
     private boolean alive = true;
@@ -28,9 +28,7 @@ public abstract class LoopRunnable implements Runnable {
      */
     public abstract void loop() throws ComponentException;
 
-    /**
-     * Gracefully stops the thread.
-     */
+    @Override
     public void stop() {
         alive = false;
     }

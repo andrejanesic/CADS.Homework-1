@@ -60,6 +60,11 @@ public class WebScanner extends IWebScanner {
     }
 
     @Override
+    public void main() {
+        keepAlive();
+    }
+
+    @Override
     public void beforeEnd() {
         refreshRunnable.stop();
         super.beforeEnd();

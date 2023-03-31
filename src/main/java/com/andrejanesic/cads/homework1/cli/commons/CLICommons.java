@@ -18,8 +18,7 @@ public class CLICommons extends ICLI {
 
     @Override
     public void afterStart() {
-        super.afterStart();
-        startThread(in);
+        startNewThread(in);
     }
 
     @Override
@@ -41,5 +40,10 @@ public class CLICommons extends ICLI {
         if (out == null)
             throw new RuntimeComponentException("CLICommons not available yet");
         out.log(OutputWriter.MessageType.ERROR, message);
+    }
+
+    @Override
+    public void main() {
+        keepAlive();
     }
 }

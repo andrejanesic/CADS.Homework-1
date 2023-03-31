@@ -9,9 +9,16 @@ import java.util.concurrent.Executors;
 /**
  * Base component that runs on a separate thread and has its own thread pool.
  *
+ * <p>Unlike {@link MultiThreadedComponent}, ThreadPoolThreadedComponent uses
+ * {@link ExecutorService} as a thread pool for managing threads.</p>
+ *
+ * <p>The lifecycle of threads (starting and clean-up) is managed by this
+ * class. Subclasses should only use the thread pool for submitting new jobs,
+ * etc.</p>
+ *
  * @param <V> Thread pool result type.
  */
-public abstract class ThreadPoolComponent<V> extends ThreadedComponent {
+public abstract class ThreadPoolThreadedComponent<V> extends ThreadedComponent {
 
     @Getter
     private final ExecutorService pool;
@@ -20,30 +27,28 @@ public abstract class ThreadPoolComponent<V> extends ThreadedComponent {
     private ExecutorCompletionService<V> results;
 
     /**
-     * Base component with thread pool support.
+     * Constructor with configurable {@link ExecutorService}.
      *
-     * @param pool {@link ExecutorService} instance to use as thread pool.
+     * @param pool ExecutorService instance to use as thread pool
      */
-    public ThreadPoolComponent(ExecutorService pool) {
+    public ThreadPoolThreadedComponent(ExecutorService pool) {
         this.pool = pool;
     }
 
     /**
-     * Base component with thread pool support.
+     * Default constructor.
      */
-    public ThreadPoolComponent() {
+    public ThreadPoolThreadedComponent() {
         this(Executors.newCachedThreadPool());
     }
 
     @Override
-    public void main() {
+    public void afterStart() {
         results = new ExecutorCompletionService<>(pool);
-        keepAlive();
     }
 
     @Override
     public void beforeEnd() {
         pool.shutdown();
-        super.beforeEnd();
     }
 }

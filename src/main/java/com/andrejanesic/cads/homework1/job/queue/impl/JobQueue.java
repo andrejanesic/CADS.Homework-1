@@ -64,4 +64,19 @@ public class JobQueue extends IJobQueue {
     public List<IJob> getQueue() {
         return new ArrayList<>(blockingDeque);
     }
+
+    @Override
+    public void afterStart() {
+
+    }
+
+    @Override
+    public void main() {
+
+    }
+
+    @Override
+    public void beforeEnd() {
+
+    }
 }
