@@ -62,13 +62,13 @@ public class WebScannerCallable implements Callable<Result> {
                 if (url == null || url.length() < 1) return;
 
                 // add new job
-                // TODO set parent job
                 WebJob newJob = new WebJob(
                         url,
                         job.getHops() - 1
                 );
                 try {
                     jobQueue.enqueueJob(newJob);
+                    job.addChild(newJob);
                 } catch (JobQueueException e) {
                     exceptions.add(new ScannerException(e));
                 }

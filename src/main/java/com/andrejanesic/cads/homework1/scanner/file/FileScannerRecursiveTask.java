@@ -60,12 +60,12 @@ public class FileScannerRecursiveTask extends RecursiveTask<Result> {
                 File f = new File(filePaths.subList(from, to).get(0));
                 if (f.isDirectory()) {
 
-                    // TODO set parent job
                     FileJob newJob = new FileJob(
                             f.getAbsolutePath()
                     );
                     try {
                         jobQueue.enqueueJob(newJob);
+                        job.addChild(newJob);
                     } catch (JobQueueException e) {
                         exceptions.add(new ScannerException(e));
                     }
@@ -149,12 +149,12 @@ public class FileScannerRecursiveTask extends RecursiveTask<Result> {
                 // if subdirectory, submit as job
                 if (f.isDirectory()) {
 
-                    // TODO set parent job
                     FileJob newJob = new FileJob(
                             f.getAbsolutePath()
                     );
                     try {
                         jobQueue.enqueueJob(newJob);
+                        job.addChild(newJob);
                     } catch (JobQueueException e) {
                         exceptions.add(new ScannerException(e));
                     }
