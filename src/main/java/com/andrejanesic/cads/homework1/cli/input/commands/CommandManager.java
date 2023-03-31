@@ -1,4 +1,4 @@
-package com.andrejanesic.cads.homework1.cli.input.commons.commands;
+package com.andrejanesic.cads.homework1.cli.input.commands;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

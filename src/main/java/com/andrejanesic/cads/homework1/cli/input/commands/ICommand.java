@@ -1,5 +1,6 @@
-package com.andrejanesic.cads.homework1.cli.input.commons.commands;
+package com.andrejanesic.cads.homework1.cli.input.commands;
 
+import com.andrejanesic.cads.homework1.core.exceptions.UnexpectedRuntimeComponentException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -12,16 +13,12 @@ import java.util.List;
  */
 public abstract class ICommand {
 
-    public ICommand() {
-    }
-
     /**
      * User input, raw.
      */
     @Getter
     @Setter
     private String input;
-
     /**
      * Command line.
      */
@@ -29,25 +26,32 @@ public abstract class ICommand {
     @Setter
     @NonNull
     private CommandLine commandLine;
-
     private boolean minArgsEnable = false;
     private int minArgs = -1;
-
     private boolean maxArgsEnable = false;
     private int maxArgs = -1;
-
     private boolean commandEnable = false;
-    private String command = null;
+    private String[] commands = null;
+
+    public ICommand() {
+    }
 
     /**
      * Word that activates this command.
      *
-     * @param command Word that activates this command.
-     * @return Self.
+     * @param commands word(s) that activate this command
+     * @return this
+     * @throws UnexpectedRuntimeComponentException if less than one command
+     *                                             string provided
      */
-    ICommand command(String command) {
+    ICommand command(String... commands) {
+        if (commands.length < 1)
+            throw new UnexpectedRuntimeComponentException(
+                    "ICommand::commands commands argument must have at least " +
+                            "1 element"
+            );
         this.commandEnable = true;
-        this.command = command;
+        this.commands = commands;
         return this;
     }
 
@@ -89,8 +93,15 @@ public abstract class ICommand {
 
             if (args.size() < minArgs)
                 return;
-            if (!args.get(0).equalsIgnoreCase(command))
-                return;
+
+            boolean activationCommand = false;
+            for (String kw : commands) {
+                if (args.get(0).equalsIgnoreCase(kw)) {
+                    activationCommand = true;
+                    break;
+                }
+            }
+            if (!activationCommand) return;
         }
 
         if (minArgsEnable && minArgs > 0) {

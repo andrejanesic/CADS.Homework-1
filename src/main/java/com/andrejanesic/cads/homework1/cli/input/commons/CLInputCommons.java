@@ -1,7 +1,7 @@
 package com.andrejanesic.cads.homework1.cli.input.commons;
 
 import com.andrejanesic.cads.homework1.cli.input.ICLInput;
-import com.andrejanesic.cads.homework1.cli.input.commons.commands.CommandManager;
+import com.andrejanesic.cads.homework1.cli.input.commands.CommandManager;
 import org.apache.commons.cli.*;
 
 import javax.inject.Inject;

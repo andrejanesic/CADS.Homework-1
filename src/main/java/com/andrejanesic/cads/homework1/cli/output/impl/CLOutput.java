@@ -42,7 +42,8 @@ public class CLOutput extends ICLOutput {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Date now = new Date();
             prefix = "[" + sdf.format(now) + "]" +
-                    (type.equals(MessageType.WARNING) ? "[Warning]" : "[ERROR]");
+                    (type.equals(MessageType.WARNING) ? "[Warning]" : "[ERROR" +
+                            "]") + " ";
         }
 
         System.out.println(prefix + message);

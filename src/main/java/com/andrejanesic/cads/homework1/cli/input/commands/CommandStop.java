@@ -1,15 +1,15 @@
-package com.andrejanesic.cads.homework1.cli.input.commons.commands;
+package com.andrejanesic.cads.homework1.cli.input.commands;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class CommandClear extends ICommand {
+public class CommandStop extends ICommand {
 
     @Inject
-    public CommandClear() {
+    public CommandStop() {
         super();
-        command("clear");
+        command("stop", "exit");
         minArgs(1);
         maxArgs(1);
     }

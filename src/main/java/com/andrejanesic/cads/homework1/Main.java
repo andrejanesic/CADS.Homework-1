@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Main {
 
+    private static ICore core;
+
     /**
      * Initializes the program. Starts each component.
      *
@@ -16,7 +18,7 @@ public class Main {
     private static void start(String[] args) {
 
         // initialize dagger
-        ICore core = DaggerICore.create();
+        core = DaggerICore.create();
 
         // start components
         try {
@@ -48,24 +50,8 @@ public class Main {
         }
     }
 
-    private static void startComponents(List<IComponent> components) {
-        try {
-            for (IComponent c : components) {
-                c.start();
-            }
-        } catch (Exception e) {
-            // TODO catch exceptions
-        }
-    }
+    public static void end() {
 
-    private static void endComponents(List<IComponent> components) {
-        try {
-            for (IComponent c : components) {
-                c.end();
-            }
-        } catch (Exception e) {
-            // TODO catch exceptions
-        }
     }
 
     public static void main(String[] args) {
