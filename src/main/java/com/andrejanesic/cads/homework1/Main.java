@@ -20,6 +20,9 @@ public class Main {
 
         // start components
         try {
+            // output module
+            core.clOutput().start();
+
             // parse arguments
             core.args().start();
             core.args().parse(args);
@@ -27,9 +30,6 @@ public class Main {
             // start the config
             core.config().start();
             core.config().load();
-
-            // start cli
-            core.cli().start();
 
             // start job queue and dispatcher
             core.jobQueue().start();
@@ -39,6 +39,9 @@ public class Main {
             core.directoryCrawler().start();
             core.fileScanner().start();
             core.webScanner().start();
+
+            // start ui
+            core.clInput().start();
 
         } catch (Exception e) {
             // TODO handle exceptions

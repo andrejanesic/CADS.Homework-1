@@ -9,12 +9,12 @@ import javax.inject.Inject;
 /**
  * Argument parser using Apache Commons CLI.
  */
-public class ArgsCommonsCLI extends IArgs {
+public class ArgsCommons extends IArgs {
 
     private CommandLine cmd;
 
     @Inject
-    public ArgsCommonsCLI() {
+    public ArgsCommons() {
     }
 
     @Override

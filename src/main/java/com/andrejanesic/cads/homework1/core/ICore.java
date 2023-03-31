@@ -2,8 +2,10 @@ package com.andrejanesic.cads.homework1.core;
 
 import com.andrejanesic.cads.homework1.args.IArgs;
 import com.andrejanesic.cads.homework1.args.IArgsModule;
-import com.andrejanesic.cads.homework1.cli.ICLI;
-import com.andrejanesic.cads.homework1.cli.ICLIModule;
+import com.andrejanesic.cads.homework1.cli.input.ICLInput;
+import com.andrejanesic.cads.homework1.cli.input.ICLInputModule;
+import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
+import com.andrejanesic.cads.homework1.cli.output.ICLOutputModule;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.config.IConfigModule;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
@@ -29,7 +31,8 @@ import javax.inject.Singleton;
         IDirectoryCrawlerModule.class,
         IJobQueueModule.class,
         IJobDispatcherModule.class,
-        ICLIModule.class,
+        ICLInputModule.class,
+        ICLOutputModule.class,
         IScannerModule.class,
 })
 public interface ICore {
@@ -44,7 +47,9 @@ public interface ICore {
 
     IJobDispatcher jobDispatcher();
 
-    ICLI cli();
+    ICLInput clInput();
+
+    ICLOutput clOutput();
 
     IFileScanner fileScanner();
 

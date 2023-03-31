@@ -1,6 +1,6 @@
 package com.andrejanesic.cads.homework1.args;
 
-import com.andrejanesic.cads.homework1.args.commons.ArgsCommonsCLI;
+import com.andrejanesic.cads.homework1.args.commons.ArgsCommons;
 import dagger.Binds;
 import dagger.Module;
 
@@ -11,6 +11,6 @@ public interface IArgsModule {
 
     @Binds
     @Singleton
-    IArgs bindArgs(ArgsCommonsCLI impl);
+    IArgs bindArgs(ArgsCommons impl);
 
 }

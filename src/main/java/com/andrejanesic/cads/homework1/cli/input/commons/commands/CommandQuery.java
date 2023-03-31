@@ -1,15 +1,15 @@
-package com.andrejanesic.cads.homework1.cli.commons.commands;
+package com.andrejanesic.cads.homework1.cli.input.commons.commands;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class CommandGet extends ICommand {
+public class CommandQuery extends ICommand {
 
     @Inject
-    public CommandGet() {
+    public CommandQuery() {
         super();
-        command("get");
+        command("query");
         minArgs(2);
     }
 
