@@ -1,47 +1,66 @@
 package com.andrejanesic.cads.homework1.core;
 
-import com.andrejanesic.cads.homework1.utils.LoopRunnable;
-import lombok.AllArgsConstructor;
-
-import java.util.LinkedList;
-import java.util.List;
-
 /**
- * Base component with thread helper methods.
+ * Base component that runs on a separate thread.
  */
-public abstract class ThreadedComponent extends IComponent {
+public abstract class ThreadedComponent extends IComponent implements Runnable {
 
-    private final List<ThreadLoopRunnable> registeredThreads = new LinkedList<>();
+    private final Object keepAliveLock = new Object();
+    private Thread componentThread;
+    private boolean keepAlive = false;
 
     @Override
-    public void beforeEnd() {
-        for (ThreadLoopRunnable threadLoopRunnable : registeredThreads) {
-            try {
-                threadLoopRunnable.loopRunnable.stop();
-                threadLoopRunnable.thread.join();
-            } catch (InterruptedException e) {
-                // TODO handle
-                throw new RuntimeException(e);
-            }
-        }
-        super.beforeEnd();
+    public void start() {
+        componentThread = new Thread(this);
+        componentThread.start();
+        afterStart();
+    }
+
+    @Override
+    public void afterStart() {
+        ;
+    }
+
+    @Override
+    public void main() {
+        keepAlive();
     }
 
     /**
-     * Starts a new single thread and automatically takes care of its shutdown (unless {@link #beforeEnd()} is
-     * overridden.
-     *
-     * @param loopRunnable The {@link LoopRunnable} to execute on the thread.
+     * Convenience method to keep the thread running.
      */
-    public void startThread(LoopRunnable loopRunnable) {
-        Thread thread = new Thread(loopRunnable);
-        registeredThreads.add(new ThreadLoopRunnable(thread, loopRunnable));
-        thread.start();
+    public void keepAlive() {
+        synchronized (keepAliveLock) {
+            keepAlive = true;
+            while (keepAlive) {
+                try {
+                    keepAliveLock.wait();
+                } catch (InterruptedException ignored) {
+                    ;
+                }
+            }
+        }
     }
 
-    @AllArgsConstructor
-    private static class ThreadLoopRunnable {
-        Thread thread;
-        LoopRunnable loopRunnable;
+    @Override
+    public void beforeEnd() {
+        ;
+    }
+
+    @Override
+    public void end() {
+        keepAlive = false;
+        keepAliveLock.notify();
+        beforeEnd();
+        try {
+            componentThread.join();
+        } catch (InterruptedException ignored) {
+            ;
+        }
+    }
+
+    @Override
+    public void run() {
+        main();
     }
 }

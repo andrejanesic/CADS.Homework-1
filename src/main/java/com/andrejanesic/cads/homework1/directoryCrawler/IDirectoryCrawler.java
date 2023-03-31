@@ -1,13 +1,13 @@
 package com.andrejanesic.cads.homework1.directoryCrawler;
 
-import com.andrejanesic.cads.homework1.core.ThreadedComponent;
+import com.andrejanesic.cads.homework1.core.MultiThreadedComponent;
 
 import java.util.Set;
 
 /**
  * Directory crawler. Crawls the given directories for new text corpus subdirectories.
  */
-public abstract class IDirectoryCrawler extends ThreadedComponent {
+public abstract class IDirectoryCrawler extends MultiThreadedComponent {
 
     /**
      * Starts crawling the directories on the given paths.

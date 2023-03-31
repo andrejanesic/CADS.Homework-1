@@ -1,14 +1,13 @@
 package com.andrejanesic.cads.homework1.args;
 
 import com.andrejanesic.cads.homework1.constants.IConstants;
-import com.andrejanesic.cads.homework1.core.IComponent;
 import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 import com.andrejanesic.cads.homework1.core.exceptions.ArgsException;
 
 /**
  * Wrapper for program argument parsing.
  */
-public abstract class IArgs extends IComponent {
+public abstract class IArgs extends ThreadedComponent {
 
     /**
      * Parses the command-line arguments.

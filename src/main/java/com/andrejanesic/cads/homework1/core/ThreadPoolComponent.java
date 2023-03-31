@@ -7,11 +7,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Base component with thread pool support.
+ * Base component that runs on a separate thread and has its own thread pool.
  *
  * @param <V> Thread pool result type.
  */
-public abstract class ThreadPoolComponent<V> extends IComponent {
+public abstract class ThreadPoolComponent<V> extends ThreadedComponent {
 
     @Getter
     private final ExecutorService pool;

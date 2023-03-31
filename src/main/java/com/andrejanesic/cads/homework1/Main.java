@@ -2,6 +2,7 @@ package com.andrejanesic.cads.homework1;
 
 import com.andrejanesic.cads.homework1.core.DaggerICore;
 import com.andrejanesic.cads.homework1.core.IComponent;
+import com.andrejanesic.cads.homework1.core.ThreadedComponent;
 import com.andrejanesic.cads.homework1.core.ICore;
 
 import java.util.HashSet;
