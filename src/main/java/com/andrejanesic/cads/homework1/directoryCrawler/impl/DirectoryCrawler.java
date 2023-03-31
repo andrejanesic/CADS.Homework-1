@@ -3,6 +3,7 @@ package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
+import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 
 import javax.inject.Inject;
 import java.util.Set;
@@ -12,11 +13,13 @@ import java.util.Set;
  */
 public class DirectoryCrawler extends IDirectoryCrawler {
 
+    private final IJobQueue jobQueue;
     private final IConfig config;
     private DirectoryCrawlerWorker directoryCrawlerWorker;
 
     @Inject
-    public DirectoryCrawler(IConfig config) {
+    public DirectoryCrawler(IJobQueue jobQueue, IConfig config) {
+        this.jobQueue = jobQueue;
         this.config = config;
     }
 
@@ -31,7 +34,11 @@ public class DirectoryCrawler extends IDirectoryCrawler {
             directoryCrawlerWorker.setDirectories(directoryPaths);
             return;
         }
-        directoryCrawlerWorker = new DirectoryCrawlerWorker(config.getConfig(), directoryPaths);
+        directoryCrawlerWorker = new DirectoryCrawlerWorker(
+                jobQueue,
+                config.getConfig(),
+                directoryPaths
+        );
         startNewThread(directoryCrawlerWorker);
     }
 

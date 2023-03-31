@@ -3,6 +3,10 @@ package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
 import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
+import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
+import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
+import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
+import com.andrejanesic.cads.homework1.job.type.FileJob;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import lombok.Getter;
 import lombok.NonNull;
@@ -29,7 +33,8 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      */
     @Getter
     public static final ConcurrentHashMap<String, Long> indexedDirs = new ConcurrentHashMap<>();
-
+    @NonNull
+    private final IJobQueue jobQueue;
     @NonNull
     private final AppConfiguration appConfiguration;
     /**
@@ -47,7 +52,11 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
     @Setter
     private Set<String> directories;
 
-    public DirectoryCrawlerWorker(@NonNull AppConfiguration appConfiguration, Set<String> directories) {
+    public DirectoryCrawlerWorker(
+            IJobQueue jobQueue,
+            @NonNull AppConfiguration appConfiguration,
+            Set<String> directories) {
+        this.jobQueue = jobQueue;
         this.appConfiguration = appConfiguration;
         this.directories = directories;
     }
@@ -89,14 +98,41 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
                                 BasicFileAttributes.class
                         );
 
-                        // TODO start new job here
-                        indexedDirs.putIfAbsent(
+                        long lastMod = attributes.lastAccessTime().toMillis();
+                        indexedDirs.computeIfPresent(curr.getAbsolutePath(),
+                                (key, val) -> {
+                                    if (val == lastMod)
+                                        return val;
+
+                                    FileJob newJob = new FileJob(
+                                            absPath
+                                    );
+                                    try {
+                                        jobQueue.enqueueJob(newJob);
+                                    } catch (JobQueueException e) {
+                                        // TODO handle excep
+                                        throw new RuntimeComponentException(e);
+                                    }
+                                    return lastMod;
+                                });
+                        indexedDirs.computeIfAbsent(
                                 curr.getAbsolutePath(),
-                                attributes.lastModifiedTime().toMillis()
+                                (key) -> {
+                                    FileJob newJob = new FileJob(
+                                            absPath
+                                    );
+                                    try {
+                                        jobQueue.enqueueJob(newJob);
+                                    } catch (JobQueueException e) {
+                                        // TODO handle excep
+                                        throw new RuntimeComponentException(e);
+                                    }
+                                    return lastMod;
+                                }
                         );
                     } catch (IOException ex) {
                         // TODO handle excep
-                        throw new RuntimeException(ex);
+                        throw new RuntimeComponentException(ex);
                     }
                 }
 

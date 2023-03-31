@@ -4,7 +4,10 @@ import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
 import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
+import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
 import com.andrejanesic.cads.homework1.directoryCrawler.impl.DirectoryCrawlerWorker;
+import com.andrejanesic.cads.homework1.job.IJob;
+import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.utils.MockConfigProperties;
 import com.andrejanesic.cads.homework1.utils.MockDirectoryTree;
 import com.andrejanesic.cads.homework1.utils.MockTextCorpus;
@@ -23,12 +26,18 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 public class ImplSteps {
 
     String dirPath;
     MockDirectoryTree mockDirectoryTree;
+
+    @Inject
+    @Mock
+    IJobQueue jobQueueMock;
 
     @Inject
     @Mock
@@ -52,6 +61,13 @@ public class ImplSteps {
         );
         MockitoAnnotations.openMocks(this);
         when(configMock.getConfig()).thenReturn(appConfigMock);
+        try {
+            doAnswer((invocation) -> {
+                return null;
+            }).when(jobQueueMock).enqueueJob(any(IJob.class));
+        } catch (JobQueueException e) {
+            throw new RuntimeException(e);
+        }
         DirectoryCrawlerWorker.getIndexedDirs().clear();
     }
 
@@ -98,9 +114,16 @@ public class ImplSteps {
     }
 
     @Then("throw directory crawler exception")
-    public void throw_directory_crawler_exception() {
-        worker = new DirectoryCrawlerWorker(appConfigMock, new HashSet<>(List.of(dirPath)));
+    public void throw_directory_crawler_exception() throws IOException {
+        worker = new DirectoryCrawlerWorker(
+                jobQueueMock,
+                appConfigMock,
+                new HashSet<>(List.of(dirPath))
+        );
         assertThrows(DirectoryCrawlerException.class, worker::loop);
+        if (mockDirectoryTree != null) {
+            mockDirectoryTree.remove();
+        }
     }
 
     @Given("target directory with subdirectories")
@@ -129,15 +152,26 @@ public class ImplSteps {
     }
 
     @Then("no prefix directories indexed")
-    public void no_prefix_directories_indexed() {
-        worker = new DirectoryCrawlerWorker(appConfigMock, new HashSet<>(List.of(dirPath)));
+    public void no_prefix_directories_indexed() throws IOException {
+        worker = new DirectoryCrawlerWorker(
+                jobQueueMock,
+                appConfigMock,
+                new HashSet<>(List.of(dirPath))
+        );
         assertDoesNotThrow(worker::loop);
         assertEquals(0, DirectoryCrawlerWorker.getIndexedDirs().values().size());
+        if (mockDirectoryTree != null) {
+            mockDirectoryTree.remove();
+        }
     }
 
     @Then("all prefix directories indexed")
-    public void all_prefix_directories_indexed() {
-        worker = new DirectoryCrawlerWorker(appConfigMock, new HashSet<>(List.of(dirPath)));
+    public void all_prefix_directories_indexed() throws IOException {
+        worker = new DirectoryCrawlerWorker(
+                jobQueueMock,
+                appConfigMock,
+                new HashSet<>(List.of(dirPath))
+        );
         assertDoesNotThrow(worker::loop);
         DirectoryCrawlerWorker.getIndexedDirs().forEach((absPath, lastMod) -> {
             assertTrue(mockDirectoryTree.getPrefixDirs().contains(absPath));
@@ -145,5 +179,8 @@ public class ImplSteps {
         mockDirectoryTree.getPrefixDirs().forEach((dir) -> {
             assertTrue(DirectoryCrawlerWorker.getIndexedDirs().containsKey(dir));
         });
+        if (mockDirectoryTree != null) {
+            mockDirectoryTree.remove();
+        }
     }
 }
