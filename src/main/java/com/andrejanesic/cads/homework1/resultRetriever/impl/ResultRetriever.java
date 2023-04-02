@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.resultRetriever.impl;
 
 import com.andrejanesic.cads.homework1.config.IConfig;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.query.Query;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
@@ -8,7 +9,6 @@ import lombok.NonNull;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
 @Singleton
@@ -17,9 +17,30 @@ public class ResultRetriever extends IResultRetriever {
     @NonNull
     private final IConfig config;
 
-    @Inject
+    private final IExceptionHandler exceptionHandler;
+
+    /**
+     * @param config config
+     * @deprecated use the new default constructor:
+     * {@link #ResultRetriever(IConfig, IExceptionHandler)}
+     */
     public ResultRetriever(IConfig config) {
+        this(config, null);
+    }
+
+    /**
+     * Default constructor.
+     *
+     * @param config           config
+     * @param exceptionHandler exception handler
+     */
+    @Inject
+    public ResultRetriever(
+            @NonNull IConfig config,
+            IExceptionHandler exceptionHandler
+    ) {
         this.config = config;
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
@@ -36,7 +57,8 @@ public class ResultRetriever extends IResultRetriever {
         ResultRetrieverCallable callable = new ResultRetrieverCallable(
                 this,
                 query,
-                config.getConfig().keywords()
+                config.getConfig().keywords(),
+                exceptionHandler
         );
 
         Future<Result> res = getPool().submit(callable);

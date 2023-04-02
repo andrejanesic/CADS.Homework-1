@@ -14,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -39,16 +40,27 @@ public class WebScannerCallable implements Callable<Result> {
         Document document = null;
         try {
             document = Jsoup.connect(job.getUrl()).get();
-            if (document == null || document.text().length() == 0)
-                throw new ScannerException("document is null or no text");
+            if (document == null || document.text().length() == 0) {
+                ScannerException e = new ScannerException(
+                        "Could not fetch the document, or document has no " +
+                                "text. Check the URL entered."
+                );
+                result.getExceptions().add(e);
+                result.setSuccess(false);
+                result.setFrequency(new HashMap<>());
+                long endTime = System.currentTimeMillis();
+                result.setCompletionTime(endTime);
+                result.setConsumedTime(endTime - startTime);
+                return result;
+            }
         } catch (Exception e) {
             exceptions.add(new ScannerException(e));
         }
 
         // if error when fetching
         if (!exceptions.isEmpty()) {
-            long endTime = System.currentTimeMillis();
             result.setSuccess(false);
+            long endTime = System.currentTimeMillis();
             result.setCompletionTime(endTime);
             result.setConsumedTime(endTime - startTime);
             return result;

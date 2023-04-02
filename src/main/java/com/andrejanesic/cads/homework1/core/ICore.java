@@ -4,12 +4,16 @@ import com.andrejanesic.cads.homework1.args.IArgs;
 import com.andrejanesic.cads.homework1.args.IArgsModule;
 import com.andrejanesic.cads.homework1.cli.input.ICLInput;
 import com.andrejanesic.cads.homework1.cli.input.ICLInputModule;
+import com.andrejanesic.cads.homework1.cli.input.commands.ICommandManager;
+import com.andrejanesic.cads.homework1.cli.input.commands.ICommandModule;
 import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
 import com.andrejanesic.cads.homework1.cli.output.ICLOutputModule;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.config.IConfigModule;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawlerModule;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandlerModule;
 import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcher;
 import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcherModule;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
@@ -37,6 +41,8 @@ import javax.inject.Singleton;
         ICLOutputModule.class,
         IScannerModule.class,
         IResultRetrieverModule.class,
+        ICommandModule.class,
+        IExceptionHandlerModule.class,
 })
 public interface ICore {
 
@@ -59,4 +65,8 @@ public interface ICore {
     IWebScanner webScanner();
 
     IResultRetriever resultRetriever();
+
+    ICommandManager commandManager();
+
+    IExceptionHandler exceptionHandler();
 }

@@ -10,8 +10,6 @@ public class CommandStop extends ICommand {
     public CommandStop() {
         super();
         command("stop", "exit");
-        minArgs(1);
-        maxArgs(1);
     }
 
     @Override

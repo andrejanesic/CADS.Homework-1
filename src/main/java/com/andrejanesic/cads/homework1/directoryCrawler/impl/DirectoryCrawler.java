@@ -1,11 +1,17 @@
 package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 
+import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
 import com.andrejanesic.cads.homework1.config.IConfig;
+import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
+import lombok.Getter;
 
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,33 +19,55 @@ import java.util.Set;
  */
 public class DirectoryCrawler extends IDirectoryCrawler {
 
+    @Getter
+    private static final Set<String> directoryPaths = Collections
+            .synchronizedSet(new HashSet<>());
     private final IJobQueue jobQueue;
     private final IConfig config;
+    private final ICLOutput iclOutput;
+    private final IExceptionHandler exceptionHandler;
     private DirectoryCrawlerWorker directoryCrawlerWorker;
 
     @Inject
-    public DirectoryCrawler(IJobQueue jobQueue, IConfig config) {
+    public DirectoryCrawler(
+            IJobQueue jobQueue,
+            IConfig config,
+            ICLOutput iclOutput,
+            IExceptionHandler exceptionHandler
+    ) {
         this.jobQueue = jobQueue;
         this.config = config;
+        this.iclOutput = iclOutput;
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
     public void crawl(Set<String> directoryPaths) {
-        if (directoryPaths == null || directoryPaths.size() == 0)
-            // TODO handle better
-            throw new RuntimeComponentException(
-                    "DirectoryCrawler::crawl directoryPaths must not be null or empty"
+        if (directoryPaths == null) {
+            DirectoryCrawlerException e = new DirectoryCrawlerException(
+                    "DirectoryCrawler::crawl directoryPaths must not be null"
             );
+            if (exceptionHandler == null)
+                throw new RuntimeComponentException(e);
+            exceptionHandler.handle(e);
+        }
+        DirectoryCrawler.directoryPaths.addAll(directoryPaths);
         if (directoryCrawlerWorker != null) {
-            directoryCrawlerWorker.setDirectories(directoryPaths);
             return;
         }
         directoryCrawlerWorker = new DirectoryCrawlerWorker(
+                exceptionHandler,
+                iclOutput,
                 jobQueue,
                 config.getConfig(),
-                directoryPaths
+                DirectoryCrawler.directoryPaths
         );
         startNewThread(directoryCrawlerWorker);
+    }
+
+    @Override
+    public void crawl(String directoryPath) {
+        crawl(Collections.singleton(directoryPath));
     }
 
     @Override

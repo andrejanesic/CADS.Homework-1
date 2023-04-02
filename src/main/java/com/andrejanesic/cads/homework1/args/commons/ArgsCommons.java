@@ -2,6 +2,7 @@ package com.andrejanesic.cads.homework1.args.commons;
 
 import com.andrejanesic.cads.homework1.args.IArgs;
 import com.andrejanesic.cads.homework1.core.exceptions.ArgsException;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import org.apache.commons.cli.*;
 
 import javax.inject.Inject;
@@ -11,10 +12,19 @@ import javax.inject.Inject;
  */
 public class ArgsCommons extends IArgs {
 
+    private final IExceptionHandler exceptionHandler;
     private CommandLine cmd;
 
-    @Inject
+    /**
+     * @deprecated use new default constructor: {@link #ArgsCommons(IExceptionHandler)}
+     */
     public ArgsCommons() {
+        this(null);
+    }
+
+    @Inject
+    public ArgsCommons(IExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
@@ -37,7 +47,9 @@ public class ArgsCommons extends IArgs {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
-            throw new ArgsException(e.getMessage());
+            if (exceptionHandler == null)
+                throw new ArgsException(e.getMessage());
+            exceptionHandler.handle(e);
         }
     }
 

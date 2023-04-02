@@ -1,5 +1,6 @@
 package com.andrejanesic.cads.homework1.cli.input.commands;
 
+import com.andrejanesic.cads.homework1.core.exceptions.CLInputException;
 import com.andrejanesic.cads.homework1.core.exceptions.UnexpectedRuntimeComponentException;
 import lombok.Getter;
 import lombok.NonNull;
@@ -9,7 +10,7 @@ import org.apache.commons.cli.CommandLine;
 import java.util.List;
 
 /**
- * Used for parsing user args input.
+ * Represents commands that the user can enter via the input module as a string.
  */
 public abstract class ICommand {
 
@@ -28,10 +29,16 @@ public abstract class ICommand {
     private CommandLine commandLine;
     private boolean minArgsEnable = false;
     private int minArgs = -1;
-    private boolean maxArgsEnable = false;
-    private int maxArgs = -1;
     private boolean commandEnable = false;
     private String[] commands = null;
+    /**
+     * Whether the command has been recognized and parsed by this command.
+     * Does not indicate successful execution, only recognition of the
+     * command pattern in the user's input.
+     */
+    @Getter
+    @Setter
+    private boolean recognized = false;
 
     public ICommand() {
     }
@@ -56,33 +63,10 @@ public abstract class ICommand {
     }
 
     /**
-     * Minimum number of arguments required for this command.
-     *
-     * @param minArgs Minimum number of arguments required for this command.
-     * @return Self.
+     * Verifies the user input against this command's rules and runs
+     * {@link #exec()} if command applicable.
      */
-    ICommand minArgs(int minArgs) {
-        minArgsEnable = true;
-        this.minArgs = minArgs;
-        return this;
-    }
-
-    /**
-     * Maximum number of arguments required for this command (inclusive).
-     *
-     * @param maxArgs Maximum number of arguments required for this command (inclusive).
-     * @return Self.
-     */
-    ICommand maxArgs(int maxArgs) {
-        maxArgsEnable = true;
-        this.maxArgs = maxArgs;
-        return this;
-    }
-
-    /**
-     * Verifies the user input against this command's rules and runs {@link #exec()} if command applicable.
-     */
-    public void parse() {
+    public void parse() throws CLInputException {
         List<String> args = commandLine.getArgList();
 
         if (commandEnable) {
@@ -104,21 +88,14 @@ public abstract class ICommand {
             if (!activationCommand) return;
         }
 
-        if (minArgsEnable && minArgs > 0) {
-            if (args.size() < minArgs)
-                return;
-        }
-
-        if (maxArgsEnable && maxArgs > 0) {
-            if (args.size() > maxArgs)
-                return;
-        }
-
+        setRecognized(true);
         exec();
     }
 
     /**
-     * Executes the command based on the user input. Only called if all checks passed.
+     * Executes the command based on the user input. Only called if all
+     * checks passed. This method should conduct any fine syntax checking
+     * (such as checking for arguments, and so on.)
      */
-    public abstract void exec();
+    public abstract void exec() throws CLInputException;
 }

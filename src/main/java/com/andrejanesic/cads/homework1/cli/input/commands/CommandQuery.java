@@ -10,7 +10,6 @@ public class CommandQuery extends ICommand {
     public CommandQuery() {
         super();
         command("query");
-        minArgs(2);
     }
 
     @Override

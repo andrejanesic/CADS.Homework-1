@@ -5,6 +5,7 @@ import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.constants.IConstants;
 import com.andrejanesic.cads.homework1.core.exceptions.ConfigException;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import org.cfg4j.provider.ConfigurationProvider;
 import org.cfg4j.provider.ConfigurationProviderBuilder;
 import org.cfg4j.source.ConfigurationSource;
@@ -19,7 +20,6 @@ import org.cfg4j.source.reload.strategy.ImmediateReloadStrategy;
 
 import javax.inject.Inject;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -28,11 +28,28 @@ import java.util.regex.PatternSyntaxException;
 public class CFG4JLoader extends IConfig {
 
     private final IArgs args;
+    private final IExceptionHandler exceptionHandler;
     private AppConfiguration configuration;
 
-    @Inject
+    /**
+     * @param args args interface
+     * @deprecated use the new default constructor:
+     * {@link #CFG4JLoader(IArgs, IExceptionHandler)}
+     */
     public CFG4JLoader(IArgs args) {
+        this(args, null);
+    }
+
+    /**
+     * Default constructor
+     *
+     * @param args             args interface
+     * @param exceptionHandler exception handler
+     */
+    @Inject
+    public CFG4JLoader(IArgs args, IExceptionHandler exceptionHandler) {
         this.args = args;
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
@@ -106,42 +123,82 @@ public class CFG4JLoader extends IConfig {
                 //noinspection DataFlowIssue
                 Pattern.compile(delimiter);
             } catch (PatternSyntaxException e) {
-                throw new ConfigException(
+                ConfigException ex = new ConfigException(
                         "Delimiter \"" +
                                 delimiter +
                                 "\" is not a valid regular expression"
                 );
+
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
             }
 
             String[] keywords = configuration.keywords();
             if (keywords == null || keywords.length == 0)
                 throw new ConfigException("No keywords defined");
             for (String k : keywords) {
-                if (k.split(delimiter).length > 1)
-                    throw new ConfigException(
+                if (k.split(delimiter).length > 1) {
+                    ConfigException ex = new ConfigException(
                             "Keyword \"" + k +
                                     "\" contains delimiter: \"" +
                                     delimiter + "\"");
+
+                    if (exceptionHandler == null)
+                        throw ex;
+                    exceptionHandler.handle(ex);
+                }
             }
 
             int directoryCrawlerSleepTime = configuration.directoryCrawlerSleepTime();
-            if (directoryCrawlerSleepTime < 0)
-                throw new ConfigException("directoryCrawlerSleepTime cannot be lower than 0");
+            if (directoryCrawlerSleepTime < 0) {
+                ConfigException ex = new ConfigException(
+                        "directoryCrawlerSleepTime cannot be " +
+                                "lower than 0");
+
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
+            }
 
             long fileScanningSizeLimit = configuration.fileScanningSizeLimit();
-            if (fileScanningSizeLimit < 0)
-                throw new ConfigException("fileScanningSizeLimit cannot be lower than 0");
+            if (fileScanningSizeLimit < 0) {
+                ConfigException ex = new ConfigException(
+                        "fileScanningSizeLimit " +
+                                "cannot be lower than 0");
+
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
+            }
 
             int hopCount = configuration.hopCount();
-            if (hopCount < 0)
-                throw new ConfigException("hopCount cannot be lower than 0");
+            if (hopCount < 0) {
+                ConfigException ex = new ConfigException("hopCount cannot be " +
+                        "lower than 0");
+
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
+            }
 
             int urlRefreshTime = configuration.urlRefreshTime();
-            if (urlRefreshTime < 0)
-                throw new ConfigException("urlRefreshTime cannot be lower than 0");
+            if (urlRefreshTime < 0) {
+                ConfigException ex = new ConfigException("urlRefreshTime " +
+                        "cannot be lower " +
+                        "than 0");
+
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
+            }
 
         } catch (RuntimeException e) {
-            throw new ConfigException(e);
+            ConfigException ex = new ConfigException(e);
+
+            if (exceptionHandler == null)
+                throw ex;
+            exceptionHandler.handle(ex);
         }
         return configuration;
     }
@@ -151,6 +208,8 @@ public class CFG4JLoader extends IConfig {
         try {
             return load();
         } catch (ConfigException e) {
+            if (exceptionHandler != null)
+                exceptionHandler.handle(e);
             return null;
         }
     }

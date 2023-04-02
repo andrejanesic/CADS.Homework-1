@@ -2,6 +2,8 @@ package com.andrejanesic.cads.homework1.scanner.web;
 
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
+import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
@@ -22,20 +24,46 @@ public class WebScanner extends IWebScanner {
     private final IResultRetriever resultRetriever;
     private final IJobQueue jobQueue;
     private final IConfig config;
+    private final IExceptionHandler exceptionHandler;
     private Map<String, Future<Result>> indexId = new HashMap<>();
     private Map<String, Future<Result>> indexUrl = new HashMap<>();
     private Thread refreshThread;
     private LoopRunnable refreshRunnable;
 
-    @Inject
+    /**
+     * @param resultRetriever result retriever
+     * @param jobQueue        job queue
+     * @param config          app config
+     * @deprecated use the new default constructor:
+     * {@link #WebScanner(IResultRetriever, IJobQueue, IConfig, IExceptionHandler)}
+     */
     public WebScanner(
             IResultRetriever resultRetriever,
             IJobQueue jobQueue,
             IConfig config
     ) {
+        this(resultRetriever, jobQueue, config, null);
+    }
+
+    /**
+     * Default constructor.
+     *
+     * @param resultRetriever  result retriever
+     * @param jobQueue         job queue
+     * @param config           app config
+     * @param exceptionHandler exception handler
+     */
+    @Inject
+    public WebScanner(
+            IResultRetriever resultRetriever,
+            IJobQueue jobQueue,
+            IConfig config,
+            IExceptionHandler exceptionHandler
+    ) {
         this.resultRetriever = resultRetriever;
         this.jobQueue = jobQueue;
         this.config = config;
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
@@ -53,10 +81,27 @@ public class WebScanner extends IWebScanner {
 
     @Override
     public Future<Result> submit(IJob job) {
-        if (!(job instanceof WebJob webJob))
-            throw new RuntimeComponentException("Invalid job type passed");
-        if (indexId.containsKey(webJob.getId()) || indexUrl.containsKey(webJob.getUrl()))
-            return null;
+        if (job == null) {
+            ScannerException e = new ScannerException(
+                    "WebScanner::submit job cannot be null"
+            );
+            if (exceptionHandler == null)
+                throw new RuntimeComponentException(e);
+            exceptionHandler.handle(e);
+        }
+        if (!(job instanceof WebJob)) {
+            ScannerException e = new ScannerException(
+                    "WebScanner::submit job must be of type WebJob"
+            );
+            if (exceptionHandler == null)
+                throw new RuntimeComponentException(e);
+            exceptionHandler.handle(e);
+        }
+        WebJob webJob = (WebJob) job;
+        if (indexId.containsKey(webJob.getId()))
+            return indexId.get(webJob.getId());
+        if (indexUrl.containsKey(webJob.getUrl()))
+            return indexUrl.get(webJob.getUrl());
         WebScannerCallable scanner = new WebScannerCallable(webJob, jobQueue, config);
         Future<Result> res = getPool().submit(scanner);
         indexId.put(webJob.getId(), res);

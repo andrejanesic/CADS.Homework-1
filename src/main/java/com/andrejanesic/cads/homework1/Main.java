@@ -1,10 +1,7 @@
 package com.andrejanesic.cads.homework1;
 
 import com.andrejanesic.cads.homework1.core.DaggerICore;
-import com.andrejanesic.cads.homework1.core.IComponent;
 import com.andrejanesic.cads.homework1.core.ICore;
-
-import java.util.List;
 
 public class Main {
 
@@ -22,6 +19,9 @@ public class Main {
 
         // start components
         try {
+            // exception handler
+            core.exceptionHandler().start();
+
             // output module
             core.clOutput().start();
 

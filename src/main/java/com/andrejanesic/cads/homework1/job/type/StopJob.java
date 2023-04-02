@@ -15,10 +15,13 @@ import com.andrejanesic.cads.homework1.scanner.IScanner;
 public class StopJob extends IJob {
 
     /**
+     * Default constructor.
      *
+     * @param type the job type, indicating which scanner the job should be
+     *             sent to
      */
-    public StopJob() {
-        super(JobType.STOP);
+    public StopJob(JobType type) {
+        super(type);
     }
 
 }

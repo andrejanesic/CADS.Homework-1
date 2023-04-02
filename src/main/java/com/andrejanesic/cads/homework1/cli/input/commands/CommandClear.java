@@ -10,8 +10,6 @@ public class CommandClear extends ICommand {
     public CommandClear() {
         super();
         command("clear");
-        minArgs(1);
-        maxArgs(1);
     }
 
     @Override

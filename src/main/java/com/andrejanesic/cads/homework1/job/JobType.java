@@ -6,5 +6,4 @@ package com.andrejanesic.cads.homework1.job;
 public enum JobType {
     FILE,
     WEB,
-    STOP,
 }

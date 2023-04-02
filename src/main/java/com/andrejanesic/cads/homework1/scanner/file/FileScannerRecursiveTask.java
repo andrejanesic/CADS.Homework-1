@@ -3,11 +3,11 @@ package com.andrejanesic.cads.homework1.scanner.file;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
 import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.FileJob;
 import com.andrejanesic.cads.homework1.utils.KeywordCounter;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 import java.io.BufferedReader;
@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.RecursiveTask;
 
-@AllArgsConstructor
 public class FileScannerRecursiveTask extends RecursiveTask<Result> {
 
     @NonNull
@@ -32,6 +31,34 @@ public class FileScannerRecursiveTask extends RecursiveTask<Result> {
     private final IJobQueue jobQueue;
     @NonNull
     private final IConfig config;
+
+    /**
+     * Default constructor.
+     *
+     * @param job              job to execute
+     * @param filePaths        list of file paths to scan
+     * @param from             index of the list of file paths to start
+     *                         scanning from
+     * @param to               index of the list of file paths to end
+     *                         scanning at
+     * @param jobQueue         job queue
+     * @param config           app config
+     */
+    public FileScannerRecursiveTask(
+            @NonNull FileJob job,
+            @NonNull List<String> filePaths,
+            int from,
+            int to,
+            @NonNull IJobQueue jobQueue,
+            @NonNull IConfig config
+    ) {
+        this.job = job;
+        this.filePaths = filePaths;
+        this.from = from;
+        this.to = to;
+        this.jobQueue = jobQueue;
+        this.config = config;
+    }
 
     @Override
     protected Result compute() {

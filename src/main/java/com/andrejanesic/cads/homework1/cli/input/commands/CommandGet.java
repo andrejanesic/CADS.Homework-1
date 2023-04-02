@@ -10,7 +10,6 @@ public class CommandGet extends ICommand {
     public CommandGet() {
         super();
         command("get");
-        minArgs(2);
     }
 
     @Override

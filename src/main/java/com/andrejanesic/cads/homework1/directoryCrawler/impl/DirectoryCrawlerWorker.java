@@ -1,10 +1,12 @@
 package com.andrejanesic.cads.homework1.directoryCrawler.impl;
 
+import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
 import com.andrejanesic.cads.homework1.config.AppConfiguration;
 import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
 import com.andrejanesic.cads.homework1.core.exceptions.DirectoryCrawlerException;
 import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.type.FileJob;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
@@ -33,8 +35,10 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      */
     @Getter
     public static final ConcurrentHashMap<String, Long> indexedDirs = new ConcurrentHashMap<>();
+    private final ICLOutput clOutput;
     @NonNull
     private final IJobQueue jobQueue;
+    private final IExceptionHandler exceptionHandler;
     @NonNull
     private final AppConfiguration appConfiguration;
     /**
@@ -52,13 +56,41 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
     @Setter
     private Set<String> directories;
 
+    /**
+     * Default constructor.
+     *
+     * @param clOutput         command line output interface
+     * @param jobQueue         job queue
+     * @param appConfiguration app configuration
+     * @param directories      set of directories to crawl
+     */
     public DirectoryCrawlerWorker(
+            IExceptionHandler exceptionHandler,
+            ICLOutput clOutput,
             IJobQueue jobQueue,
             @NonNull AppConfiguration appConfiguration,
-            Set<String> directories) {
+            Set<String> directories
+    ) {
+        this.exceptionHandler = exceptionHandler;
+        this.clOutput = clOutput;
         this.jobQueue = jobQueue;
         this.appConfiguration = appConfiguration;
         this.directories = directories;
+    }
+
+    /**
+     * @param jobQueue         job queue
+     * @param appConfiguration app configuration
+     * @param directories      set of directories to crawl
+     * @deprecated use the new default constructor:
+     * {@link #DirectoryCrawlerWorker(IExceptionHandler, ICLOutput, IJobQueue, AppConfiguration, Set)}
+     */
+    public DirectoryCrawlerWorker(
+            IJobQueue jobQueue,
+            @NonNull AppConfiguration appConfiguration,
+            Set<String> directories
+    ) {
+        this(null, null, jobQueue, appConfiguration, directories);
     }
 
     /**
@@ -71,7 +103,14 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
                 File curr = new File(p);
                 visited.clear();
                 if (!curr.exists() || !curr.isDirectory()) {
-                    throw new DirectoryCrawlerException("Path " + curr + " does not exist or is not a directory");
+                    String err = "Path " + curr + " does not exist or is not " +
+                            "a directory";
+                    DirectoryCrawlerException e =
+                            new DirectoryCrawlerException(err);
+                    if (exceptionHandler == null) {
+                        throw e;
+                    }
+                    exceptionHandler.handle(e);
                 }
                 content.addFirst(curr);
             }
@@ -110,8 +149,12 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
                                     try {
                                         jobQueue.enqueueJob(newJob);
                                     } catch (JobQueueException e) {
-                                        // TODO handle excep
-                                        throw new RuntimeComponentException(e);
+                                        ComponentException ex =
+                                                new DirectoryCrawlerException(e);
+                                        if (exceptionHandler == null) {
+                                            throw new RuntimeComponentException(ex);
+                                        }
+                                        exceptionHandler.handle(ex);
                                     }
                                     return lastMod;
                                 });
@@ -124,15 +167,23 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
                                     try {
                                         jobQueue.enqueueJob(newJob);
                                     } catch (JobQueueException e) {
-                                        // TODO handle excep
-                                        throw new RuntimeComponentException(e);
+                                        ComponentException ex =
+                                                new DirectoryCrawlerException(e);
+                                        if (exceptionHandler == null) {
+                                            throw new RuntimeComponentException(ex);
+                                        }
+                                        exceptionHandler.handle(ex);
                                     }
                                     return lastMod;
                                 }
                         );
                     } catch (IOException ex) {
-                        // TODO handle excep
-                        throw new RuntimeComponentException(ex);
+                        DirectoryCrawlerException exc =
+                                new DirectoryCrawlerException(ex);
+                        if (exceptionHandler == null) {
+                            throw exc;
+                        }
+                        exceptionHandler.handle(exc);
                     }
                 }
 
@@ -144,7 +195,12 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
                 }
             }
         } catch (Exception e) {
-            throw new DirectoryCrawlerException(e.getMessage());
+            DirectoryCrawlerException ex =
+                    new DirectoryCrawlerException(e);
+            if (exceptionHandler == null) {
+                throw ex;
+            }
+            exceptionHandler.handle(ex);
         }
     }
 }

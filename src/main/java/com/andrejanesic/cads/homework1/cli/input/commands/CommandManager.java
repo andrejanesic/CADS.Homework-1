@@ -1,22 +1,23 @@
 package com.andrejanesic.cads.homework1.cli.input.commands;
 
+import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
+import lombok.Getter;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Holds all commands.
- */
 @Singleton
-public class CommandManager {
+@Getter
+public class CommandManager implements ICommandManager {
 
+    private final IDirectoryCrawler directoryCrawler;
     private final CommandAdd commandAdd;
     private final CommandClear commandClear;
     private final CommandGet commandGet;
     private final CommandQuery commandQuery;
     private final CommandStop commandStop;
-    private final CommandError commandError;
 
     /**
      * Holds all commands
@@ -26,38 +27,32 @@ public class CommandManager {
      * @param commandGet
      * @param commandQuery
      * @param commandStop
-     * @param commandError
      */
     @Inject
     public CommandManager(
+            IDirectoryCrawler directoryCrawler,
             CommandAdd commandAdd,
             CommandClear commandClear,
             CommandGet commandGet,
             CommandQuery commandQuery,
-            CommandStop commandStop,
-            CommandError commandError
+            CommandStop commandStop
     ) {
+        this.directoryCrawler = directoryCrawler;
         this.commandAdd = commandAdd;
         this.commandClear = commandClear;
         this.commandGet = commandGet;
         this.commandQuery = commandQuery;
         this.commandStop = commandStop;
-        this.commandError = commandError;
     }
 
-    /**
-     * Returns all available {@link ICommand} implementations.
-     *
-     * @return Returns all available {@link ICommand} implementations.
-     */
+    @Override
     public List<ICommand> getCommands() {
         return Arrays.asList(
                 commandAdd,
                 commandClear,
                 commandGet,
                 commandQuery,
-                commandStop,
-                commandError
+                commandStop
         );
     }
 }

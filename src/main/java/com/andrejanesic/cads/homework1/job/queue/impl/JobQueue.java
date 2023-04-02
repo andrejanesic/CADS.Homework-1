@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.job.queue.impl;
 
 import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
+import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import lombok.Getter;
@@ -23,13 +24,35 @@ public class JobQueue extends IJobQueue {
     @Getter
     private final int maxSize;
 
-    @Inject
+    private final IExceptionHandler exceptionHandler;
+
+    /**
+     * @param maxSize max queue size
+     * @deprecated use the new default constructor:
+     * {@link #JobQueue(int, IExceptionHandler)}
+     */
     public JobQueue(int maxSize) {
-        this.maxSize = maxSize;
+        this(maxSize, null);
     }
 
+    /**
+     * @deprecated use the new default constructor:
+     * {@link #JobQueue(int, IExceptionHandler)}
+     */
     public JobQueue() {
-        this.maxSize = -1;
+        this(-1, null);
+    }
+
+    /**
+     * Default constructor.
+     *
+     * @param maxSize          max queue size
+     * @param exceptionHandler exception handler
+     */
+    @Inject
+    public JobQueue(int maxSize, IExceptionHandler exceptionHandler) {
+        this.maxSize = maxSize;
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
@@ -38,7 +61,10 @@ public class JobQueue extends IJobQueue {
             try {
                 this.wait();
             } catch (InterruptedException e) {
-                throw new JobQueueException(e.getMessage());
+                JobQueueException ex = new JobQueueException(e);
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
             }
         }
 
@@ -52,7 +78,10 @@ public class JobQueue extends IJobQueue {
             try {
                 this.wait();
             } catch (InterruptedException e) {
-                throw new JobQueueException(e.getMessage());
+                JobQueueException ex = new JobQueueException(e);
+                if (exceptionHandler == null)
+                    throw ex;
+                exceptionHandler.handle(ex);
             }
         }
 
