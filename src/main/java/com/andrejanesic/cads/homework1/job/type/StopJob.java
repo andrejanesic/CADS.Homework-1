@@ -16,12 +16,9 @@ public class StopJob extends IJob {
 
     /**
      * Default constructor.
-     *
-     * @param type the job type, indicating which scanner the job should be
-     *             sent to
      */
-    public StopJob(JobType type) {
-        super(type);
+    public StopJob() {
+        super(JobType.STOP);
     }
 
 }

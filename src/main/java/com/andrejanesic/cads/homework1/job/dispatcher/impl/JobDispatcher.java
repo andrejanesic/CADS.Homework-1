@@ -55,7 +55,8 @@ public class JobDispatcher extends IJobDispatcher {
                 jobQueue,
                 exceptionHandler,
                 webScanner,
-                fileScanner
+                fileScanner,
+                this
         );
         startNewThread(jobDispatcherWorker);
     }

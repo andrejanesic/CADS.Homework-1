@@ -8,6 +8,7 @@ import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.IJob;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
+import com.andrejanesic.cads.homework1.job.type.StopJob;
 import com.andrejanesic.cads.homework1.job.type.WebJob;
 import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import com.andrejanesic.cads.homework1.scanner.IWebScanner;
@@ -104,6 +105,10 @@ public class WebScanner extends IWebScanner {
             if (exceptionHandler == null)
                 throw new RuntimeComponentException(e);
             exceptionHandler.handle(e);
+        }
+        if (job instanceof StopJob) {
+            end();
+            return null;
         }
         if (!(job instanceof WebJob)) {
             ScannerException e = new ScannerException(

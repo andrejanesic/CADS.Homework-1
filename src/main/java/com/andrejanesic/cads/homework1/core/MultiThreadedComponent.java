@@ -23,7 +23,8 @@ public abstract class MultiThreadedComponent extends ThreadedComponent {
         for (ThreadStopRunnable threadStopRunnable : registeredThreads) {
             try {
                 threadStopRunnable.stopRunnable.stop();
-                if (!threadStopRunnable.thread.isDaemon())
+                if (!threadStopRunnable.thread.isDaemon() &&
+                        threadStopRunnable.thread.isAlive())
                     threadStopRunnable.thread.join();
             } catch (InterruptedException e) {
                 // TODO handle

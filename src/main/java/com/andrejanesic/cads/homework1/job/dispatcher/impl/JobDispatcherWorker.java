@@ -4,6 +4,7 @@ import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.IJob;
+import com.andrejanesic.cads.homework1.job.dispatcher.IJobDispatcher;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.scanner.IFileScanner;
 import com.andrejanesic.cads.homework1.scanner.IWebScanner;
@@ -17,6 +18,7 @@ public class JobDispatcherWorker extends LoopRunnable {
     private final IExceptionHandler exceptionHandler;
     private final IWebScanner webScanner;
     private final IFileScanner fileScanner;
+    private final IJobDispatcher jobDispatcher;
 
     @Override
     public void loop() {
@@ -62,7 +64,7 @@ public class JobDispatcherWorker extends LoopRunnable {
                     webScanner.submit(job);
                 }
                 case FILE -> {
-                    if (webScanner == null) {
+                    if (fileScanner == null) {
                         JobQueueException e = new JobQueueException(
                                 "JobDispatcherWorker::loop fileScanner cannot" +
                                         " be null"
@@ -74,6 +76,36 @@ public class JobDispatcherWorker extends LoopRunnable {
                     }
 
                     fileScanner.submit(job);
+                }
+                case STOP -> {
+
+                    if (fileScanner == null) {
+                        JobQueueException e = new JobQueueException(
+                                "JobDispatcherWorker::loop fileScanner cannot" +
+                                        " be null"
+                        );
+                        if (exceptionHandler == null) {
+                            throw new RuntimeComponentException(e);
+                        }
+                        exceptionHandler.handle(e);
+                    }
+
+                    fileScanner.submit(job);
+
+                    if (webScanner == null) {
+                        JobQueueException e = new JobQueueException(
+                                "JobDispatcherWorker::loop webScanner cannot " +
+                                        "be null"
+                        );
+                        if (exceptionHandler == null) {
+                            throw new RuntimeComponentException(e);
+                        }
+                        exceptionHandler.handle(e);
+                    }
+
+                    webScanner.submit(job);
+
+                    this.stop();
                 }
                 default -> {
                     JobQueueException e = new JobQueueException(

@@ -11,6 +11,7 @@ import com.andrejanesic.cads.homework1.job.query.Query;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.FileJob;
+import com.andrejanesic.cads.homework1.job.type.StopJob;
 import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import com.andrejanesic.cads.homework1.scanner.IFileScanner;
 
@@ -81,6 +82,10 @@ public class FileScanner extends IFileScanner {
             if (exceptionHandler == null)
                 throw new RuntimeComponentException(e);
             exceptionHandler.handle(e);
+        }
+        if (job instanceof StopJob) {
+            end();
+            return null;
         }
         if (!(job instanceof FileJob)) {
             ScannerException e = new ScannerException(

@@ -2,6 +2,8 @@ package com.andrejanesic.cads.homework1;
 
 import com.andrejanesic.cads.homework1.core.DaggerICore;
 import com.andrejanesic.cads.homework1.core.ICore;
+import com.andrejanesic.cads.homework1.core.exceptions.JobQueueException;
+import com.andrejanesic.cads.homework1.job.type.StopJob;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -74,9 +76,12 @@ public class Main {
             core.jobQueue().end();
         }
         core.directoryCrawler().end();
+        try {
+            core.jobQueue().enqueueJob(new StopJob());
+        } catch (JobQueueException e) {
+            ;
+        }
         core.jobDispatcher().end();
-        core.webScanner().end();
-        core.fileScanner().end();
         core.jobQueue().end();
         core.config().end();
         core.args().end();
