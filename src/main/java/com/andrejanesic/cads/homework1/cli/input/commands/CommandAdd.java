@@ -1,12 +1,15 @@
 package com.andrejanesic.cads.homework1.cli.input.commands;
 
 import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
+import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.CLInputException;
 import com.andrejanesic.cads.homework1.core.exceptions.RoutineException;
 import com.andrejanesic.cads.homework1.core.routines.AddDirectoryRoutine;
+import com.andrejanesic.cads.homework1.core.routines.AddWebsiteRoutine;
 import com.andrejanesic.cads.homework1.core.routines.IRoutine;
 import com.andrejanesic.cads.homework1.core.routines.RoutineManager;
 import com.andrejanesic.cads.homework1.directoryCrawler.IDirectoryCrawler;
+import com.andrejanesic.cads.homework1.scanner.IWebScanner;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,15 +22,21 @@ public class CommandAdd extends ICommand {
             "(--dir|--web) (path|URL)";
     private final ICLOutput clOutput;
     private final IDirectoryCrawler directoryCrawler;
+    private final IWebScanner webScanner;
+    private final IConfig config;
 
     @Inject
     public CommandAdd(
             ICLOutput clOutput,
-            IDirectoryCrawler directoryCrawler
+            IDirectoryCrawler directoryCrawler,
+            IWebScanner webScanner,
+            IConfig config
     ) {
         super();
         this.clOutput = clOutput;
         this.directoryCrawler = directoryCrawler;
+        this.webScanner = webScanner;
+        this.config = config;
         command("add");
     }
 
@@ -47,11 +56,19 @@ public class CommandAdd extends ICommand {
         boolean dir = getCommandLine().hasOption("dir");
         String path = args.get(1);
 
-        IRoutine routine = new AddDirectoryRoutine(
-                clOutput,
-                directoryCrawler,
-                path
-        );
+        IRoutine routine;
+        if (dir) {
+            routine = new AddDirectoryRoutine(
+                    directoryCrawler,
+                    path
+            );
+        } else {
+            routine = new AddWebsiteRoutine(
+                    webScanner,
+                    config,
+                    path
+            );
+        }
 
         RoutineManager rm = RoutineManager.getInstance();
         try {

@@ -1,5 +1,6 @@
 package com.andrejanesic.cads.homework1.scanner.web;
 
+import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
@@ -25,6 +26,7 @@ public class WebScanner extends IWebScanner {
     private final IJobQueue jobQueue;
     private final IConfig config;
     private final IExceptionHandler exceptionHandler;
+    private final ICLOutput iclOutput;
     private Map<String, Future<Result>> indexId = new HashMap<>();
     private Map<String, Future<Result>> indexUrl = new HashMap<>();
     private Thread refreshThread;
@@ -35,14 +37,14 @@ public class WebScanner extends IWebScanner {
      * @param jobQueue        job queue
      * @param config          app config
      * @deprecated use the new default constructor:
-     * {@link #WebScanner(IResultRetriever, IJobQueue, IConfig, IExceptionHandler)}
+     * {@link #WebScanner(IResultRetriever, IJobQueue, IConfig, IExceptionHandler, ICLOutput)}
      */
     public WebScanner(
             IResultRetriever resultRetriever,
             IJobQueue jobQueue,
             IConfig config
     ) {
-        this(resultRetriever, jobQueue, config, null);
+        this(resultRetriever, jobQueue, config, null, null);
     }
 
     /**
@@ -58,12 +60,14 @@ public class WebScanner extends IWebScanner {
             IResultRetriever resultRetriever,
             IJobQueue jobQueue,
             IConfig config,
-            IExceptionHandler exceptionHandler
+            IExceptionHandler exceptionHandler,
+            ICLOutput iclOutput
     ) {
         this.resultRetriever = resultRetriever;
         this.jobQueue = jobQueue;
         this.config = config;
         this.exceptionHandler = exceptionHandler;
+        this.iclOutput = iclOutput;
     }
 
     @Override
@@ -106,6 +110,12 @@ public class WebScanner extends IWebScanner {
         Future<Result> res = getPool().submit(scanner);
         indexId.put(webJob.getId(), res);
         indexUrl.put(webJob.getUrl(), res);
+        if (iclOutput != null) {
+            iclOutput.info(
+                    "Started scanning new page:\n" +
+                            webJob.getUrl()
+            );
+        }
         getJobResults().put(job, res);
         resultRetriever.getStoreWebJobs().put(job, res);
         return res;
