@@ -93,7 +93,7 @@ public class ResultRetrieverCallable implements Callable<Result> {
 
     @Override
     public Result call() throws Exception {
-        ConcurrentHashMap<IJob, Future<Result>> store;
+        ConcurrentHashMap<String, IResultRetriever.IJobFutureResult> store;
         Object resultLock = new Object();
         Result aggrResult = new Result();
         aggrResult.setExceptions(new HashSet<>());
@@ -123,14 +123,15 @@ public class ResultRetrieverCallable implements Callable<Result> {
         }
 
         store.forEach((k, v) -> {
-            IJob job;
+            IResultRetriever.IJobFutureResult jobFuture = v;
+            IJob job = jobFuture.getJob();
             if (query.getType().equals(JobType.FILE)) {
-                FileJob fileJob = (FileJob) k;
+                FileJob fileJob = (FileJob) job;
                 if (!query.getUri().matcher(fileJob.getPath()).matches())
                     return;
                 job = fileJob;
             } else if (query.getType().equals(JobType.WEB)) {
-                WebJob webJob = (WebJob) k;
+                WebJob webJob = (WebJob) job;
                 if (!query.getUri().matcher(webJob.getUrl()).matches())
                     return;
                 job = webJob;
@@ -145,14 +146,15 @@ public class ResultRetrieverCallable implements Callable<Result> {
                 return;
             }
 
+            Future<Result> future = jobFuture.getFuture();
             if (query.isWait()) {
-                if (v.isCancelled() || !v.isDone()) return;
+                if (future.isCancelled() || !future.isDone()) return;
             }
 
             Result localResult = null;
 
             try {
-                localResult = v.get();
+                localResult = future.get();
             } catch (InterruptedException | ExecutionException e) {
                 aggrResult.getExceptions().add(
                         new ScannerException(e)

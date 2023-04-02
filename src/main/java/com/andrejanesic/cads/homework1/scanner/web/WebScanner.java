@@ -130,7 +130,10 @@ public class WebScanner extends IWebScanner {
         indexId.put(webJob.getId(), res);
         indexUrl.put(webJob.getUrl(), res);
         getJobResults().put(job, res);
-        resultRetriever.getStoreWebJobs().put(job, res);
+        resultRetriever.getStoreWebJobs().putIfAbsent(
+                job.getId(),
+                new IResultRetriever.IJobFutureResult(job, res)
+        );
         return res;
     }
 

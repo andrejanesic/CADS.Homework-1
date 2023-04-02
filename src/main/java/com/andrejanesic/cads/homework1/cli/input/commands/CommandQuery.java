@@ -63,15 +63,15 @@ public class CommandQuery extends ICommand {
                 path = "^.*$";
             } else {
                 if (dir) {
-                    File f = new File(path);
-                    String absPath = f.getAbsolutePath();
-                    if (!absPath.endsWith(File.separator)) {
-                        absPath = absPath + File.separator;
+                    if (!path.endsWith(File.separator)) {
+                        path = path + File.separator + "?";
                     }
-                    absPath = absPath.replaceAll(
+                    if (!path.startsWith(File.separator)) {
+                        path = File.separator + path;
+                    }
+                    path = path.replaceAll(
                             "\\\\", "\\\\\\\\");
-                    absPath = absPath + ".*";
-                    path = "^" + absPath + "$";
+                    path = ".*" + path + ".*";
                 } else {
                     if (!Pattern.compile("^https?://.*$")
                             .matcher(path).matches()) {

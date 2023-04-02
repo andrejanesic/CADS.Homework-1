@@ -38,8 +38,8 @@ public class ScannerSteps {
     @Inject
     @Mock
     IResultRetriever resultRetrieverMock;
-    ConcurrentHashMap<IJob, Future<Result>> resultRetrieverHashmap =
-            new ConcurrentHashMap<>();
+    ConcurrentHashMap<String, IResultRetriever.IJobFutureResult>
+            resultRetrieverHashmap = new ConcurrentHashMap<>();
     @Mock
     IJobQueue jobQueueMockForFileScannerRecursiveTask;
     @Mock

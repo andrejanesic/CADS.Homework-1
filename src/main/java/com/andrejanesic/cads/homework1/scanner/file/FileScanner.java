@@ -197,7 +197,8 @@ public class FileScanner extends IFileScanner {
         );
         Future<Result> res = ((ForkJoinPool) getPool()).submit(scanner);
         getJobResults().put(job, res);
-        resultRetriever.getStoreFileJobs().put(job, res);
+        resultRetriever.getStoreFileJobs().putIfAbsent(job.getId(),
+                new IResultRetriever.IJobFutureResult(job, res));
         return res;
     }
 

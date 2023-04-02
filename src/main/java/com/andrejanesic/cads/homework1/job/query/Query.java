@@ -4,7 +4,6 @@ import com.andrejanesic.cads.homework1.job.JobType;
 import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -37,13 +36,17 @@ public class Query {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Query query = (Query) o;
+        if (!(o instanceof Query query)) return false;
         return isWait() == query.isWait() && Objects.equals(getId(), query.getId()) && getType() == query.getType() && Objects.equals(getUri(), query.getUri());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getType(), getUri(), isWait());
+        return Objects.hash(
+                getId(),
+                getType(),
+                getUri() == null ? null : getUri().toString(),
+                isWait()
+        );
     }
 }

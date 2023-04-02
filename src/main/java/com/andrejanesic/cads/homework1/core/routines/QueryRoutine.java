@@ -45,7 +45,7 @@ public class QueryRoutine implements IRoutine {
             }
         } else {
             try {
-                r = future.get(3, TimeUnit.SECONDS);
+                r = future.get(1, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException |
                      TimeoutException e) {
                 if (!future.isDone()) {

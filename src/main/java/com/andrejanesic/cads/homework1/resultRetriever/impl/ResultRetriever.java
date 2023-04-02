@@ -51,17 +51,19 @@ public class ResultRetriever extends IResultRetriever {
 
     @Override
     public Future<Result> submit(Query query) {
-        if (getCache().containsKey(query)) {
-            Future<Result> fr = getCache().get(query);
-            if (fr.isDone() || fr.isCancelled()) {
-                try {
-                    fr.get().setCached(true);
-                } catch (InterruptedException | ExecutionException e) {
-                    ;
-                }
-            }
-            return fr;
-        }
+        QueryFutureResult cached = getCache().computeIfPresent(query.hashCode(),
+                (i, qf) -> {
+                    if (qf.getFuture().isDone() || qf.getFuture().isCancelled()) {
+                        try {
+                            qf.getFuture().get().setCached(true);
+                        } catch (InterruptedException | ExecutionException e) {
+                            ;
+                        }
+                    }
+                    return qf;
+                });
+        if (cached != null)
+            return cached.getFuture();
 
         ResultRetrieverCallable callable = new ResultRetrieverCallable(
                 this,
@@ -71,7 +73,10 @@ public class ResultRetriever extends IResultRetriever {
         );
 
         Future<Result> res = getPool().submit(callable);
-        getCache().put(query, res);
+        getCache().putIfAbsent(query.hashCode(), new QueryFutureResult(
+                query,
+                res
+        ));
         return res;
     }
 }
