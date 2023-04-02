@@ -32,6 +32,7 @@ public class JobDispatcherWorker extends LoopRunnable {
             }
             assert jobQueue != null;
             IJob job = jobQueue.dequeueJob();
+            if (job == null) return;
 
             if (job.getType() == null) {
                 JobQueueException e = new JobQueueException(

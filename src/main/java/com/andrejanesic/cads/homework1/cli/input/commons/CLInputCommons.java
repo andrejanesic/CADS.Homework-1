@@ -76,7 +76,6 @@ public class CLInputCommons extends ICLInput {
     public void main() {
         synchronized (getKeepAliveLock()) {
             while (isKeepAlive()) {
-                System.out.print("> ");
                 String input = scanner.nextLine();
                 CommandLine cmd = null;
                 try {

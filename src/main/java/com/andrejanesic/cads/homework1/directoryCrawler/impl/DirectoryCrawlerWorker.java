@@ -12,17 +12,13 @@ import com.andrejanesic.cads.homework1.job.type.FileJob;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -53,8 +49,14 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      * The directory that should be crawled.
      */
     @Getter
-    @Setter
-    private Set<String> directories;
+    private final Set<String> directories;
+    @Getter
+    private final Object directoriesLock;
+    /**
+     * Whenever a new directory is successfully added, we'll alert the user
+     * that scanning has started.
+     */
+    private final Map<String, Boolean> alerted = new HashMap<>();
 
     /**
      * Default constructor.
@@ -63,19 +65,22 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      * @param jobQueue         job queue
      * @param appConfiguration app configuration
      * @param directories      set of directories to crawl
+     * @param directoriesLock  for synchronized work on directories
      */
     public DirectoryCrawlerWorker(
             IExceptionHandler exceptionHandler,
             ICLOutput clOutput,
             IJobQueue jobQueue,
             @NonNull AppConfiguration appConfiguration,
-            Set<String> directories
+            Set<String> directories,
+            Object directoriesLock
     ) {
         this.exceptionHandler = exceptionHandler;
         this.clOutput = clOutput;
         this.jobQueue = jobQueue;
         this.appConfiguration = appConfiguration;
         this.directories = directories;
+        this.directoriesLock = directoriesLock;
     }
 
     /**
@@ -83,14 +88,45 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
      * @param appConfiguration app configuration
      * @param directories      set of directories to crawl
      * @deprecated use the new default constructor:
-     * {@link #DirectoryCrawlerWorker(IExceptionHandler, ICLOutput, IJobQueue, AppConfiguration, Set)}
+     * {@link #DirectoryCrawlerWorker(IExceptionHandler, ICLOutput, IJobQueue, AppConfiguration, Set, Object)}
      */
     public DirectoryCrawlerWorker(
             IJobQueue jobQueue,
             @NonNull AppConfiguration appConfiguration,
             Set<String> directories
     ) {
-        this(null, null, jobQueue, appConfiguration, directories);
+        this(null, null, jobQueue, appConfiguration, directories, null);
+    }
+
+    /**
+     * Adds the initial directories to the search stack.
+     *
+     * @throws ComponentException
+     */
+    private void addInitial() throws ComponentException {
+        Iterator<String> it = directories.iterator();
+        while (it.hasNext()) {
+            String p = it.next();
+            File curr = new File(p);
+            visited.clear();
+            if (!curr.exists() || !curr.isDirectory()) {
+                String err = "Path " + curr + " does not exist or is not " +
+                        "a directory";
+                DirectoryCrawlerException e =
+                        new DirectoryCrawlerException(err);
+                it.remove();
+                if (exceptionHandler == null) {
+                    throw e;
+                }
+                exceptionHandler.handle(e);
+                continue;
+            }
+            content.addFirst(curr);
+            if (alerted.containsKey(curr.getAbsolutePath())) continue;
+            clOutput.info("Started crawling directory:\n" +
+                    curr.getAbsolutePath());
+            alerted.put(curr.getAbsolutePath(), true);
+        }
     }
 
     /**
@@ -99,20 +135,19 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
     @Override
     public void loop() throws ComponentException {
         try {
-            for (String p : directories) {
-                File curr = new File(p);
-                visited.clear();
-                if (!curr.exists() || !curr.isDirectory()) {
-                    String err = "Path " + curr + " does not exist or is not " +
-                            "a directory";
-                    DirectoryCrawlerException e =
-                            new DirectoryCrawlerException(err);
-                    if (exceptionHandler == null) {
-                        throw e;
-                    }
-                    exceptionHandler.handle(e);
+            if (directoriesLock != null) {
+                synchronized (directoriesLock) {
+                    addInitial();
                 }
-                content.addFirst(curr);
+            } else {
+                addInitial();
+            }
+
+            if (directoriesLock != null) {
+                synchronized (directoriesLock) {
+                    while (directories.isEmpty())
+                        directoriesLock.wait();
+                }
             }
 
             // if initial path is not a directory, report error
@@ -137,7 +172,7 @@ public class DirectoryCrawlerWorker extends LoopRunnable {
                                 BasicFileAttributes.class
                         );
 
-                        long lastMod = attributes.lastAccessTime().toMillis();
+                        long lastMod = attributes.lastModifiedTime().toMillis();
                         indexedDirs.computeIfPresent(curr.getAbsolutePath(),
                                 (key, val) -> {
                                     if (val == lastMod)

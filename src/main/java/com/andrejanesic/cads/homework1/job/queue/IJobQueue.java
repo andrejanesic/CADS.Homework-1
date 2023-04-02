@@ -23,7 +23,7 @@ public abstract class IJobQueue extends IComponent {
     /**
      * Fetches the latest job from the queue.
      *
-     * @return {@link IJob}
+     * @return {@link IJob} or null if not available
      * @throws JobQueueException In case of runtime error.
      */
     public abstract IJob dequeueJob() throws JobQueueException;

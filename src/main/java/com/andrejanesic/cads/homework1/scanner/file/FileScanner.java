@@ -1,5 +1,6 @@
 package com.andrejanesic.cads.homework1.scanner.file;
 
+import com.andrejanesic.cads.homework1.cli.output.ICLOutput;
 import com.andrejanesic.cads.homework1.config.IConfig;
 import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException;
 import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
@@ -27,20 +28,21 @@ public class FileScanner extends IFileScanner {
     private final IJobQueue jobQueue;
     private final IConfig config;
     private final IExceptionHandler exceptionHandler;
+    private final ICLOutput clOutput;
 
     /**
      * @param resultRetriever result retriever
      * @param jobQueue        job queue
      * @param config          config
      * @deprecated use the new default constructor:
-     * {@link #FileScanner(IResultRetriever, IJobQueue, IConfig, IExceptionHandler)}
+     * {@link #FileScanner(IResultRetriever, IJobQueue, IConfig, IExceptionHandler, ICLOutput)}
      */
     public FileScanner(
             IResultRetriever resultRetriever,
             IJobQueue jobQueue,
             IConfig config
     ) {
-        this(resultRetriever, jobQueue, config, null);
+        this(resultRetriever, jobQueue, config, null, null);
     }
 
     /**
@@ -56,13 +58,15 @@ public class FileScanner extends IFileScanner {
             IResultRetriever resultRetriever,
             IJobQueue jobQueue,
             IConfig config,
-            IExceptionHandler exceptionHandler
+            IExceptionHandler exceptionHandler,
+            ICLOutput clOutput
     ) {
         super(new ForkJoinPool());
         this.resultRetriever = resultRetriever;
         this.jobQueue = jobQueue;
         this.config = config;
         this.exceptionHandler = exceptionHandler;
+        this.clOutput = clOutput;
     }
 
     @Override
@@ -192,6 +196,12 @@ public class FileScanner extends IFileScanner {
                 config
         );
         Future<Result> res = ((ForkJoinPool) getPool()).submit(scanner);
+        if (clOutput != null) {
+            clOutput.info(
+                    "Started scanning new directory:\n" +
+                            srcDir.getAbsolutePath()
+            );
+        }
         getJobResults().put(job, res);
         resultRetriever.getStoreFileJobs().put(job, res);
         return res;

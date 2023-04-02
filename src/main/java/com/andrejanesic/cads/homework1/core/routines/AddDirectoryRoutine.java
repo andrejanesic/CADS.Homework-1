@@ -34,7 +34,6 @@ public class AddDirectoryRoutine implements IRoutine {
     @Override
     public void doRoutine() throws RoutineException {
         directoryCrawler.crawl(path);
-        clOutput.info("Started crawling directory: " + path);
     }
 
     @Override

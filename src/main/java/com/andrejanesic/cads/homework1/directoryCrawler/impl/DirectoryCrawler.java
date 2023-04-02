@@ -10,6 +10,7 @@ import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import lombok.Getter;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,11 +18,13 @@ import java.util.Set;
 /**
  * Controls {@link DirectoryCrawlerWorker} threads.
  */
+@Singleton
 public class DirectoryCrawler extends IDirectoryCrawler {
 
     @Getter
-    private static final Set<String> directoryPaths = Collections
-            .synchronizedSet(new HashSet<>());
+    private final Set<String> directoryPaths = new HashSet<>();
+    @Getter
+    private final Object directoryPathsLock = new Object();
     private final IJobQueue jobQueue;
     private final IConfig config;
     private final ICLOutput iclOutput;
@@ -51,7 +54,10 @@ public class DirectoryCrawler extends IDirectoryCrawler {
                 throw new RuntimeComponentException(e);
             exceptionHandler.handle(e);
         }
-        DirectoryCrawler.directoryPaths.addAll(directoryPaths);
+        synchronized (directoryPathsLock) {
+            this.directoryPaths.addAll(directoryPaths);
+            directoryPathsLock.notifyAll();
+        }
         if (directoryCrawlerWorker != null) {
             return;
         }
@@ -60,7 +66,8 @@ public class DirectoryCrawler extends IDirectoryCrawler {
                 iclOutput,
                 jobQueue,
                 config.getConfig(),
-                DirectoryCrawler.directoryPaths
+                this.directoryPaths,
+                this.directoryPathsLock
         );
         startNewThread(directoryCrawlerWorker);
     }
@@ -80,4 +87,9 @@ public class DirectoryCrawler extends IDirectoryCrawler {
         keepAlive();
     }
 
+    @Override
+    public void beforeEnd() {
+        directoryPathsLock.notifyAll();
+        super.beforeEnd();
+    }
 }
