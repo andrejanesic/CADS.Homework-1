@@ -89,7 +89,9 @@ public class DirectoryCrawler extends IDirectoryCrawler {
 
     @Override
     public void beforeEnd() {
-        directoryPathsLock.notifyAll();
+        synchronized (directoryPathsLock) {
+            directoryPathsLock.notifyAll();
+        }
         super.beforeEnd();
     }
 }

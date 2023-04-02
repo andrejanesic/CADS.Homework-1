@@ -10,7 +10,10 @@ public class StopRoutine implements IRoutine {
 
     @Override
     public void doRoutine() throws RoutineException {
-        Main.end();
+        synchronized (Main.getEndLock()) {
+            Main.setEnd(true);
+            Main.getEndLock().notifyAll();
+        }
     }
 
     @Override

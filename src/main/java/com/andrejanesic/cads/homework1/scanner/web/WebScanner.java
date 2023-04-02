@@ -15,6 +15,8 @@ import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -147,10 +149,16 @@ public class WebScanner extends IWebScanner {
                 "^(?:https?://)?(?:[^@\\/\\n]+@)?(?:www\\.)?([^:\\/?\\n]+)";
         final Pattern p = Pattern.compile(pat);
         if (p.matcher(webJob.getUrl()).matches()) {
-            resultRetriever.getIndexedWebsites().putIfAbsent(
-                    p.matcher(webJob.getUrl()).group(),
-                    true
-            );
+            try {
+                resultRetriever.getIndexedWebsites().putIfAbsent(
+                        (new URI(webJob.getUrl())).getHost(),
+                        true
+                );
+            } catch (URISyntaxException e) {
+                if (exceptionHandler == null)
+                    throw new RuntimeComponentException(e);
+                exceptionHandler.handle(e);
+            }
         }
         return res;
     }

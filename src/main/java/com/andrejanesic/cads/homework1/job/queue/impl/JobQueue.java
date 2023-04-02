@@ -58,6 +58,12 @@ public class JobQueue extends IJobQueue {
     @Override
     public synchronized void enqueueJob(IJob job) throws JobQueueException {
         while (maxSize > 0 && blockingDeque.size() >= maxSize) {
+
+            if (isEnded()) {
+                this.notifyAll();
+                return;
+            }
+
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -65,6 +71,11 @@ public class JobQueue extends IJobQueue {
                 if (exceptionHandler == null)
                     throw ex;
                 exceptionHandler.handle(ex);
+            }
+
+            if (isEnded()) {
+                this.notifyAll();
+                return;
             }
         }
 
@@ -75,6 +86,12 @@ public class JobQueue extends IJobQueue {
     @Override
     public synchronized IJob dequeueJob() throws JobQueueException {
         while (blockingDeque.isEmpty()) {
+
+            if (isEnded()) {
+                this.notifyAll();
+                return null;
+            }
+
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -82,6 +99,11 @@ public class JobQueue extends IJobQueue {
                 if (exceptionHandler == null)
                     throw ex;
                 exceptionHandler.handle(ex);
+            }
+
+            if (isEnded()) {
+                this.notifyAll();
+                return null;
             }
         }
 

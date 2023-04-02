@@ -75,9 +75,11 @@ public abstract class ThreadedComponent extends IComponent implements Runnable {
     public void end() {
         if (isEnded()) return;
 
-        // beforeEnd(); will be called here, as part of run();
-        keepAlive = false;
-        keepAliveLock.notify();
+        synchronized (keepAliveLock) {
+            // beforeEnd(); will be called here, as part of run();
+            keepAlive = false;
+            keepAliveLock.notifyAll();
+        }
 
         try {
             componentThread.join();

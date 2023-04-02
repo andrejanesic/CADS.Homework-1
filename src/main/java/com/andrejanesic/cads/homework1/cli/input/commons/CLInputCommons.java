@@ -1,6 +1,7 @@
 package com.andrejanesic.cads.homework1.cli.input.commons;
 
 import com.andrejanesic.cads.homework1.cli.input.ICLInput;
+import com.andrejanesic.cads.homework1.cli.input.commands.CommandStop;
 import com.andrejanesic.cads.homework1.cli.input.commands.ICommand;
 import com.andrejanesic.cads.homework1.cli.input.commands.ICommandManager;
 import com.andrejanesic.cads.homework1.core.exceptions.CLInputException;
@@ -113,6 +114,9 @@ public class CLInputCommons extends ICLInput {
                     comm.setInput(input);
                     comm.setCommandLine(cmd);
                     try {
+                        if (comm instanceof CommandStop) {
+                            ((CommandStop) comm).setIclInput(this);
+                        }
                         comm.parse();
                     } catch (CLInputException e) {
                         if (exceptionHandler == null)
