@@ -51,7 +51,7 @@ public class ResultRetriever extends IResultRetriever {
 
     @Override
     public Future<Result> submit(Query query) {
-        QueryFutureResult cached = getCache().computeIfPresent(query.hashCode(),
+        QueryFutureResult cached = getStoreCache().computeIfPresent(query.hashCode(),
                 (i, qf) -> {
                     if (qf.getFuture().isDone() || qf.getFuture().isCancelled()) {
                         try {
@@ -73,7 +73,7 @@ public class ResultRetriever extends IResultRetriever {
         );
 
         Future<Result> res = getPool().submit(callable);
-        getCache().putIfAbsent(query.hashCode(), new QueryFutureResult(
+        getStoreCache().putIfAbsent(query.hashCode(), new QueryFutureResult(
                 query,
                 res
         ));

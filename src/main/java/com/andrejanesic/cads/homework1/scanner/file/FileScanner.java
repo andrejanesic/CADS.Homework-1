@@ -6,6 +6,8 @@ import com.andrejanesic.cads.homework1.core.exceptions.RuntimeComponentException
 import com.andrejanesic.cads.homework1.core.exceptions.ScannerException;
 import com.andrejanesic.cads.homework1.exceptionHandler.IExceptionHandler;
 import com.andrejanesic.cads.homework1.job.IJob;
+import com.andrejanesic.cads.homework1.job.JobType;
+import com.andrejanesic.cads.homework1.job.query.Query;
 import com.andrejanesic.cads.homework1.job.queue.IJobQueue;
 import com.andrejanesic.cads.homework1.job.result.Result;
 import com.andrejanesic.cads.homework1.job.type.FileJob;
@@ -20,6 +22,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.regex.Pattern;
 
 @Singleton
 public class FileScanner extends IFileScanner {
@@ -197,6 +200,12 @@ public class FileScanner extends IFileScanner {
         );
         Future<Result> res = ((ForkJoinPool) getPool()).submit(scanner);
         getJobResults().put(job, res);
+        resultRetriever.invalidateStores(
+                Query.builder()
+                        .type(JobType.FILE)
+                        .uri(Pattern.compile(srcDir.getName()))
+                        .build()
+        );
         resultRetriever.getStoreFileJobs().putIfAbsent(job.getId(),
                 new IResultRetriever.IJobFutureResult(job, res));
         return res;
