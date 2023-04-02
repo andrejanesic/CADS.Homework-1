@@ -208,6 +208,13 @@ public class FileScanner extends IFileScanner {
         );
         resultRetriever.getStoreFileJobs().putIfAbsent(job.getId(),
                 new IResultRetriever.IJobFutureResult(job, res));
+        if (srcDir.getName().startsWith(
+                config.getConfig().fileCorpusPrefix())) {
+            resultRetriever.getIndexedDirectories().putIfAbsent(
+                    srcDir.getName(),
+                    true
+            );
+        }
         return res;
     }
 

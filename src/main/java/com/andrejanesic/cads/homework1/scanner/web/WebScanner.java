@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.regex.Pattern;
 
 @Singleton
 public class WebScanner extends IWebScanner {
@@ -77,7 +78,15 @@ public class WebScanner extends IWebScanner {
         indexId.clear();
         indexUrl.clear();
         this.refreshRunnable = new WebScannerUrlRefresher(
-                indexUrl, config.getConfig().urlRefreshTime()
+                resultRetriever,
+                new Map[]{
+                        indexId,
+                        indexUrl,
+                        resultRetriever.getIndexedWebsites(),
+                        resultRetriever.getStoreWebJobs(),
+                        resultRetriever.getStoreCache(),
+                },
+                config.getConfig().urlRefreshTime()
         );
         this.refreshThread = new Thread(refreshRunnable);
         refreshThread.setDaemon(true);
@@ -134,6 +143,15 @@ public class WebScanner extends IWebScanner {
                 job.getId(),
                 new IResultRetriever.IJobFutureResult(job, res)
         );
+        final String pat =
+                "^(?:https?://)?(?:[^@\\/\\n]+@)?(?:www\\.)?([^:\\/?\\n]+)";
+        final Pattern p = Pattern.compile(pat);
+        if (p.matcher(webJob.getUrl()).matches()) {
+            resultRetriever.getIndexedWebsites().putIfAbsent(
+                    p.matcher(webJob.getUrl()).group(),
+                    true
+            );
+        }
         return res;
     }
 

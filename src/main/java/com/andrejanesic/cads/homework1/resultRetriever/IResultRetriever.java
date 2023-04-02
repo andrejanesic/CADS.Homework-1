@@ -39,6 +39,19 @@ public abstract class IResultRetriever extends
     @Getter
     private final ConcurrentHashMap<String, IJobFutureResult> storeWebJobs =
             new ConcurrentHashMap<>();
+    /**
+     * Index of all corpus directories (does not include their subdirectories.)
+     */
+    @Getter
+    private final ConcurrentHashMap<String, Boolean> indexedDirectories =
+            new ConcurrentHashMap<>();
+    /**
+     * Index of all websites scanned (only top-level domains, does not
+     * include their page URLs).
+     */
+    @Getter
+    private final ConcurrentHashMap<String, Boolean> indexedWebsites =
+            new ConcurrentHashMap<>();
 
     /**
      * Requests the IResultRetriever to process the query and return a final

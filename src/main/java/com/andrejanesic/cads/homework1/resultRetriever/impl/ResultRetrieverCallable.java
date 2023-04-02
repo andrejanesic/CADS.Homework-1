@@ -14,10 +14,12 @@ import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.regex.Pattern;
 
 /**
  * Used by {@link ResultRetriever} to generate job results based on the given
@@ -97,6 +99,7 @@ public class ResultRetrieverCallable implements Callable<Result> {
         Object resultLock = new Object();
         Result aggrResult = new Result();
         aggrResult.setExceptions(new HashSet<>());
+        aggrResult.setFrequencyPerPattern(new HashMap<>());
         long startedTime = System.currentTimeMillis();
 
         if (query.getType().equals(JobType.FILE)) {
@@ -122,19 +125,45 @@ public class ResultRetrieverCallable implements Callable<Result> {
             return aggrResult;
         }
 
+        if (query.getUris() == null) {
+            query.setUris(new HashSet<>());
+        }
+        if (query.getUri() == null && query.getUris().isEmpty()) {
+            throw new UnexpectedRuntimeComponentException(
+                    "ResultRetrieverCallable::call both query.getUris() " +
+                            "and query.getUri() are empty/null"
+            );
+        }
+
+        if (query.getUri() != null) {
+            query.getUris().add(query.getUri());
+        }
+
         store.forEach((k, v) -> {
             IResultRetriever.IJobFutureResult jobFuture = v;
             IJob job = jobFuture.getJob();
+            Pattern matched = null;
+            Set<Pattern> uris = query.getUris();
             if (query.getType().equals(JobType.FILE)) {
                 FileJob fileJob = (FileJob) job;
-                if (!query.getUri().matcher(fileJob.getPath()).matches())
+                for (Pattern p : uris) {
+                    if (p.matcher(fileJob.getPath()).matches()) {
+                        matched = p;
+                        break;
+                    }
+                }
+                if (matched == null)
                     return;
-                job = fileJob;
             } else if (query.getType().equals(JobType.WEB)) {
                 WebJob webJob = (WebJob) job;
-                if (!query.getUri().matcher(webJob.getUrl()).matches())
+                for (Pattern p : uris) {
+                    if (p.matcher(webJob.getUrl()).matches()) {
+                        matched = p;
+                        break;
+                    }
+                }
+                if (matched == null)
                     return;
-                job = webJob;
             } else {
                 aggrResult.getExceptions().add(
                         new ScannerException(
@@ -176,9 +205,18 @@ public class ResultRetrieverCallable implements Callable<Result> {
                                 localResult.getConsumedTime()
                 );
                 for (String kw : keywords) {
-                    aggrResult.getFrequency().put(
-                            kw, aggrResult.getFrequency()
-                                    .getOrDefault(kw, 0) +
+                    aggrResult.getFrequencyPerPattern().put(
+                            matched,
+                            aggrResult.getFrequencyPerPattern().getOrDefault(
+                                    matched, new HashMap<>()
+                            )
+                    );
+                    aggrResult.getFrequencyPerPattern().get(matched).put(
+                            kw,
+                            aggrResult.getFrequencyPerPattern().get(matched)
+                                    .getOrDefault(
+                                            kw, 0
+                                    ) +
                                     localResult.getFrequency()
                                             .getOrDefault(kw, 0)
                     );
@@ -186,8 +224,10 @@ public class ResultRetrieverCallable implements Callable<Result> {
             }
         });
 
-        if (aggrResult.getFrequency() == null ||
-                aggrResult.getFrequency().isEmpty()) {
+        if ((aggrResult.getFrequency() == null ||
+                aggrResult.getFrequency().isEmpty()) &&
+                (aggrResult.getFrequencyPerPattern() == null ||
+                        aggrResult.getFrequencyPerPattern().isEmpty())) {
             aggrResult.setSuccess(false);
             aggrResult.getExceptions().add(
                     new ScannerException(

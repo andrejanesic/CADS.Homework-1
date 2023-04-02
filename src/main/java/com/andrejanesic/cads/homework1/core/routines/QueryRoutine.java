@@ -39,6 +39,7 @@ public class QueryRoutine implements IRoutine {
         Result r = null;
         if (query.isWait()) {
             try {
+                iclOutput.info("Waiting on completion...");
                 r = future.get();
             } catch (InterruptedException | ExecutionException e) {
                 throw new RoutineException(e);
@@ -77,12 +78,26 @@ public class QueryRoutine implements IRoutine {
         }
 
         StringBuilder frequency = new StringBuilder();
-        if (r.getFrequency() == null) {
+        if (
+                (r.getFrequency() == null
+                        || r.getFrequency().size() == 0)
+                        &&
+                        (r.getFrequencyPerPattern() == null
+                                || r.getFrequencyPerPattern().size() == 0)
+        ) {
             frequency.append("N/A");
         } else {
             r.getFrequency().forEach((k, v) -> {
                 frequency.append("\n\t")
                         .append(k + ": " + v);
+            });
+            r.getFrequencyPerPattern().forEach((pat, m) -> {
+                frequency.append("\n\t")
+                        .append(pat.toString() + ":");
+                m.forEach((k, v) -> {
+                    frequency.append("\n\t\t")
+                            .append(k + ": " + v);
+                });
             });
         }
 

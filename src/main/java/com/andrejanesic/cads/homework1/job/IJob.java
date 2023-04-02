@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.regex.Pattern;
 
 /**
  * Wraps the required information to start a scanning job.
@@ -39,6 +40,12 @@ public abstract class IJob {
      */
     @Getter
     private Set<IJob> children = new HashSet<>();
+    /**
+     * Patterns for granular matching. TODO not yet implemented in scanners.
+     */
+    @Getter
+    @Setter
+    private Set<Pattern> patterns = new HashSet<>();
     /**
      * Result of the job.
      */

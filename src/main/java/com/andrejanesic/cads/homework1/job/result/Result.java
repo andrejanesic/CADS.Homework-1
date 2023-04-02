@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Wraps the job result, along with useful data.
@@ -32,6 +33,11 @@ public class Result {
      * The keyword frequency counting result.
      */
     private Map<String, Integer> frequency = new HashMap<>();
+    /**
+     * Frequency for each pattern defined in the job or query.
+     */
+    private Map<Pattern, Map<String, Integer>> frequencyPerPattern =
+            new HashMap();
     /**
      * Timestamp of completion. Zero if not completed yet.
      */

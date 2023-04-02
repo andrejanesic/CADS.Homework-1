@@ -1,6 +1,8 @@
 package com.andrejanesic.cads.homework1.scanner.web;
 
 import com.andrejanesic.cads.homework1.core.exceptions.ComponentException;
+import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
+import com.andrejanesic.cads.homework1.resultRetriever.impl.ResultRetriever;
 import com.andrejanesic.cads.homework1.utils.LoopRunnable;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +15,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class WebScannerUrlRefresher extends LoopRunnable {
 
+    private final IResultRetriever resultRetriever;
     @NonNull
-    private final Map index;
+    private final Map[] indexes;
     private final long refreshSleep;
     private long lastRefresh = System.currentTimeMillis();
 
@@ -29,7 +32,9 @@ public class WebScannerUrlRefresher extends LoopRunnable {
         long curr = System.currentTimeMillis();
         if (curr > lastRefresh) {
             lastRefresh = curr;
-            index.clear();
+            for (Map index : indexes) {
+                index.clear();
+            }
         }
     }
 }

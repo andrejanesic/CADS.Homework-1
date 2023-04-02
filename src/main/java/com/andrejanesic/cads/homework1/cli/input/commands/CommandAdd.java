@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class CommandAdd extends ICommand {
 
     private static final String SYNTAX_ERROR = "Invalid syntax: add " +
-            "(--dir|--web) (path|URL)";
+            "(--dir|--web) (<path>|<url>)";
     private final ICLOutput clOutput;
     private final IDirectoryCrawler directoryCrawler;
     private final IWebScanner webScanner;

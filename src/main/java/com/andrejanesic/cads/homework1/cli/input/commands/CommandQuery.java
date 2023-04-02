@@ -13,7 +13,9 @@ import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -21,9 +23,9 @@ import java.util.regex.PatternSyntaxException;
 public class CommandQuery extends ICommand {
 
     private static final String SYNTAX_ERROR_QUERY = "Invalid syntax: query " +
-            "(--file|--web) [--regex] (path|url|summary)";
+            "(--file|--web) [--regex] (<path>|<url>|summary)";
     private static final String SYNTAX_ERROR_GET = "Invalid syntax: get" +
-            "(--file|--web) [--regex] (path|url|summary)";
+            "(--file|--web) [--regex] (<path>|<url>|summary|all)";
     private final IResultRetriever resultRetriever;
     private final ICLOutput iclOutput;
 
@@ -58,9 +60,41 @@ public class CommandQuery extends ICommand {
         boolean regex = getCommandLine().hasOption("regex");
         String path = args.get(1);
 
+        Set<Pattern> uris = new HashSet<>();
+
         if (!regex) {
-            if (path.equalsIgnoreCase("summary")) {
+            if (path.equalsIgnoreCase("all")) {
                 path = "^.*$";
+            } else if (path.equalsIgnoreCase("summary")) {
+                if (dir) {
+                    resultRetriever.getIndexedDirectories().forEach(
+                            (dirPath, ignore) -> {
+                                if (!dirPath.endsWith(File.separator)) {
+                                    dirPath = dirPath + File.separator + "?";
+                                }
+                                if (!dirPath.startsWith(File.separator)) {
+                                    dirPath = File.separator + dirPath;
+                                }
+                                dirPath = dirPath.replaceAll(
+                                        "\\\\", "\\\\\\\\");
+                                dirPath = ".*" + dirPath + ".*";
+                                uris.add(Pattern.compile(dirPath));
+                            });
+                } else {
+                    final Pattern webPat =
+                            Pattern.compile("^https?://.*$");
+                    resultRetriever.getIndexedWebsites().forEach(
+                            (webRoot, ignore) -> {
+                                if (!webPat.matcher(webRoot).matches()) {
+                                    webRoot = webRoot.replaceAll(
+                                            "\\.",
+                                            "\\\\."
+                                    );
+                                    webRoot = "^https?://" + webRoot + ".*$";
+                                }
+                                uris.add(Pattern.compile(webRoot));
+                            });
+                }
             } else {
                 if (dir) {
                     if (!path.endsWith(File.separator)) {
@@ -82,21 +116,26 @@ public class CommandQuery extends ICommand {
             }
         }
 
-        Pattern pattern;
+        Pattern pattern = null;
         try {
-            pattern = Pattern.compile(path);
+            if (path != null)
+                pattern = Pattern.compile(path);
         } catch (PatternSyntaxException e) {
             throw new CLInputException(e.getMessage());
         }
-        Query q = Query.builder()
-                .uri(pattern)
+        Query.QueryBuilder qb = Query.builder()
                 .type(dir ? JobType.FILE : JobType.WEB)
-                .wait(!query)
-                .build();
+                .wait(!query);
+        if (pattern != null) {
+            qb.uri(pattern);
+        }
+        if (uris.size() != 0) {
+            qb.uris(uris);
+        }
         IRoutine routine = new QueryRoutine(
                 resultRetriever,
                 iclOutput,
-                q
+                qb.build()
         );
 
         RoutineManager rm = RoutineManager.getInstance();
