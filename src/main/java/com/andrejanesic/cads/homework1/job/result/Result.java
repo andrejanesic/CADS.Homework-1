@@ -40,6 +40,10 @@ public class Result {
      * Time it took for the job to complete.
      */
     private long consumedTime = 0;
+    /**
+     * Whether the result was fetched from a cache, or calculated brand new.
+     */
+    private boolean cached = false;
 
     /**
      * Wraps the job result, along with useful data.

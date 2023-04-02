@@ -117,7 +117,7 @@ public class ResultRetrieverCallable implements Callable<Result> {
             aggrResult.getExceptions().add(new ScannerException(ex));
             long endTime = System.currentTimeMillis();
             aggrResult.setConsumedTime(endTime - startedTime);
-            aggrResult.setConsumedTime(endTime);
+            aggrResult.setCompletionTime(endTime);
             aggrResult.setFrequency(new HashMap<>());
             return aggrResult;
         }
@@ -184,10 +184,20 @@ public class ResultRetrieverCallable implements Callable<Result> {
             }
         });
 
-        aggrResult.setSuccess(aggrResult.getExceptions().isEmpty());
+        if (aggrResult.getFrequency() == null ||
+                aggrResult.getFrequency().isEmpty()) {
+            aggrResult.setSuccess(false);
+            aggrResult.getExceptions().add(
+                    new ScannerException(
+                            "No entries matched query pattern"
+                    )
+            );
+        } else {
+            aggrResult.setSuccess(aggrResult.getExceptions().isEmpty());
+        }
         long endTime = System.currentTimeMillis();
         aggrResult.setConsumedTime(endTime - startedTime);
-        aggrResult.setConsumedTime(endTime);
+        aggrResult.setCompletionTime(endTime);
         return aggrResult;
     }
 }

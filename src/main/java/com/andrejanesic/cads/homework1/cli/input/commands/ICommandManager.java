@@ -23,8 +23,6 @@ public interface ICommandManager {
 
     CommandClear getCommandClear();
 
-    CommandGet getCommandGet();
-
     CommandQuery getCommandQuery();
 
     CommandStop getCommandStop();

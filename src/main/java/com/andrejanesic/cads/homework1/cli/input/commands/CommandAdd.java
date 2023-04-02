@@ -13,7 +13,9 @@ import com.andrejanesic.cads.homework1.scanner.IWebScanner;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.File;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Singleton
 public class CommandAdd extends ICommand {
@@ -38,6 +40,7 @@ public class CommandAdd extends ICommand {
         this.webScanner = webScanner;
         this.config = config;
         command("add");
+        allowedOptions("web", "dir");
     }
 
     @Override
@@ -49,7 +52,7 @@ public class CommandAdd extends ICommand {
             throw new CLInputException(SYNTAX_ERROR);
         }
 
-        if (args.size() < 2) {
+        if (args.size() != 2) {
             throw new CLInputException(SYNTAX_ERROR);
         }
 
@@ -58,11 +61,17 @@ public class CommandAdd extends ICommand {
 
         IRoutine routine;
         if (dir) {
+            File f = new File(path);
+            path = f.getAbsolutePath();
             routine = new AddDirectoryRoutine(
                     directoryCrawler,
                     path
             );
         } else {
+            if (!Pattern.compile("^https?://.*$")
+                    .matcher(path).matches()) {
+                path = "http://" + path;
+            }
             routine = new AddWebsiteRoutine(
                     webScanner,
                     config,
@@ -76,6 +85,5 @@ public class CommandAdd extends ICommand {
         } catch (RoutineException e) {
             throw new CLInputException(e);
         }
-
     }
 }

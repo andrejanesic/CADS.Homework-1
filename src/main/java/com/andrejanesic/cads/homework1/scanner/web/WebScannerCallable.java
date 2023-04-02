@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.regex.Pattern;
 
 @AllArgsConstructor
 public class WebScannerCallable implements Callable<Result> {
@@ -70,8 +71,9 @@ public class WebScannerCallable implements Callable<Result> {
         if (job.getHops() > 0) {
             Elements links = document.select("a[href]");
             links.forEach(link -> {
-                String url = link.attr("href");
+                String url = link.attr("abs:href");
                 if (url == null || url.length() < 1) return;
+                url = url.trim();
 
                 // add new job
                 WebJob newJob = new WebJob(

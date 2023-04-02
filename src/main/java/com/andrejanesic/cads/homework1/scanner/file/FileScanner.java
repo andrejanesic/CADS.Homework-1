@@ -196,12 +196,6 @@ public class FileScanner extends IFileScanner {
                 config
         );
         Future<Result> res = ((ForkJoinPool) getPool()).submit(scanner);
-        if (clOutput != null) {
-            clOutput.info(
-                    "Started scanning new directory:\n" +
-                            srcDir.getAbsolutePath()
-            );
-        }
         getJobResults().put(job, res);
         resultRetriever.getStoreFileJobs().put(job, res);
         return res;

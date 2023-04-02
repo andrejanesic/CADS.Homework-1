@@ -15,7 +15,6 @@ public class CommandManager implements ICommandManager {
     private final IDirectoryCrawler directoryCrawler;
     private final CommandAdd commandAdd;
     private final CommandClear commandClear;
-    private final CommandGet commandGet;
     private final CommandQuery commandQuery;
     private final CommandStop commandStop;
 
@@ -24,7 +23,6 @@ public class CommandManager implements ICommandManager {
      *
      * @param commandAdd
      * @param commandClear
-     * @param commandGet
      * @param commandQuery
      * @param commandStop
      */
@@ -33,14 +31,12 @@ public class CommandManager implements ICommandManager {
             IDirectoryCrawler directoryCrawler,
             CommandAdd commandAdd,
             CommandClear commandClear,
-            CommandGet commandGet,
             CommandQuery commandQuery,
             CommandStop commandStop
     ) {
         this.directoryCrawler = directoryCrawler;
         this.commandAdd = commandAdd;
         this.commandClear = commandClear;
-        this.commandGet = commandGet;
         this.commandQuery = commandQuery;
         this.commandStop = commandStop;
     }
@@ -50,7 +46,6 @@ public class CommandManager implements ICommandManager {
         return Arrays.asList(
                 commandAdd,
                 commandClear,
-                commandGet,
                 commandQuery,
                 commandStop
         );

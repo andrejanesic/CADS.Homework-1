@@ -4,6 +4,7 @@ import com.andrejanesic.cads.homework1.job.JobType;
 import com.andrejanesic.cads.homework1.resultRetriever.IResultRetriever;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

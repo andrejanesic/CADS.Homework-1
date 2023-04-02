@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents commands that the user can enter via the input module as a string.
@@ -31,6 +34,7 @@ public abstract class ICommand {
     private int minArgs = -1;
     private boolean commandEnable = false;
     private String[] commands = null;
+    private Set<String> allowedOptions = new HashSet<>();
     /**
      * Whether the command has been recognized and parsed by this command.
      * Does not indicate successful execution, only recognition of the
@@ -63,6 +67,17 @@ public abstract class ICommand {
     }
 
     /**
+     * Sets the allowed options for this command.
+     *
+     * @param options array of option strings
+     * @return this
+     */
+    ICommand allowedOptions(String... options) {
+        allowedOptions.addAll(List.of(options));
+        return this;
+    }
+
+    /**
      * Verifies the user input against this command's rules and runs
      * {@link #exec()} if command applicable.
      */
@@ -86,6 +101,14 @@ public abstract class ICommand {
                 }
             }
             if (!activationCommand) return;
+        }
+
+        for (Option o : commandLine.getOptions()) {
+            if (!allowedOptions.contains(o.getLongOpt())) {
+                throw new CLInputException(
+                        args.get(0) + " does not allow option " + o.getLongOpt()
+                );
+            }
         }
 
         setRecognized(true);

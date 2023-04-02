@@ -9,6 +9,7 @@ import lombok.NonNull;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Singleton
@@ -51,7 +52,15 @@ public class ResultRetriever extends IResultRetriever {
     @Override
     public Future<Result> submit(Query query) {
         if (getCache().containsKey(query)) {
-            return getCache().get(query);
+            Future<Result> fr = getCache().get(query);
+            if (fr.isDone() || fr.isCancelled()) {
+                try {
+                    fr.get().setCached(true);
+                } catch (InterruptedException | ExecutionException e) {
+                    ;
+                }
+            }
+            return fr;
         }
 
         ResultRetrieverCallable callable = new ResultRetrieverCallable(

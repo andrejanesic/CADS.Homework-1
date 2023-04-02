@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Singleton
@@ -102,20 +103,32 @@ public class WebScanner extends IWebScanner {
             exceptionHandler.handle(e);
         }
         WebJob webJob = (WebJob) job;
-        if (indexId.containsKey(webJob.getId()))
-            return indexId.get(webJob.getId());
-        if (indexUrl.containsKey(webJob.getUrl()))
-            return indexUrl.get(webJob.getUrl());
+        if (indexId.containsKey(webJob.getId())) {
+            Future<Result> fr = indexId.get(webJob.getId());
+            if (fr.isDone() || fr.isCancelled()) {
+                try {
+                    fr.get().setCached(true);
+                } catch (InterruptedException | ExecutionException ignored) {
+                    ;
+                }
+            }
+            return fr;
+        }
+        if (indexUrl.containsKey(webJob.getUrl())) {
+            Future<Result> fr = indexUrl.get(webJob.getUrl());
+            if (fr.isDone() || fr.isCancelled()) {
+                try {
+                    fr.get().setCached(true);
+                } catch (InterruptedException | ExecutionException ignored) {
+                    ;
+                }
+            }
+            return fr;
+        }
         WebScannerCallable scanner = new WebScannerCallable(webJob, jobQueue, config);
         Future<Result> res = getPool().submit(scanner);
         indexId.put(webJob.getId(), res);
         indexUrl.put(webJob.getUrl(), res);
-        if (iclOutput != null) {
-            iclOutput.info(
-                    "Started scanning new page:\n" +
-                            webJob.getUrl()
-            );
-        }
         getJobResults().put(job, res);
         resultRetriever.getStoreWebJobs().put(job, res);
         return res;

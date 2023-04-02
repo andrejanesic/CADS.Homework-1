@@ -64,6 +64,12 @@ public class CLInputCommons extends ICLInput {
                 .build();
         options.addOption(optionFile);
 
+        Option optionRegex = Option.builder("r")
+                .hasArg(false)
+                .longOpt("regex")
+                .build();
+        options.addOption(optionRegex);
+
         this.parser = new DefaultParser();
     }
 
@@ -113,8 +119,10 @@ public class CLInputCommons extends ICLInput {
                             throw new RuntimeException(e);
                         exceptionHandler.handle(e);
                     }
-                    if (comm.isRecognized())
+                    if (comm.isRecognized()) {
                         recognized = true;
+                        comm.setRecognized(false);
+                    }
                 }
                 if (!recognized) {
                     CLInputException e = new CLInputException(
