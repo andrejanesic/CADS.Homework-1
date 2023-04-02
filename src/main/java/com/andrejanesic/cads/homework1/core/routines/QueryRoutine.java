@@ -38,8 +38,8 @@ public class QueryRoutine implements IRoutine {
         Future<Result> future = resultRetriever.submit(query);
         Result r = null;
         if (query.isWait()) {
+            iclOutput.info("Waiting on completion...");
             try {
-                iclOutput.info("Waiting on completion...");
                 r = future.get();
             } catch (InterruptedException | ExecutionException e) {
                 throw new RoutineException(e);
